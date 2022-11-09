@@ -9,3 +9,4 @@ export const LINKS = {
 };
 
 export const PAGES = ['Add Board', 'Search', 'Boards'];
+export const USER_SETTINGS = ['Edit Profile', 'Change lang', 'Logout'];

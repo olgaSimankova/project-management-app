@@ -1,8 +1,10 @@
 import React from 'react';
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import NavLinks from '../NavLinks/NavLinks';
 import Authentication from '../Authentication/Authentication';
+import { User } from '../User/User';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 export const Header = () => {
   return (
@@ -13,7 +15,11 @@ export const Header = () => {
           <Typography>Project Management App</Typography>
         </Box>
         <NavLinks />
-        <Authentication />
+        {/*<Authentication />*/}
+        <User />
+        <IconButton sx={{ ml: 2 }}>
+          <DarkModeIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
