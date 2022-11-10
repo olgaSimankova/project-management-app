@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { BASENAME } from './constants/constants';
 import { App } from './App/App';
+import { Provider } from 'react-redux';
+import { store } from './App/state/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <BrowserRouter basename={BASENAME}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
 );
