@@ -1,3 +1,4 @@
+export const BASE_URL = 'https://final-task-backend-production-d31d.up.railway.app';
 export const BASENAME = '/app';
 export const LINKS = {
   welcome: `/`,
