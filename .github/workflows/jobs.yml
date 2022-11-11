@@ -1,5 +1,5 @@
-name: GitHub Actions Checks
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Eslint checks on PR
+run-name: ${{ github.actor }} is running es-lint checks on PR 🚀
 on: 
   pull_request:
     types: [opened, reopened]
