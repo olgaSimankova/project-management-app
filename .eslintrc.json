@@ -44,7 +44,7 @@
       "no-console": 1
     },
     "overrides": [{
-      "files": ["src/*.tsx", "lib/*.js"],
+      "files": ["src/*.tsx", "src/*.js", "src/*.ts"],
       "rules": {
         "no-console": 2
       }
