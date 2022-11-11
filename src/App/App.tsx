@@ -8,8 +8,8 @@ import { Welcome } from 'Pages/Welcome';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
-import SignIn from '../components/SignIn/SignIn';
-import SignUp from '../components/SignUp/SignUp';
+import SignIn from '../Pages/SignIn';
+import SignUp from '../Pages/SignUp';
 
 export const App = () => (
   <>

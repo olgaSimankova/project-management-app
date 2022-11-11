@@ -11,11 +11,15 @@ import {
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useSignInMutation } from '../api/auth.api';
 
 const SignIn = () => {
+  const [signIn, { data, isSuccess, isError, error }] = useSignInMutation();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(data);
   };
 
   return (

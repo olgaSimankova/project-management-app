@@ -1,21 +1,21 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
 import { IAuthInfo, IUser } from '../types/types';
 
 interface ISignUpResponse {
-  _id: 'string',
-  name: 'string',
-  login: 'string'
+  _id: 'string';
+  name: 'string';
+  login: 'string';
 }
 
 interface ISignInResponse {
-  token: 'string',
+  token: 'string';
 }
 
 export const authSlice = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-  endpoints: (build) =>  ({
+  endpoints: (build) => ({
     signUp: build.mutation<ISignUpResponse, IUser>({
       query: (body: IUser) => ({
         url: '/auth/signUp',
@@ -30,6 +30,8 @@ export const authSlice = createApi({
         body,
         credentials: 'include',
       }),
-    })
-  })
+    }),
+  }),
 });
+
+export const { useSignUpMutation, useSignInMutation } = authSlice;

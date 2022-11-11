@@ -4,6 +4,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import NavLinks from '../NavLinks/NavLinks';
 import { User } from '../User/User';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import Authentication from '../Authentication/Authentication';
 
 export const Header = () => {
   return (
@@ -14,10 +15,11 @@ export const Header = () => {
           <Typography>Project Management App</Typography>
         </Box>
         <NavLinks />
-        <User />
-        <IconButton sx={{ ml: 2 }}>
-          <DarkModeIcon />
-        </IconButton>
+        <Authentication />
+        {/*<User />*/}
+        {/*<IconButton sx={{ ml: 2 }}>*/}
+        {/*  <DarkModeIcon />*/}
+        {/*</IconButton>*/}
       </Toolbar>
     </AppBar>
   );
