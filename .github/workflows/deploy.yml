@@ -1,4 +1,4 @@
-name: Firebase CI
+name: Firebase CI Deployment
 
 on: [push]
 

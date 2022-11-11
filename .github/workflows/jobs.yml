@@ -1,6 +1,8 @@
 name: Eslint checks on PR
-run-name: ${{ github.actor }} is running eslint checks on PR 🚀
-on: [push]
+run-name: ${{ github.actor }} is running es-lint checks on PR 🚀
+on: 
+  pull_request:
+    types: [opened, reopened]
 jobs:
   init:
     runs-on: ubuntu-latest
