@@ -43,15 +43,18 @@
       "react/react-in-jsx-scope": "off",
       "no-console": 1
     },
-    "overrides": {
-      "no-console": 2
-    }
+    "overrides": [{
+      "files": ["bin/*.js", "lib/*.js"],
+      "rules": {
+        "no-console": 2
+      }
+    }]
     ,
-      "settings": [{
+      "settings": {
           "react": {
               "pragma": "React",
               "version": "detect"
           }
-      }]
+      }
   }
   
