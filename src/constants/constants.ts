@@ -1,4 +1,3 @@
-export const BASENAME = '/app';
 export const LINKS = {
   welcome: `/`,
   search: '/search',
