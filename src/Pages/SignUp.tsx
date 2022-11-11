@@ -6,17 +6,29 @@ import {
   Checkbox,
   Container,
   FormControlLabel,
+  FormHelperText,
   Grid,
   TextField,
   Typography,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { NavLink } from 'react-router-dom';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { ISignUpFormFields } from '../types/types';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { authSchema } from '../schema/authSchema';
 
 const SignUp = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISignUpFormFields>({
+    resolver: yupResolver(authSchema),
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
   };
 
   return (
@@ -35,55 +47,52 @@ const SignUp = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <TextField
+                {...register('name')}
                 autoComplete="given-name"
-                name="firstName"
-                required
+                name="name"
                 fullWidth
                 id="firstName"
                 label="First Name"
                 autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
+                error={!!errors.name}
+                helperText={errors.name?.message}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
+                {...register('login')}
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="login"
+                label="Login"
+                name="login"
+                autoComplete="login"
+                error={!!errors.login}
+                helperText={errors.login?.message}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
+                {...register('password')}
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                error={!!errors.password}
+                helperText={errors.password?.message}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="agree" color="primary" />}
+                control={<Checkbox {...register('agree', { required: true })} name="agree" />}
                 label="I agree to the processing of personal data."
               />
+              <FormHelperText error={!!errors.password}>{errors.agree?.message}</FormHelperText>
             </Grid>
           </Grid>
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

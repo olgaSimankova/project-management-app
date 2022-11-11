@@ -11,14 +11,24 @@ import {
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import { useSignInMutation } from '../api/auth.api';
+import { ISignInFormFields } from '../types/types';
+import { authSchema } from '../schema/authSchema';
 
 const SignIn = () => {
   const [signIn, { data, isSuccess, isError, error }] = useSignInMutation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISignInFormFields>({
+    resolver: yupResolver(authSchema),
+  });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
 
@@ -39,26 +49,31 @@ const SignIn = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
           <TextField
+            {...register('login')}
             margin="normal"
-            required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="login"
+            label="Login"
+            name="login"
+            type="text"
+            autoComplete="login"
+            error={!!errors.login}
+            helperText={errors.login?.message}
             autoFocus
           />
           <TextField
+            {...register('password')}
             margin="normal"
-            required
             fullWidth
             name="password"
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
+            error={!!errors.password}
+            helperText={errors.password?.message}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
