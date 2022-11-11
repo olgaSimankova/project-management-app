@@ -23,3 +23,4 @@ export const App = () => (
     </CssBaseline>
   </>
 );
+console.log(2);

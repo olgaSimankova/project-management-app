@@ -41,13 +41,17 @@
       "@typescript-eslint/no-var-reqiures": "off",
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
-      "no-console": 2
+      "no-console": 1
     },
-      "settings": {
+    "overrides": {
+      "no-console": 2
+    }
+    ,
+      "settings": [{
           "react": {
               "pragma": "React",
               "version": "detect"
           }
-      }
+      }]
   }
   
