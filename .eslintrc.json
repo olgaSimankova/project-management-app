@@ -44,7 +44,7 @@
       "no-console": 1
     },
     "overrides": [{
-      "files": ["bin/*.js", "lib/*.js"],
+      "files": ["build/*.js", "lib/*.js"],
       "rules": {
         "no-console": 2
       }

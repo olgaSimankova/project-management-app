@@ -1,5 +1,5 @@
 name: Eslint checks on PR
-run-name: ${{ github.actor }} Eslint checks on PR 🚀
+run-name: ${{ github.actor }} is running eslint checks on PR 🚀
 on: [push]
 jobs:
   init:
