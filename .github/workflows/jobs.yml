@@ -1,8 +1,6 @@
 name: Eslint checks on PR
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: 
-  pull_request:
-    types: [opened, reopened]
+on: [push]
 jobs:
   init:
     runs-on: ubuntu-latest
