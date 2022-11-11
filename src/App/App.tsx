@@ -8,6 +8,8 @@ import { Welcome } from 'Pages/Welcome';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
+import SignIn from '../components/SignIn/SignIn';
+import SignUp from '../components/SignUp/SignUp';
 
 export const App = () => (
   <>
@@ -15,6 +17,8 @@ export const App = () => (
       <Header />
       <Routes>
         <Route path={LINKS.welcome} element={<Welcome />} />
+        <Route path={LINKS.signIn} element={<SignIn />} />
+        <Route path={LINKS.signUp} element={<SignUp />} />
         <Route path={LINKS.error} element={<Error />} />
         <Route path={LINKS.search} element={<Search />} />
         <Route path={LINKS.boards} element={<Boards />} />
