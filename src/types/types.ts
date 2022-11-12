@@ -1,12 +1,3 @@
-export interface IAuthInfo {
-  login: string;
-  password: string;
-}
-
-export interface IUser extends IAuthInfo {
-  name: string;
-}
-
 export interface ISignInFormFields {
   login: string;
   password: string;
@@ -15,4 +6,14 @@ export interface ISignInFormFields {
 export interface ISignUpFormFields extends ISignInFormFields {
   name: string;
   agree: boolean;
+}
+
+export interface IUser {
+  _id: 'string';
+  name: 'string';
+  login: 'string';
+}
+
+export interface ISignInResponse {
+  token: 'string';
 }

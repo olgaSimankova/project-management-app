@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Avatar,
   Box,
@@ -16,20 +16,34 @@ import { NavLink } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { ISignUpFormFields } from '../types/types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { authSchema } from '../schema/authSchema';
+import { signUpSchema } from '../schema/signUpSchema';
+import { useSignUpMutation } from '../api/auth.api';
+import { toast } from 'react-toastify';
+import { useAppDispatch } from '../App/state/store';
+import { setToken, setUser } from '../features/authSlice';
 
 const SignUp = () => {
+  const [signUp, { data, isSuccess, isError, error }] = useSignUpMutation();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignUpFormFields>({
-    resolver: yupResolver(authSchema),
+    resolver: yupResolver(signUpSchema),
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    const { name, login, password } = data;
+    signUp({ name, login, password });
   };
+
+  useEffect(() => {
+    isSuccess ? toast.success('Registered successfully') : null;
+    if (data) {
+      dispatch(setUser({ ...data }));
+    }
+  }, [isSuccess]);
 
   return (
     <Container component="main" maxWidth="xs">

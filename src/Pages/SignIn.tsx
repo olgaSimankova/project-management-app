@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Avatar,
   Box,
@@ -9,28 +9,42 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useSignInMutation } from '../api/auth.api';
 import { ISignInFormFields } from '../types/types';
-import { authSchema } from '../schema/authSchema';
+import { signInSchema } from '../schema/signInSchema';
+import { toast } from 'react-toastify';
+import { useAppDispatch } from '../App/state/store';
+import { setToken } from '../features/authSlice';
 
 const SignIn = () => {
   const [signIn, { data, isSuccess, isError, error }] = useSignInMutation();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignInFormFields>({
-    resolver: yupResolver(authSchema),
+    resolver: yupResolver(signInSchema),
   });
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    const { login, password } = data;
+    signIn({ login, password });
   };
+
+  useEffect(() => {
+    isSuccess ? toast.success('Logged successfully') : null;
+    console.log(data);
+    if (data) {
+      dispatch(setToken({ token: data.token }));
+    }
+  }, [isSuccess]);
 
   return (
     <Container component="main" maxWidth="xs">
