@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   Container,
   FormControlLabel,
   FormHelperText,
@@ -20,10 +21,10 @@ import { signUpSchema } from '../schema/signUpSchema';
 import { useSignUpMutation } from '../api/auth.api';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../App/state/store';
-import { setToken, setUser } from '../features/authSlice';
+import { setUser } from '../features/authSlice';
 
 const SignUp = () => {
-  const [signUp, { data, isSuccess, isError, error }] = useSignUpMutation();
+  const [signUp, { data, isLoading, isSuccess, isError }] = useSignUpMutation();
   const dispatch = useAppDispatch();
   const {
     register,
@@ -34,16 +35,22 @@ const SignUp = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const { name, login, password } = data;
-    signUp({ name, login, password });
+    if (!isLoading) {
+      const { name, login, password } = data;
+      signUp({ name, login, password });
+    }
   };
 
   useEffect(() => {
-    isSuccess ? toast.success('Registered successfully') : null;
-    if (data) {
+    if (isSuccess && data) {
+      toast.success('Registered successfully');
       dispatch(setUser({ ...data }));
     }
-  }, [isSuccess]);
+
+    if (isError) {
+      toast.error('Login already exist');
+    }
+  }, [isLoading]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -111,6 +118,7 @@ const SignUp = () => {
           </Grid>
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign Up
+            {isLoading && <CircularProgress size={16} color={'inherit'} sx={{ ml: 2 }} />}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>

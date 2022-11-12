@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Container,
   CssBaseline,
   Grid,
@@ -22,7 +23,7 @@ import { useAppDispatch } from '../App/state/store';
 import { setToken } from '../features/authSlice';
 
 const SignIn = () => {
-  const [signIn, { data, isSuccess, isError, error }] = useSignInMutation();
+  const [signIn, { data, isLoading, isSuccess, isError }] = useSignInMutation();
   const dispatch = useAppDispatch();
   const {
     register,
@@ -31,20 +32,24 @@ const SignIn = () => {
   } = useForm<ISignInFormFields>({
     resolver: yupResolver(signInSchema),
   });
-  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const { login, password } = data;
-    signIn({ login, password });
+    if (!isLoading) {
+      const { login, password } = data;
+      signIn({ login, password });
+    }
   };
 
   useEffect(() => {
-    isSuccess ? toast.success('Logged successfully') : null;
-    console.log(data);
-    if (data) {
+    if (isSuccess && data) {
+      toast.success('You successfully logged in');
       dispatch(setToken({ token: data.token }));
     }
-  }, [isSuccess]);
+
+    if (isError) {
+      toast.error('Wrong login or password');
+    }
+  }, [isLoading]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -91,6 +96,7 @@ const SignIn = () => {
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
+            {isLoading && <CircularProgress size={16} color={'inherit'} sx={{ ml: 2 }} />}
           </Button>
           <Grid container justifyContent={'end'}>
             <Grid item>
