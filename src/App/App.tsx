@@ -1,7 +1,7 @@
 import { Footer } from 'components/Footer/Footer';
 import { Header } from 'components/Header/Header';
 import { LINKS } from 'constants/constants';
-import { Boards } from 'Pages/Boards';
+import { Main } from 'Pages/Main';
 import { Error } from 'Pages/Error';
 import { Search } from 'Pages/Search';
 import { Welcome } from 'Pages/Welcome';
@@ -21,7 +21,7 @@ export const App = () => (
         <Route path={LINKS.signUp} element={<SignUp />} />
         <Route path={LINKS.error} element={<Error />} />
         <Route path={LINKS.search} element={<Search />} />
-        <Route path={LINKS.boards} element={<Boards />} />
+        <Route path={LINKS.main} element={<Main />} />
       </Routes>
       <Footer />
     </CssBaseline>
