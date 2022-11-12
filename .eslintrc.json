@@ -43,6 +43,13 @@
       "react/react-in-jsx-scope": "off",
       "no-console": 1
     },
+    "overrides": [{
+      "files": ["*.tsx", "*.ts"],
+      "rules": {
+        "no-console": 2
+      }
+    }]
+    ,
       "settings": {
           "react": {
               "pragma": "React",
