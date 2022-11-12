@@ -3,25 +3,25 @@ import { GITHUB_BASE } from 'constants/constants';
 import React from 'react';
 import { ReactComponent as Github } from '../../assets/icons/github.svg';
 
-const GithubLine = (props: { nickname: string }) => {
+const GithubLine = ({ nickname }: { nickname: string }) => {
   return (
     <Link
       underline="hover"
-      href={`${GITHUB_BASE}/${props.nickname}`}
-      sx={{ display: 'flex', justifyContent: 'center', gap: '5px', flexWrap: 'wrap' }}
+      href={`${GITHUB_BASE}/${nickname}`}
+      sx={{ display: 'flex', justifyContent: 'center', gap: '0.1rem', flexWrap: 'wrap' }}
     >
       <SvgIcon>
         <Github />
       </SvgIcon>
-      <Typography>{props.nickname}</Typography>
+      <Typography>{nickname}</Typography>
     </Link>
   );
 };
 
-export const GithubPanel = (props: { nicknames: string[] }) => {
+export const GithubPanel = ({ nicknames }: { nicknames: string[] }) => {
   return (
-    <Box sx={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-      {props.nicknames.map((nickname) => (
+    <Box sx={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+      {nicknames.map((nickname) => (
         <GithubLine key={`github-${nickname}`} nickname={nickname} />
       ))}
     </Box>

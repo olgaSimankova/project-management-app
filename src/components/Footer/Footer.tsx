@@ -11,7 +11,7 @@ export const Footer = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
-        gap: '40px',
+        gap: '3rem',
         flexWrap: 'wrap',
       }}
     >
