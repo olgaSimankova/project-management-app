@@ -13,21 +13,22 @@ import SignIn from '../Pages/SignIn';
 import SignUp from '../Pages/SignUp';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Layout from '../components/Layout/Layout';
 
 export const App = () => (
   <>
     <CssBaseline>
       <ToastContainer />
-      <Header />
       <Routes>
-        <Route path={LINKS.welcome} element={<Welcome />} />
+        <Route path={LINKS.welcome} element={<Layout />}>
+          <Route path={LINKS.search} element={<Welcome />} />
+          <Route path={LINKS.search} element={<Search />} />
+          <Route path={LINKS.boards} element={<Boards />} />
+        </Route>
         <Route path={LINKS.signIn} element={<SignIn />} />
         <Route path={LINKS.signUp} element={<SignUp />} />
         <Route path={LINKS.error} element={<Error />} />
-        <Route path={LINKS.search} element={<Search />} />
-        <Route path={LINKS.boards} element={<Boards />} />
       </Routes>
-      <Footer />
     </CssBaseline>
   </>
 );
