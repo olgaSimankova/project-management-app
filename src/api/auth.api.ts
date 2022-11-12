@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
-import { ISignInFormFields, ISignInResponse, ISignUpFormFields, IUser } from '../types/types';
+import { ISignInFormFields, ISignInResponse, IUser } from '../types/types';
+import { setToken, setUser } from '../features/authSlice';
 
 export interface IUserAuthInfo {
   name: string;
@@ -18,6 +19,12 @@ export const authSlice = createApi({
         method: 'POST',
         body,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setUser({ ...data }));
+        } catch (error) {}
+      },
     }),
     signIn: build.mutation<ISignInResponse, ISignInFormFields>({
       query: (body: ISignInFormFields) => ({
@@ -25,6 +32,12 @@ export const authSlice = createApi({
         method: 'POST',
         body,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setToken({ ...data }));
+        } catch (error) {}
+      },
     }),
   }),
 });

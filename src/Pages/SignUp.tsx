@@ -13,19 +13,17 @@ import {
   Typography,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { ISignUpFormFields } from '../types/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpSchema } from '../schema/signUpSchema';
 import { useSignUpMutation } from '../api/auth.api';
 import { toast } from 'react-toastify';
-import { useAppDispatch } from '../App/state/store';
-import { setUser } from '../features/authSlice';
+import { useAuth } from '../hooks/useAuth';
 
 const SignUp = () => {
-  const [signUp, { data, isLoading, isSuccess, isError }] = useSignUpMutation();
-  const dispatch = useAppDispatch();
+  const [signUp, { isLoading, isSuccess, isError }] = useSignUpMutation();
   const {
     register,
     handleSubmit,
@@ -33,6 +31,12 @@ const SignUp = () => {
   } = useForm<ISignUpFormFields>({
     resolver: yupResolver(signUpSchema),
   });
+  const navigate = useNavigate();
+  const { token } = useAuth();
+
+  if (token) {
+    navigate('/');
+  }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (!isLoading) {
@@ -42,9 +46,9 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (isSuccess) {
       toast.success('Registered successfully');
-      dispatch(setUser({ ...data }));
+      navigate('/signin');
     }
 
     if (isError) {

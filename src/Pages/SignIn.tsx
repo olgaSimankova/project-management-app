@@ -19,12 +19,10 @@ import { useSignInMutation } from '../api/auth.api';
 import { ISignInFormFields } from '../types/types';
 import { signInSchema } from '../schema/signInSchema';
 import { toast } from 'react-toastify';
-import { useAppDispatch } from '../App/state/store';
-import { setToken } from '../features/authSlice';
+import { useAuth } from '../hooks/useAuth';
 
 const SignIn = () => {
-  const [signIn, { data, isLoading, isSuccess, isError }] = useSignInMutation();
-  const dispatch = useAppDispatch();
+  const [signIn, { isLoading, isSuccess, isError }] = useSignInMutation();
   const {
     register,
     handleSubmit,
@@ -32,6 +30,12 @@ const SignIn = () => {
   } = useForm<ISignInFormFields>({
     resolver: yupResolver(signInSchema),
   });
+  const navigate = useNavigate();
+  const { token } = useAuth();
+
+  if (token) {
+    navigate('/');
+  }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (!isLoading) {
@@ -41,9 +45,9 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (isSuccess) {
       toast.success('You successfully logged in');
-      dispatch(setToken({ token: data.token }));
+      navigate('/');
     }
 
     if (isError) {

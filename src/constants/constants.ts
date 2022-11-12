@@ -5,9 +5,10 @@ export const LINKS = {
   search: '/search',
   boards: '/boards',
   error: '/404',
-  signIn: '/signIn',
-  signUp: '/signUp',
+  signIn: '/signin',
+  signUp: '/signup',
 };
 
 export const PAGES = ['Add Board', 'Search', 'Boards'];
 export const USER_SETTINGS = ['Edit Profile', 'Change lang', 'Logout'];
+export const LOGOUT = 'Logout';

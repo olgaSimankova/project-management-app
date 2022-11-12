@@ -20,7 +20,7 @@ export const authSlice = createSlice({
       return initialState;
     },
     setUser: (state, action: PayloadAction<IUser>) => {
-      localStorage.setItem('user', JSON.stringify({ token: action.payload }));
+      localStorage.setItem('user', JSON.stringify({ ...action.payload }));
       state.user = action.payload;
     },
     setToken: (state, action: PayloadAction<ISignInResponse>) => {
