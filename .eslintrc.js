@@ -1,4 +1,4 @@
-{
+module.exports = {
     "parser": "@typescript-eslint/parser",
     "extends": [
       "plugin:react/recommended",
@@ -41,20 +41,9 @@
       "@typescript-eslint/no-var-reqiures": "off",
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
-      "no-console": 1
-    },
-    "overrides": [{
-      "files": ["*.tsx", "*.ts"],
-      "rules": {
-        "no-console": 2
-      }
-    }]
-    ,
-      "settings": {
-          "react": {
-              "pragma": "React",
-              "version": "detect"
-          }
-      }
+      "no-console": process.env.NODE_ENV === 'production' ? 2 : 1,
+      "no-debugger": process.env.NODE_ENV === 'production' ? 2 : 1
+    }
+    
   }
   

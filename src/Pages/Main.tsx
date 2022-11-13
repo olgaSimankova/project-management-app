@@ -3,6 +3,7 @@ import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
 import React from 'react';
 
 export const Main = () => {
+  console.log(123);
   const mockBoards = [
     { title: 'First board', description: 'First board description' },
     {
