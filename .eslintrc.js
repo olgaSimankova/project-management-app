@@ -41,8 +41,8 @@ module.exports = {
       "@typescript-eslint/no-var-reqiures": "off",
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
-      "no-console": process.env.NODE_ENV === 'production' ? 2 : 1,
-      "no-debugger": process.env.NODE_ENV === 'production' ? 2 : 1
+      "no-console": process.env.NODE_ENV === 'development' ? 1 : 2,
+      "no-debugger": process.env.NODE_ENV === 'development' ? 1 : 2,
     }
     
   }
