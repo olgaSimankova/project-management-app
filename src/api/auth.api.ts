@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
-import { IErrorResponse, ISignInFormFields, ISignInResponse, IUser } from '../types/types';
+import {
+  IErrorResponse,
+  ISignInFormFields,
+  ISignInResponse,
+  IUser,
+  IUserAuthInfo,
+} from '../types/types';
 import { setToken, setUser } from '../features/authSlice';
 import { toast } from 'react-toastify';
-
-export interface IUserAuthInfo {
-  name: string;
-  login: string;
-  password: string;
-}
 
 export const authSlice = createApi({
   reducerPath: 'authApi',

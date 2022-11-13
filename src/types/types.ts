@@ -1,11 +1,15 @@
+export interface IAuthFormFields extends ISignInFormFields {
+  name: string;
+  agree: boolean;
+}
+
 export interface ISignInFormFields {
   login: string;
   password: string;
 }
 
-export interface ISignUpFormFields extends ISignInFormFields {
+export interface IUserAuthInfo extends ISignInFormFields{
   name: string;
-  agree: boolean;
 }
 
 export interface IUser {

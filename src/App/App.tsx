@@ -7,8 +7,7 @@ import { Search } from 'Pages/Search';
 import { Welcome } from 'Pages/Welcome';
 import { Routes, Route } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
-import SignIn from '../Pages/SignIn';
-import SignUp from '../Pages/SignUp';
+import Authentication from '../Pages/Authentication';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
@@ -36,8 +35,8 @@ export const App = () => {
             <Route path={LINKS.search} element={<Search />} />
             <Route path={LINKS.boards} element={<Boards />} />
           </Route>
-          <Route path={LINKS.signIn} element={<SignIn />} />
-          <Route path={LINKS.signUp} element={<SignUp />} />
+          <Route path={LINKS.signIn} element={<Authentication />} />
+          <Route path={LINKS.signUp} element={<Authentication />} />
           <Route path={LINKS.error} element={<Error />} />
         </Routes>
       </CssBaseline>
