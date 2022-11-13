@@ -11,7 +11,7 @@ export const Header = () => {
   const { token } = useAuth();
 
   return (
-    <AppBar position={'sticky'} sx={{ background: '#063970' }}>
+    <AppBar position="sticky" sx={{ background: '#063970' }}>
       <Toolbar sx={{ alignItems: 'center' }}>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <AssignmentIcon />

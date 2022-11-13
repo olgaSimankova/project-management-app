@@ -1,10 +1,5 @@
-import { ISignInResponse, IUser } from '../types/types';
+import { IUser, IUserState } from '../types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface IUserState {
-  user: IUser | null;
-  token: string | null;
-}
 
 const initialState: IUserState = {
   user: null,
@@ -20,12 +15,12 @@ export const authSlice = createSlice({
       return initialState;
     },
     setUser: (state, action: PayloadAction<IUser>) => {
-      localStorage.setItem('user', JSON.stringify({ ...action.payload }));
+      localStorage.setItem('user', JSON.stringify(action.payload));
       state.user = action.payload;
     },
-    setToken: (state, action: PayloadAction<ISignInResponse>) => {
-      localStorage.setItem('token', JSON.stringify({ token: action.payload.token }));
-      state.token = action.payload.token;
+    setToken: (state, action: PayloadAction<string>) => {
+      localStorage.setItem('token', JSON.stringify(action.payload));
+      state.token = action.payload;
     },
   },
 });

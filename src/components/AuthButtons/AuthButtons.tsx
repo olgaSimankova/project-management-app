@@ -6,10 +6,10 @@ import { NavLink } from 'react-router-dom';
 
 const AuthButtons = () => {
   return (
-    <Box ml={'auto'}>
+    <Box ml="auto">
       <NavLink to={'/signIn'} end>
-        <Button variant={'outlined'} sx={{ color: 'white' }}>
-          <SvgIcon fontSize={'small'} sx={{ mr: 1 }}>
+        <Button variant="outlined" sx={{ color: 'white' }}>
+          <SvgIcon fontSize="small" sx={{ mr: 1 }}>
             <Login />
           </SvgIcon>
           Sign in
@@ -17,8 +17,8 @@ const AuthButtons = () => {
       </NavLink>
 
       <NavLink to={'/signUp'} end>
-        <Button variant={'outlined'} sx={{ ml: 2, color: 'white' }}>
-          <SvgIcon fontSize={'small'} sx={{ mr: 1 }}>
+        <Button variant="outlined" sx={{ ml: 2, color: 'white' }}>
+          <SvgIcon fontSize="small" sx={{ mr: 1 }}>
             <AddUser />
           </SvgIcon>
           Sign up

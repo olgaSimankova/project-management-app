@@ -19,11 +19,10 @@ import { ISignUpFormFields } from '../types/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpSchema } from '../schema/signUpSchema';
 import { useSignUpMutation } from '../api/auth.api';
-import { toast } from 'react-toastify';
 import { useAuth } from '../hooks/useAuth';
 
 const SignUp = () => {
-  const [signUp, { isLoading, isSuccess, isError }] = useSignUpMutation();
+  const [signUp, { isLoading, isSuccess }] = useSignUpMutation();
   const {
     register,
     handleSubmit,
@@ -34,9 +33,17 @@ const SignUp = () => {
   const navigate = useNavigate();
   const { token } = useAuth();
 
-  if (token) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (token) {
+      navigate('/');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/signin');
+    }
+  }, [isSuccess, navigate]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (!isLoading) {
@@ -44,17 +51,6 @@ const SignUp = () => {
       signUp({ name, login, password });
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success('Registered successfully');
-      navigate('/signin');
-    }
-
-    if (isError) {
-      toast.error('Login already exist');
-    }
-  }, [isLoading]);
 
   return (
     <Container component="main" maxWidth="xs">

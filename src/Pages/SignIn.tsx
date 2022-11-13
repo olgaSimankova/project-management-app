@@ -18,11 +18,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSignInMutation } from '../api/auth.api';
 import { ISignInFormFields } from '../types/types';
 import { signInSchema } from '../schema/signInSchema';
-import { toast } from 'react-toastify';
 import { useAuth } from '../hooks/useAuth';
 
 const SignIn = () => {
-  const [signIn, { isLoading, isSuccess, isError }] = useSignInMutation();
+  const [signIn, { isLoading, isSuccess }] = useSignInMutation();
   const {
     register,
     handleSubmit,
@@ -46,14 +45,9 @@ const SignIn = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('You successfully logged in');
       navigate('/');
     }
-
-    if (isError) {
-      toast.error('Wrong login or password');
-    }
-  }, [isLoading]);
+  }, [isSuccess, navigate]);
 
   return (
     <Container component="main" maxWidth="xs">

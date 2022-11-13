@@ -1,8 +1,8 @@
 import React from 'react';
 import { Menu, MenuItem, Typography } from '@mui/material';
 import { LOGOUT, USER_SETTINGS } from '../../constants/constants';
-import { useAppDispatch } from '../../App/state/store';
 import { logout } from '../../features/authSlice';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 interface IUserMenu {
   anchorEl: null | HTMLElement;
@@ -15,7 +15,7 @@ const UserMenu = ({ anchorEl, onClose }: IUserMenu) => {
   const handleClose = (event: React.MouseEvent) => {
     const target = event.target as HTMLElement;
 
-    if (target.innerHTML === LOGOUT) {
+    if (target.id === LOGOUT) {
       dispatch(logout());
     }
 
@@ -40,7 +40,7 @@ const UserMenu = ({ anchorEl, onClose }: IUserMenu) => {
       onClose={onClose}
     >
       {USER_SETTINGS.map((setting) => (
-        <MenuItem key={setting} onClick={(e) => handleClose(e)}>
+        <MenuItem id={setting} key={setting} onClick={(e) => handleClose(e)}>
           <Typography textAlign="center">{setting}</Typography>
         </MenuItem>
       ))}

@@ -12,23 +12,24 @@ import SignUp from '../Pages/SignUp';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
-import { useAppDispatch } from './state/store';
 import { setToken, setUser } from '../features/authSlice';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 
 export const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user') as string) || null;
-    const token = JSON.parse(localStorage.getItem('token') as string) || {};
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    const token = JSON.parse(localStorage.getItem('token') || 'null');
 
-    dispatch(setToken(token));
     dispatch(setUser(user));
+    dispatch(setToken(token));
   }, []);
+
   return (
     <>
       <CssBaseline>
-        <ToastContainer />
+        <ToastContainer autoClose={2000} />
         <Routes>
           <Route path={LINKS.welcome} element={<Layout />}>
             <Route path={LINKS.search} element={<Welcome />} />
