@@ -2,7 +2,7 @@ export const BASE_URL = 'https://final-task-backend-production-d31d.up.railway.a
 export const LINKS = {
   welcome: `/`,
   search: '/search',
-  boards: '/boards',
+  main: '/main',
   error: '/404',
   signIn: '/signin',
   signUp: '/signup',

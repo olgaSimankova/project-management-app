@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { LINKS } from 'constants/constants';
-import { Boards } from 'Pages/Boards';
+import { Main } from 'Pages/Main';
 import { Error } from 'Pages/Error';
 import { Search } from 'Pages/Search';
 import { Welcome } from 'Pages/Welcome';
@@ -31,9 +31,9 @@ export const App = () => {
         <ToastContainer autoClose={2000} />
         <Routes>
           <Route path={LINKS.welcome} element={<Layout />}>
-            <Route path={LINKS.search} element={<Welcome />} />
+            <Route path={LINKS.welcome} element={<Welcome />} />
             <Route path={LINKS.search} element={<Search />} />
-            <Route path={LINKS.boards} element={<Boards />} />
+            <Route path={LINKS.main} element={<Main />} />
           </Route>
           <Route path={LINKS.signIn} element={<Authentication />} />
           <Route path={LINKS.signUp} element={<Authentication />} />
@@ -43,3 +43,4 @@ export const App = () => {
     </>
   );
 };
+
