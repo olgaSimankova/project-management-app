@@ -1,8 +1,12 @@
 import { Box, Button, Typography } from '@mui/material';
+import { useGetBoardsMutation } from 'api/main.api';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
-import React from 'react';
+import { useAuth } from 'hooks/useAuth';
+import React, { useEffect } from 'react';
 
 export const Main = () => {
+  const { token } = useAuth();
+  const [getBoards] = useGetBoardsMutation();
   const mockBoards = [
     { title: 'First board', description: 'First board description' },
     {
@@ -11,6 +15,12 @@ export const Main = () => {
         'Second board description gfgd gfg dgdfg dg dg fdsfsdf sdf fd fsgfdg dg dfghdg fh dfgh dfsfs gf fsfgd gsfsfsgdfhdghdg dgd g d ',
     },
   ];
+
+  useEffect(() => {
+    if (token) {
+      getBoards({});
+    }
+  }, [token]);
   return (
     <Box
       sx={{
