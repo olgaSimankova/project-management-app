@@ -8,7 +8,7 @@ export type BoardsContainerProps = {
 };
 
 export type BoardConfig = {
-  _id: string;
+  _id?: string;
   title: string;
   owner: string;
   users: string[];
@@ -57,4 +57,15 @@ export interface IErrorResponse {
 
 export interface MainState {
   boards: BoardConfig[];
+  isModalOpen: boolean;
+  currentBoardData: BoardConfig;
+}
+
+export enum BoardFormOptions {
+  create = 'create',
+  delete = 'delete',
+}
+
+export interface BoardFormProps {
+  option: BoardFormOptions;
 }

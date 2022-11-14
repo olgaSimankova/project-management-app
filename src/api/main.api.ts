@@ -24,11 +24,27 @@ export const mainApi = createApi({
         url: '/boards',
         method: 'GET',
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           console.log(data);
           dispatch(setBoards(data));
+        } catch (error) {
+          toast.error((error as IErrorResponse).error.data.message);
+        }
+      },
+    }),
+    createBoard: build.mutation<BoardConfig[], BoardConfig>({
+      query: (body) => ({
+        url: '/boards',
+        method: 'GET',
+        body,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log(data, 'onCreate');
+          toast.success('New board has been created!');
         } catch (error) {
           toast.error((error as IErrorResponse).error.data.message);
         }

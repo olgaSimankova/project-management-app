@@ -1,11 +1,15 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useGetBoardsMutation } from 'api/main.api';
+import { BoardForm } from 'components/BoardForm/BoardForm';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
 import { useAuth } from 'hooks/useAuth';
+import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
+import { BoardFormOptions } from 'types/types';
 
 export const Main = () => {
   const { token } = useAuth();
+  const { isModalOpen, currentBoardData } = useMain();
   const [getBoards] = useGetBoardsMutation();
   const mockBoards = [
     { title: 'First board', description: 'First board description' },
@@ -37,6 +41,7 @@ export const Main = () => {
         Add board
       </Button>
       <BoardsContainer boards={mockBoards} />
+      {isModalOpen && <BoardForm {...{ option: BoardFormOptions.create }} />}
     </Box>
   );
 };
