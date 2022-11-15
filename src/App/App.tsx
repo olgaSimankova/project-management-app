@@ -23,7 +23,7 @@ export const App = () => {
 
     dispatch(setUser(user));
     dispatch(setToken(token));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

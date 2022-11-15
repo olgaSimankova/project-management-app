@@ -1,4 +1,4 @@
-import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 
 export type Board = {
   title: string;
@@ -73,6 +73,7 @@ export interface BoardFormProps {
   option: BoardFormOptions;
   onClick: (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => void;
   onSubmit: (e: FieldValues) => void;
+  defaultValue: Board;
 }
 
 export interface CardControlsButtonProps {

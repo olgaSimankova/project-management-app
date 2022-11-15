@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import { useCreateBoardMutation, useGetBoardsMutation } from 'api/main.api';
+import { useCreateBoardMutation, useGetBoardsMutation, useUpdateBoardMutation } from 'api/main.api';
 import { BoardForm } from 'components/BoardForm/BoardForm';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
 import { setModalOption, toggleModalWindow } from 'features/mainSlice';
@@ -12,25 +12,36 @@ import { BoardFormOptions } from 'types/types';
 
 export const Main = () => {
   const dispatch = useAppDispatch();
-  const { token, user } = useAuth();
-  const { isModalOpen, modalOption, boards } = useMain();
+  const { token } = useAuth();
+  const { isModalOpen, modalOption, boards, currentBoardData } = useMain();
   const [getBoards] = useGetBoardsMutation();
   const [createBoard] = useCreateBoardMutation();
-
+  const [updateBoard] = useUpdateBoardMutation();
+  const { title, description } = JSON.parse(currentBoardData.title || '{}');
   useEffect(() => {
     if (token) {
       getBoards({});
     }
-  }, [token]);
+  }, [getBoards, token]);
 
-  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleButtonClick = () => {
     dispatch(setModalOption(BoardFormOptions.create));
     dispatch(toggleModalWindow(true));
   };
 
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
-    createBoard({ title: JSON.stringify(values), owner: 'do_when_it_be_ready', users: [] });
-    dispatch(toggleModalWindow(false));
+    switch (modalOption) {
+      case BoardFormOptions.create:
+        createBoard({ title: JSON.stringify(values), owner: 'do_when_it_be_ready', users: [] });
+        dispatch(toggleModalWindow(false));
+        break;
+      case BoardFormOptions.edit:
+        const { users, owner, _id } = currentBoardData;
+        dispatch(toggleModalWindow(false));
+        updateBoard({ title: JSON.stringify(values), owner, users, _id });
+        break;
+      default:
+    }
   };
 
   const handleClickModal = (
@@ -49,8 +60,21 @@ export const Main = () => {
         flexDirection: 'column',
         gap: '1rem',
         width: '80vw',
-        height: '80vh',
+        height: '71vh',
         margin: '1rem auto',
+        overflowY: 'auto',
+        '&::-webkit-scrollbar': {
+          width: 7,
+        },
+        '&::-webkit-scrollbar-track': {
+          boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
+          borderRadius: 2,
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#1976d2',
+          outline: `1px solid slategrey`,
+          borderRadius: 2,
+        },
       }}
     >
       <Typography variant="h4">Boards</Typography>
@@ -65,7 +89,12 @@ export const Main = () => {
       <BoardsContainer boards={boards} />
       {isModalOpen && (
         <BoardForm
-          {...{ option: modalOption, onClick: handleClickModal, onSubmit: handleSubmit }}
+          {...{
+            option: modalOption,
+            onClick: handleClickModal,
+            onSubmit: handleSubmit,
+            defaultValue: { title, description },
+          }}
         />
       )}
     </Box>

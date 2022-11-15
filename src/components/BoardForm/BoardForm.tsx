@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, TextareaAutosize, TextField, Typography } from '@mui/material';
+import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
 import { BoardFormFields, BoardFormProps } from 'types/types';
@@ -6,11 +6,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { boardSchema } from 'schema/boardSchema';
 
-export const BoardForm = ({ option, onClick, onSubmit }: BoardFormProps) => {
+export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardFormProps) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<BoardFormFields>({
     resolver: yupResolver(boardSchema),
@@ -61,6 +60,7 @@ export const BoardForm = ({ option, onClick, onSubmit }: BoardFormProps) => {
           id="title"
           type="text"
           autoFocus
+          defaultValue={defaultValue.title}
           error={!!errors.title}
           helperText={errors.title?.message}
           label="Title"
@@ -72,6 +72,7 @@ export const BoardForm = ({ option, onClick, onSubmit }: BoardFormProps) => {
           name="description"
           id="description"
           type="text"
+          defaultValue={defaultValue.description}
           error={!!errors.description}
           helperText={errors.description?.message}
           maxRows={6}

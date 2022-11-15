@@ -22,16 +22,32 @@ export const mainSlice = createSlice({
     deleteBoard: (state, action: PayloadAction<string>) => {
       state.boards = state.boards.filter((board) => board._id !== action.payload);
     },
+    updateBoard: (state, action: PayloadAction<BoardConfig>) => {
+      state.boards = state.boards.map((board) =>
+        board._id === action.payload._id ? action.payload : board
+      );
+    },
     toggleModalWindow: (state, action: PayloadAction<boolean>) => {
       state.isModalOpen = action.payload;
     },
     setModalOption: (state, action: PayloadAction<BoardFormOptions>) => {
       state.modalOption = action.payload;
     },
+    setCurrentBoardData: (state, action: PayloadAction<string>) => {
+      state.currentBoardData =
+        state.boards.filter((board) => board._id === action.payload)[0] || initBoardData;
+    },
   },
 });
 
 export default mainSlice.reducer;
 
-export const { setBoards, toggleModalWindow, setModalOption, addBoard, deleteBoard } =
-  mainSlice.actions;
+export const {
+  setBoards,
+  toggleModalWindow,
+  setModalOption,
+  addBoard,
+  deleteBoard,
+  setCurrentBoardData,
+  updateBoard,
+} = mainSlice.actions;

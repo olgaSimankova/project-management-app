@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { useDeleteBoardMutation } from 'api/main.api';
 import { BoardCard } from 'components/BoardCard/BoardCard';
-import { setModalOption } from 'features/mainSlice';
+import { setCurrentBoardData, setModalOption, toggleModalWindow } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import React from 'react';
 import { BoardFormOptions, BoardsContainerProps } from 'types/types';
@@ -17,8 +17,9 @@ export const BoardsContainer = ({ boards }: BoardsContainerProps) => {
         deleteBoard(id);
         break;
       case 'edit':
-        console.log('edit');
         dispatch(setModalOption(BoardFormOptions.edit));
+        dispatch(toggleModalWindow(true));
+        dispatch(setCurrentBoardData(id));
         break;
       default:
     }

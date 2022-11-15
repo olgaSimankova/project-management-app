@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'App/state/store';
-import { addBoard, deleteBoard, setBoards } from 'features/mainSlice';
+import {
+  addBoard,
+  deleteBoard,
+  setBoards,
+  setCurrentBoardData,
+  updateBoard,
+} from 'features/mainSlice';
 import { toast } from 'react-toastify';
 import { BoardConfig, IErrorResponse } from 'types/types';
 import { BASE_URL } from '../constants/constants';
@@ -63,7 +69,33 @@ export const mainApi = createApi({
         }
       },
     }),
+    updateBoard: build.mutation<BoardConfig, BoardConfig>({
+      query: (body: BoardConfig) => {
+        const data = { ...body };
+        delete data._id;
+        return {
+          url: `/boards/${body._id}`,
+          method: 'PUT',
+          body: data,
+        };
+      },
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(updateBoard(data));
+          dispatch(setCurrentBoardData(''));
+          toast.success('Board has been updated!');
+        } catch (error) {
+          toast.error((error as IErrorResponse).error.data.message);
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetBoardsMutation, useCreateBoardMutation, useDeleteBoardMutation } = mainApi;
+export const {
+  useGetBoardsMutation,
+  useCreateBoardMutation,
+  useDeleteBoardMutation,
+  useUpdateBoardMutation,
+} = mainApi;
