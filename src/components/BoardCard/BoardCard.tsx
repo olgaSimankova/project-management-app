@@ -10,6 +10,7 @@ export const BoardCard = ({
 }: BoardConfig & {
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
 }) => {
+  const { title: newTitle, description } = JSON.parse(title);
   return (
     <Box
       sx={{
@@ -38,7 +39,7 @@ export const BoardCard = ({
           WebkitBoxOrient: 'vertical',
         }}
       >
-        {title}
+        {newTitle}
       </Typography>
       <Typography
         sx={{
@@ -49,7 +50,7 @@ export const BoardCard = ({
           WebkitBoxOrient: 'vertical',
         }}
       >
-        {title}
+        {description}
       </Typography>
     </Box>
   );

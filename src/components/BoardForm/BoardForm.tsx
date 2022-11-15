@@ -1,13 +1,26 @@
 import { Box, Button, IconButton, TextareaAutosize, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
-import { BoardFormProps } from 'types/types';
+import { BoardFormFields, BoardFormProps } from 'types/types';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { boardSchema } from 'schema/boardSchema';
 
-export const BoardForm = ({ option, onClick }: BoardFormProps) => {
+export const BoardForm = ({ option, onClick, onSubmit }: BoardFormProps) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<BoardFormFields>({
+    resolver: yupResolver(boardSchema),
+  });
   return (
-    <Box onClick={onClick}>
+    <Box>
       <Box
-        data-testid="close"
+        onClick={onClick}
+        data-id="close"
+        className="top-level"
         sx={{
           position: 'fixed',
           zIndex: 1,
@@ -20,6 +33,9 @@ export const BoardForm = ({ option, onClick }: BoardFormProps) => {
         }}
       ></Box>
       <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
         sx={{
           display: 'flex',
           position: 'absolute',
@@ -39,22 +55,41 @@ export const BoardForm = ({ option, onClick }: BoardFormProps) => {
         <Typography variant="h5">
           {`${option.slice(0, 1).toUpperCase()}${option.slice(1)}`} project
         </Typography>
-        <TextField id="board-title" label="Title" variant="outlined" sx={{ width: '80%' }} />
-        <TextareaAutosize
-          id="board-description"
+        <TextField
+          {...register('title')}
+          name="title"
+          id="title"
+          type="text"
+          autoFocus
+          error={!!errors.title}
+          helperText={errors.title?.message}
+          label="Title"
+          variant="outlined"
+          sx={{ width: '80%' }}
+        />
+        <TextField
+          {...register('description')}
+          name="description"
+          id="description"
+          type="text"
+          error={!!errors.description}
+          helperText={errors.description?.message}
           maxRows={6}
           minRows={6}
           placeholder="Description"
-          aria-label="Description"
+          label="Description"
+          multiline
           style={{ width: '80%' }}
         />
-        <Button type="submit" color="success" variant="contained" data-testid="create">
+        <Button type="submit" color="success" variant="contained">
           {option}
         </Button>
         <IconButton
+          onClick={(e) => onClick(e)}
+          className="top-level"
           aria-label="close"
           color="error"
-          data-testid="close"
+          data-id="close"
           sx={{
             position: 'absolute',
             top: '0',
@@ -64,7 +99,7 @@ export const BoardForm = ({ option, onClick }: BoardFormProps) => {
             background: 'white',
           }}
         >
-          <CloseIcon data-testid="close" />
+          <CloseIcon />
         </IconButton>
       </Box>
     </Box>

@@ -64,6 +64,7 @@ const Authentication = () => {
 
     if (!isAuthLoading && !isSignIn) {
       const { name, login, password } = data;
+      console.log(123);
       signUp({ name, login, password });
     }
   };

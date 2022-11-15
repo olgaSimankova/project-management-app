@@ -1,3 +1,5 @@
+import { FieldValues, SubmitHandler } from 'react-hook-form';
+
 export type Board = {
   title: string;
   description: string;
@@ -64,15 +66,21 @@ export interface MainState {
 
 export enum BoardFormOptions {
   create = 'create',
-  delete = 'delete',
+  edit = 'edit',
 }
 
 export interface BoardFormProps {
   option: BoardFormOptions;
-  onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => void;
+  onSubmit: (e: FieldValues) => void;
 }
 
 export interface CardControlsButtonProps {
   id: string;
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
+}
+
+export interface BoardFormFields {
+  title: string;
+  description: string;
 }

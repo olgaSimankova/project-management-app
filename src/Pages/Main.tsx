@@ -7,22 +7,15 @@ import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
+import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { BoardFormOptions } from 'types/types';
 
 export const Main = () => {
   const dispatch = useAppDispatch();
-  const { token } = useAuth();
-  const { isModalOpen, currentBoardData, modalOption, boards } = useMain();
+  const { token, user } = useAuth();
+  const { isModalOpen, modalOption, boards } = useMain();
   const [getBoards] = useGetBoardsMutation();
   const [createBoard] = useCreateBoardMutation();
-  const mockBoards = [
-    { title: 'First board', description: 'First board description' },
-    {
-      title: 'Second board fsdf sf sf sfdhd fsd fsdf sf sfs fh f',
-      description:
-        'Second board description gfgd gfg dgdfg dg dg fdsfsdf sdf fd fsgfdg dg dfghdg fh dfgh dfsfs gf fsfgd gsfsfsgdfhdghdg dgd g d ',
-    },
-  ];
 
   useEffect(() => {
     if (token) {
@@ -35,20 +28,20 @@ export const Main = () => {
     dispatch(toggleModalWindow(true));
   };
 
-  const handleClickModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
-    console.log((e.target as HTMLElement).dataset.testid);
-    switch ((e.target as HTMLElement).dataset.testid) {
-      case 'close':
-        dispatch(toggleModalWindow(false));
-        break;
-      case 'create':
-        createBoard({ title: '1', users: [], owner: 'loh' });
-        dispatch(toggleModalWindow(false));
-        break;
-      default:
+  const handleSubmit: SubmitHandler<FieldValues> = (values) => {
+    createBoard({ title: JSON.stringify(values), owner: 'do_when_it_be_ready', users: [] });
+    dispatch(toggleModalWindow(false));
+  };
+
+  const handleClickModal = (
+    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>
+  ) => {
+    const target = (e.target as HTMLElement).closest('.top-level') as HTMLElement;
+    if (target?.dataset.id === 'close') {
+      dispatch(toggleModalWindow(false));
     }
   };
+
   return (
     <Box
       sx={{
@@ -70,7 +63,11 @@ export const Main = () => {
         Add board
       </Button>
       <BoardsContainer boards={boards} />
-      {isModalOpen && <BoardForm {...{ option: modalOption, onClick: handleClickModal }} />}
+      {isModalOpen && (
+        <BoardForm
+          {...{ option: modalOption, onClick: handleClickModal, onSubmit: handleSubmit }}
+        />
+      )}
     </Box>
   );
 };

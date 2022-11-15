@@ -26,7 +26,6 @@ export const mainApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
           dispatch(setBoards(data));
         } catch (error) {
           toast.error((error as IErrorResponse).error.data.message);
