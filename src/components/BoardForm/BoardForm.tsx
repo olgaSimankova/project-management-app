@@ -1,11 +1,13 @@
-import { Box, Button, TextareaAutosize, TextField, Typography } from '@mui/material';
+import { Box, Button, IconButton, TextareaAutosize, TextField, Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
 import { BoardFormProps } from 'types/types';
 
-export const BoardForm = ({ option }: BoardFormProps) => {
+export const BoardForm = ({ option, onClick }: BoardFormProps) => {
   return (
-    <>
+    <Box onClick={onClick}>
       <Box
+        data-testid="close"
         sx={{
           position: 'fixed',
           zIndex: 1,
@@ -30,7 +32,7 @@ export const BoardForm = ({ option }: BoardFormProps) => {
           minWidth: '300px',
           width: '50vw',
           padding: '1rem',
-          background: '#DDDDDD',
+          background: 'white',
           borderRadius: '1rem',
         }}
       >
@@ -44,12 +46,27 @@ export const BoardForm = ({ option }: BoardFormProps) => {
           minRows={6}
           placeholder="Description"
           aria-label="Description"
-          style={{ width: '80%', background: '#DDDDDD' }}
+          style={{ width: '80%' }}
         />
-        <Button color="success" variant="contained">
+        <Button type="submit" color="success" variant="contained" data-testid="create">
           {option}
         </Button>
+        <IconButton
+          aria-label="close"
+          color="error"
+          data-testid="close"
+          sx={{
+            position: 'absolute',
+            top: '0',
+            right: '0',
+            width: '3rem',
+            height: '3rem',
+            background: 'white',
+          }}
+        >
+          <CloseIcon data-testid="close" />
+        </IconButton>
       </Box>
-    </>
+    </Box>
   );
 };

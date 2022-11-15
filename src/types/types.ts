@@ -4,7 +4,7 @@ export type Board = {
 };
 
 export type BoardsContainerProps = {
-  boards: Board[];
+  boards: BoardConfig[];
 };
 
 export type BoardConfig = {
@@ -59,6 +59,7 @@ export interface MainState {
   boards: BoardConfig[];
   isModalOpen: boolean;
   currentBoardData: BoardConfig;
+  modalOption: BoardFormOptions;
 }
 
 export enum BoardFormOptions {
@@ -68,4 +69,10 @@ export enum BoardFormOptions {
 
 export interface BoardFormProps {
   option: BoardFormOptions;
+  onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+}
+
+export interface CardControlsButtonProps {
+  id: string;
+  onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
 }

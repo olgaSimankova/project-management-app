@@ -1,9 +1,15 @@
 import { Box, Typography } from '@mui/material';
 import { CardControlButtons } from 'components/CardControlButtons/CardControlButtons';
 import React from 'react';
-import { Board } from 'types/types';
+import { BoardConfig } from 'types/types';
 
-export const BoardCard = ({ title, description }: Board) => {
+export const BoardCard = ({
+  title,
+  _id,
+  onClick,
+}: BoardConfig & {
+  onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
+}) => {
   return (
     <Box
       sx={{
@@ -19,7 +25,7 @@ export const BoardCard = ({ title, description }: Board) => {
         boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
       }}
     >
-      <CardControlButtons />
+      <CardControlButtons id={_id || ''} onClick={onClick} />
       <Typography
         variant="h5"
         sx={{
@@ -43,7 +49,7 @@ export const BoardCard = ({ title, description }: Board) => {
           WebkitBoxOrient: 'vertical',
         }}
       >
-        {description}
+        {title}
       </Typography>
     </Box>
   );
