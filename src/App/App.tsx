@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
 import { setToken, setUser } from '../features/authSlice';
 import { useAppDispatch } from '../hooks/useAppDispatch';
+import Board from '../features/Board/Board';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +32,7 @@ export const App = () => {
         <ToastContainer autoClose={2000} />
         <Routes>
           <Route path={LINKS.welcome} element={<Layout />}>
-            <Route path={LINKS.search} element={<Welcome />} />
+            <Route index element={<Board />} />
             <Route path={LINKS.search} element={<Search />} />
             <Route path={LINKS.boards} element={<Boards />} />
           </Route>

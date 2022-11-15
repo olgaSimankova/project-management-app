@@ -3,6 +3,7 @@ export const LINKS = {
   welcome: `/`,
   search: '/search',
   boards: '/boards',
+  board: '/board',
   error: '/404',
   signIn: '/signin',
   signUp: '/signup',
