@@ -8,7 +8,7 @@ export interface ISignInFormFields {
   password: string;
 }
 
-export interface IUserAuthInfo extends ISignInFormFields{
+export interface IUserAuthInfo extends ISignInFormFields {
   name: string;
 }
 
