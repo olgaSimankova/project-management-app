@@ -63,6 +63,7 @@ export interface MainState {
   currentBoardData: BoardConfig;
   modalOption: BoardFormOptions;
   isConfirmationOpen: boolean;
+  isLoading: boolean;
 }
 
 export enum BoardFormOptions {

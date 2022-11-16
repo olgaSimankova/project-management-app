@@ -5,6 +5,7 @@ import {
   deleteBoard,
   setBoards,
   setCurrentBoardData,
+  toggleLoading,
   updateBoard,
 } from 'features/mainSlice';
 import { toast } from 'react-toastify';
@@ -31,10 +32,13 @@ export const mainApi = createApi({
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
+          dispatch(toggleLoading(true));
           const { data } = await queryFulfilled;
           dispatch(setBoards(data));
         } catch (error) {
           toast.error((error as IErrorResponse).error.data.message);
+        } finally {
+          dispatch(toggleLoading(false));
         }
       },
     }),
@@ -46,11 +50,14 @@ export const mainApi = createApi({
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
+          dispatch(toggleLoading(true));
           const { data } = await queryFulfilled;
           dispatch(addBoard(data));
           toast.success('New board has been created!');
         } catch (error) {
           toast.error((error as IErrorResponse).error.data.message);
+        } finally {
+          dispatch(toggleLoading(false));
         }
       },
     }),
@@ -61,11 +68,14 @@ export const mainApi = createApi({
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
+          dispatch(toggleLoading(true));
           const { data } = await queryFulfilled;
           toast.success('Board has been deleted!');
           dispatch(deleteBoard(data._id || ''));
         } catch (error) {
           toast.error((error as IErrorResponse).error.data.message);
+        } finally {
+          dispatch(toggleLoading(false));
         }
       },
     }),
@@ -81,12 +91,15 @@ export const mainApi = createApi({
       },
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
+          dispatch(toggleLoading(true));
           const { data } = await queryFulfilled;
           dispatch(updateBoard(data));
           dispatch(setCurrentBoardData(''));
           toast.success('Board has been updated!');
         } catch (error) {
           toast.error((error as IErrorResponse).error.data.message);
+        } finally {
+          dispatch(toggleLoading(false));
         }
       },
     }),

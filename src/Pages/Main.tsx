@@ -8,6 +8,7 @@ import {
 import { BoardForm } from 'components/BoardForm/BoardForm';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
+import { Spinner } from 'components/Spinner/Spinner';
 import { QUESTION_ON_DELETE } from 'constants/constants';
 import {
   setCurrentBoardData,
@@ -25,7 +26,8 @@ import { BoardFormOptions } from 'types/types';
 export const Main = () => {
   const dispatch = useAppDispatch();
   const { token } = useAuth();
-  const { isModalOpen, modalOption, boards, currentBoardData, isConfirmationOpen } = useMain();
+  const { isModalOpen, modalOption, boards, currentBoardData, isConfirmationOpen, isLoading } =
+    useMain();
   const [getBoards] = useGetBoardsMutation();
   const [createBoard] = useCreateBoardMutation();
   const [updateBoard] = useUpdateBoardMutation();
@@ -130,6 +132,7 @@ export const Main = () => {
           }}
         />
       )}
+      {isLoading && <Spinner />}
     </Box>
   );
 };

@@ -8,6 +8,7 @@ const initialState: MainState = {
   currentBoardData: initBoardData,
   modalOption: BoardFormOptions.create,
   isConfirmationOpen: false,
+  isLoading: false,
 };
 
 export const mainSlice = createSlice({
@@ -34,6 +35,9 @@ export const mainSlice = createSlice({
     toggleConfirmationWindow: (state, action: PayloadAction<boolean>) => {
       state.isConfirmationOpen = action.payload;
     },
+    toggleLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
     setModalOption: (state, action: PayloadAction<BoardFormOptions>) => {
       state.modalOption = action.payload;
     },
@@ -55,4 +59,5 @@ export const {
   setCurrentBoardData,
   updateBoard,
   toggleConfirmationWindow,
+  toggleLoading,
 } = mainSlice.actions;
