@@ -23,7 +23,6 @@ export interface ISignInResponse {
 }
 
 export interface IUserState {
-  user: IUser | null;
   token: string | null;
 }
 
@@ -32,9 +31,4 @@ export interface Error {
     statusCode: number;
     message: string;
   };
-}
-
-export interface IErrorResponse {
-  error: Error;
-  isUnhandledError: boolean;
 }
