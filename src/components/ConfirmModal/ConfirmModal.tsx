@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 import { ConfirmModalProps } from 'types/types';
 
-export const ConfirmModal = ({ question, onYesClick, onNoClick, id }: ConfirmModalProps) => {
+export const ConfirmModal = ({ question, onYesClick, onNoClick }: ConfirmModalProps) => {
   return (
     <Box>
       <Box
@@ -38,7 +38,7 @@ export const ConfirmModal = ({ question, onYesClick, onNoClick, id }: ConfirmMod
       >
         <Typography variant="h5">{question}</Typography>
         <Box sx={{ display: 'flex', gap: '20px' }}>
-          <Button color="success" variant="contained" onClick={() => onYesClick(id)}>
+          <Button color="success" variant="contained" onClick={onYesClick}>
             YES
           </Button>
           <Button color="error" variant="contained" onClick={onNoClick}>

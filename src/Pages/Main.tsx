@@ -2,52 +2,46 @@ import { Box, Button, Typography } from '@mui/material';
 import {
   useCreateBoardMutation,
   useDeleteBoardMutation,
-  useGetBoardsMutation,
+  useGetBoardsQuery,
   useUpdateBoardMutation,
 } from 'api/main.api';
 import { BoardForm } from 'components/BoardForm/BoardForm';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
-import { Spinner } from 'components/Spinner/Spinner';
 import { QUESTION_ON_DELETE } from 'constants/constants';
 import {
-  setCurrentBoardData,
+  setBoardID,
   setModalOption,
   toggleConfirmationWindow,
   toggleModalWindow,
 } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { BoardFormOptions } from 'types/types';
 
 export const Main = () => {
   const dispatch = useAppDispatch();
-  const { token } = useAuth();
-  const { isModalOpen, modalOption, boards, currentBoardData, isConfirmationOpen, isLoading } =
-    useMain();
-  const [getBoards] = useGetBoardsMutation();
-  const [createBoard] = useCreateBoardMutation();
-  const [updateBoard] = useUpdateBoardMutation();
-  const [deleteBoard] = useDeleteBoardMutation();
-  const { title, description } = JSON.parse(currentBoardData.title || '{}');
-  useEffect(() => {
-    if (token) {
-      getBoards({});
-    }
-  }, [getBoards, token]);
+  const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
+  const { data: boards = [], isLoading: isGetting } = useGetBoardsQuery();
+  const [createBoard, { isLoading: isCreating }] = useCreateBoardMutation();
+  const [updateBoard, { isLoading: isUpdating }] = useUpdateBoardMutation();
+  const [deleteBoard, { isLoading: isDeleting }] = useDeleteBoardMutation();
+  const isLoading = isGetting || isCreating || isUpdating || isDeleting;
+  const { title, description } = JSON.parse(
+    boards.filter((board) => board._id === boardID)[0]?.title || '{}'
+  );
 
   const handleButtonClick = () => {
     dispatch(setModalOption(BoardFormOptions.create));
     dispatch(toggleModalWindow(true));
   };
 
-  const onDeleteBoard = (id: string) => {
-    deleteBoard(id);
+  const onDeleteBoard = () => {
+    deleteBoard(boardID);
     dispatch(toggleConfirmationWindow(false));
-    dispatch(setCurrentBoardData(''));
+    dispatch(setBoardID(''));
   };
 
   const onExitConfirmationModal = () => {
@@ -59,11 +53,13 @@ export const Main = () => {
       case BoardFormOptions.create:
         createBoard({ title: JSON.stringify(values), owner: 'do_when_it_be_ready', users: [] });
         dispatch(toggleModalWindow(false));
+        dispatch(setBoardID(''));
         break;
       case BoardFormOptions.edit:
-        const { users, owner, _id } = currentBoardData;
+        const { users, owner, _id } = boards.filter(({ _id }) => _id === boardID)[0];
         dispatch(toggleModalWindow(false));
         updateBoard({ title: JSON.stringify(values), owner, users, _id });
+        dispatch(setBoardID(''));
         break;
       default:
     }
@@ -77,7 +73,6 @@ export const Main = () => {
       dispatch(toggleModalWindow(false));
     }
   };
-
   return (
     <Box
       sx={{
@@ -111,7 +106,7 @@ export const Main = () => {
       >
         Add board
       </Button>
-      <BoardsContainer boards={boards} />
+      <BoardsContainer boards={boards} isLoading={isLoading} />
       {isModalOpen && (
         <BoardForm
           {...{
@@ -128,11 +123,9 @@ export const Main = () => {
             question: QUESTION_ON_DELETE,
             onYesClick: onDeleteBoard,
             onNoClick: onExitConfirmationModal,
-            id: currentBoardData._id || '',
           }}
         />
       )}
-      {isLoading && <Spinner />}
     </Box>
   );
 };

@@ -7,6 +7,7 @@ export type Board = {
 
 export type BoardsContainerProps = {
   boards: BoardConfig[];
+  isLoading: boolean;
 };
 
 export type BoardConfig = {
@@ -58,12 +59,10 @@ export interface IErrorResponse {
 }
 
 export interface MainState {
-  boards: BoardConfig[];
   isModalOpen: boolean;
-  currentBoardData: BoardConfig;
+  boardID: string;
   modalOption: BoardFormOptions;
   isConfirmationOpen: boolean;
-  isLoading: boolean;
 }
 
 export enum BoardFormOptions {
@@ -94,7 +93,6 @@ export interface ConfirmModalProps {
 
 export interface ConfirmModalProps {
   question: string;
-  onYesClick: (id: string) => void;
+  onYesClick: () => void;
   onNoClick: () => void;
-  id: string;
 }

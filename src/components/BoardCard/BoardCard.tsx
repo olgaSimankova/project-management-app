@@ -25,7 +25,7 @@ export const BoardCard = ({
         boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
       }}
     >
-      <CardControlButtons id={_id || ''} onClick={onClick} />
+      <CardControlButtons id={_id || ''} onClick={(e) => onClick(e, _id || '')} />
       <Typography
         variant="h5"
         sx={{

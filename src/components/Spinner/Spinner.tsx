@@ -7,25 +7,22 @@ export const Spinner = () => {
     <>
       <Box
         sx={{
-          position: 'fixed',
+          position: 'relative',
           zIndex: 1,
-          top: '0',
-          left: '0',
-          width: '100vw',
-          height: '100vh',
-          background: '#333333',
-          opacity: '0.5',
+          width: '100%',
+          height: '100%',
         }}
-      ></Box>
-      <CircularProgress
-        color="info"
-        sx={{
-          position: 'fixed',
-          zIndex: '2',
-          top: '40%',
-          left: '50%',
-        }}
-      />
+      >
+        <CircularProgress
+          color="info"
+          sx={{
+            position: 'absolute',
+            zIndex: '2',
+            top: '40%',
+            left: '50%',
+          }}
+        />
+      </Box>
     </>
   );
 };
