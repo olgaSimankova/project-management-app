@@ -7,6 +7,7 @@ const initialState: MainState = {
   isModalOpen: false,
   currentBoardData: initBoardData,
   modalOption: BoardFormOptions.create,
+  isConfirmationOpen: false,
 };
 
 export const mainSlice = createSlice({
@@ -30,6 +31,9 @@ export const mainSlice = createSlice({
     toggleModalWindow: (state, action: PayloadAction<boolean>) => {
       state.isModalOpen = action.payload;
     },
+    toggleConfirmationWindow: (state, action: PayloadAction<boolean>) => {
+      state.isConfirmationOpen = action.payload;
+    },
     setModalOption: (state, action: PayloadAction<BoardFormOptions>) => {
       state.modalOption = action.payload;
     },
@@ -50,4 +54,5 @@ export const {
   deleteBoard,
   setCurrentBoardData,
   updateBoard,
+  toggleConfirmationWindow,
 } = mainSlice.actions;

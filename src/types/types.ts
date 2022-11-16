@@ -62,6 +62,7 @@ export interface MainState {
   isModalOpen: boolean;
   currentBoardData: BoardConfig;
   modalOption: BoardFormOptions;
+  isConfirmationOpen: boolean;
 }
 
 export enum BoardFormOptions {
@@ -84,4 +85,15 @@ export interface CardControlsButtonProps {
 export interface BoardFormFields {
   title: string;
   description: string;
+}
+
+export interface ConfirmModalProps {
+  question: string;
+}
+
+export interface ConfirmModalProps {
+  question: string;
+  onYesClick: (id: string) => void;
+  onNoClick: () => void;
+  id: string;
 }

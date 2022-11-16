@@ -1,8 +1,20 @@
 import { Box, Button, Typography } from '@mui/material';
-import { useCreateBoardMutation, useGetBoardsMutation, useUpdateBoardMutation } from 'api/main.api';
+import {
+  useCreateBoardMutation,
+  useDeleteBoardMutation,
+  useGetBoardsMutation,
+  useUpdateBoardMutation,
+} from 'api/main.api';
 import { BoardForm } from 'components/BoardForm/BoardForm';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
-import { setModalOption, toggleModalWindow } from 'features/mainSlice';
+import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
+import { QUESTION_ON_DELETE } from 'constants/constants';
+import {
+  setCurrentBoardData,
+  setModalOption,
+  toggleConfirmationWindow,
+  toggleModalWindow,
+} from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
@@ -13,10 +25,11 @@ import { BoardFormOptions } from 'types/types';
 export const Main = () => {
   const dispatch = useAppDispatch();
   const { token } = useAuth();
-  const { isModalOpen, modalOption, boards, currentBoardData } = useMain();
+  const { isModalOpen, modalOption, boards, currentBoardData, isConfirmationOpen } = useMain();
   const [getBoards] = useGetBoardsMutation();
   const [createBoard] = useCreateBoardMutation();
   const [updateBoard] = useUpdateBoardMutation();
+  const [deleteBoard] = useDeleteBoardMutation();
   const { title, description } = JSON.parse(currentBoardData.title || '{}');
   useEffect(() => {
     if (token) {
@@ -27,6 +40,16 @@ export const Main = () => {
   const handleButtonClick = () => {
     dispatch(setModalOption(BoardFormOptions.create));
     dispatch(toggleModalWindow(true));
+  };
+
+  const onDeleteBoard = (id: string) => {
+    deleteBoard(id);
+    dispatch(toggleConfirmationWindow(false));
+    dispatch(setCurrentBoardData(''));
+  };
+
+  const onExitConfirmationModal = () => {
+    dispatch(toggleConfirmationWindow(false));
   };
 
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
@@ -94,6 +117,16 @@ export const Main = () => {
             onClick: handleClickModal,
             onSubmit: handleSubmit,
             defaultValue: { title, description },
+          }}
+        />
+      )}
+      {isConfirmationOpen && (
+        <ConfirmModal
+          {...{
+            question: QUESTION_ON_DELETE,
+            onYesClick: onDeleteBoard,
+            onNoClick: onExitConfirmationModal,
+            id: currentBoardData._id || '',
           }}
         />
       )}

@@ -17,9 +17,8 @@ export const BoardCard = ({
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
-        gap: '0.5rem',
-        width: '20rem',
-        height: '12rem',
+        width: '18rem',
+        height: '8rem',
         padding: '1rem',
         border: 'solid 0.1rem black',
         borderRadius: '1rem',
@@ -30,24 +29,22 @@ export const BoardCard = ({
       <Typography
         variant="h5"
         sx={{
-          height: '4rem',
-          width: '13rem',
+          height: '2rem',
+          width: '11rem',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
-          display: '-webkit-box',
-          WebkitLineClamp: '2',
-          WebkitBoxOrient: 'vertical',
         }}
       >
         {newTitle}
       </Typography>
       <Typography
         sx={{
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
+          height: '3rem',
           display: '-webkit-box',
-          WebkitLineClamp: '3',
-          WebkitBoxOrient: 'vertical',
+          boxOrient: 'vertical',
+          lineClamp: '3',
+          wordBreak: 'break-all',
+          overflow: 'hidden',
         }}
       >
         {description}

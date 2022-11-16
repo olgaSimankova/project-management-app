@@ -1,20 +1,24 @@
 import { Box } from '@mui/material';
-import { useDeleteBoardMutation } from 'api/main.api';
 import { BoardCard } from 'components/BoardCard/BoardCard';
-import { setCurrentBoardData, setModalOption, toggleModalWindow } from 'features/mainSlice';
+import {
+  setCurrentBoardData,
+  setModalOption,
+  toggleConfirmationWindow,
+  toggleModalWindow,
+} from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import React from 'react';
 import { BoardFormOptions, BoardsContainerProps } from 'types/types';
 
 export const BoardsContainer = ({ boards }: BoardsContainerProps) => {
-  const [deleteBoard] = useDeleteBoardMutation();
   const dispatch = useAppDispatch();
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     const target = (e.target as HTMLElement).closest('.top-level') as HTMLElement;
     switch (target?.dataset.id) {
       case 'delete':
-        deleteBoard(id);
+        dispatch(setCurrentBoardData(id));
+        dispatch(toggleConfirmationWindow(true));
         break;
       case 'edit':
         dispatch(setModalOption(BoardFormOptions.edit));
