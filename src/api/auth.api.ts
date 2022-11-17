@@ -1,16 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
-import {
-  IErrorResponse,
-  ISignInFormFields,
-  ISignInResponse,
-  IUser,
-  IUserAuthInfo,
-} from '../types/types';
-import { setToken, setUser } from '../features/authSlice';
-import { toast } from 'react-toastify';
+import { ISignInFormFields, ISignInResponse, IUser, IUserAuthInfo } from '../types/types';
 
-export const authSlice = createApi({
+export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (build) => ({
@@ -20,15 +12,6 @@ export const authSlice = createApi({
         method: 'POST',
         body,
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          toast.success('You successfully logged in');
-          dispatch(setUser({ ...data }));
-        } catch (error) {
-          toast.error((error as IErrorResponse).error.data.message);
-        }
-      },
     }),
     signIn: build.mutation<string, ISignInFormFields>({
       query: (body: ISignInFormFields) => ({
@@ -39,17 +22,8 @@ export const authSlice = createApi({
       transformResponse(response: ISignInResponse) {
         return response.token;
       },
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          toast.success('You successfully logged in');
-          dispatch(setToken(data));
-        } catch (error) {
-          toast.error((error as IErrorResponse).error.data.message);
-        }
-      },
     }),
   }),
 });
 
-export const { useSignUpMutation, useSignInMutation } = authSlice;
+export const { useSignUpMutation, useSignInMutation } = authApi;
