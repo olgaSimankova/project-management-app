@@ -1,4 +1,3 @@
-
 export type Board = {
   title: string;
   description: string;
@@ -18,7 +17,7 @@ export interface ISignInFormFields {
   password: string;
 }
 
-export interface IUserAuthInfo extends ISignInFormFields{
+export interface IUserAuthInfo extends ISignInFormFields {
   name: string;
 }
 

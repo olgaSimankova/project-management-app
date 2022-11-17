@@ -1,0 +1,14 @@
+{
+  "welcomeHero": "A kanban board is an agile project management tool designed to help visualize work, limit work-in-progress, and maximize efficiency (or flow). It can help both agile and DevOps teams establish order in their daily work.",
+  "heroAboutBtn": "ABOUT US",
+  "teamHeading": "Our team",
+  "teamSasha": "Sasha",
+  "aboutSasha": "Team Leader. That's enough",
+  "teamDima": "Dima",
+  "aboutDima": "Cool web developer",
+  "teamOlya": "Olya",
+  "aboutOlya": "Knows everything about pagination",
+  "teamAleh": "Aleh",
+  "aboutAleh": "Our spectacular menthor. The best one",
+  "usedTechnologies": "Technologies stack that were used in this project"
+}

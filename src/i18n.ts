@@ -1,23 +1,27 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import translationEng from './locales/en/translation.json';
-import translationRus from './locales/ru/translation.json';
+import * as translationEng from './locales/en/translation.json';
+import * as translationRus from './locales/ru/translation.json';
 
-export const defaultNS = 'translationEng';
+export const defaultNS = 'translation';
 export const resources = {
   en: {
-    translationEng,
+    translation: translationEng,
   },
   ru: {
-    translationRus,
+    translation: translationRus,
   },
 } as const;
 
 i18n.use(initReactI18next).init({
   lng: 'en',
-  ns: ['translationEng'],
-  defaultNS,
   resources,
+  defaultNS,
+  keySeparator: false,
+  interpolation: {
+    escapeValue: false,
+  },
+  debug: true,
 });
 
 export default i18n;

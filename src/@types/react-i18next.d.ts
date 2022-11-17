@@ -1,7 +1,7 @@
 import { resources, defaultNS } from '../i18n';
 import 'react-i18next';
 import translationEng from './locales/en/translation.json';
-import translationRus from './locales/ru/translation.json';
+import translationRus from './locales/ru/translationRu.json';
 
 declare module 'react-i18next' {
   // and extend them!
