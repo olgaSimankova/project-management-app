@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import Tasks from '../Tasks/Tasks';
+import Column from '../Column/Column';
+import AddTasksButton from '../AddTasksButton/AddTasksButton';
 
 const boxStyles = {
   display: 'flex',
@@ -11,16 +12,14 @@ const boxStyles = {
   padding: '10px',
 };
 
-const TasksWrapper = () => {
+const ColumnsWrapper = () => {
   return (
     <Box sx={boxStyles}>
-      <Tasks />
-      <Tasks />
-      <Tasks />
-      <Tasks />
-      <Tasks />
+      <Column />
+      <Column />
+      <AddTasksButton />
     </Box>
   );
 };
 
-export default TasksWrapper;
+export default ColumnsWrapper;

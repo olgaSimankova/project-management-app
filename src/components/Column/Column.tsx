@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Button, Divider, List, Paper } from '@mui/material';
-import TasksHeader from '../TasksHeader/TasksHeader';
+import ColumnHeader from '../ColumnHeader/ColumnHeader';
 import Task from '../Task/Task';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -22,8 +22,9 @@ const addButtonStyles = {
       border: '1px solid #b3bac3',
     },
   },
-  color: 'error',
   marginTop: '5px',
+  width: '290px',
+  height: '39px',
 };
 
 const StyledBoardItem = styled(Paper)(() => ({
@@ -36,10 +37,10 @@ const StyledBoardItem = styled(Paper)(() => ({
   borderRadius: '10px',
 }));
 
-const Tasks = () => {
+const Column = () => {
   return (
     <StyledBoardItem elevation={5}>
-      <TasksHeader />
+      <ColumnHeader />
       <Divider sx={dividerStyles} />
       <List sx={{ p: '2px', overflowY: 'auto' }}>
         <Task />
@@ -47,11 +48,11 @@ const Tasks = () => {
         <Task />
         <Task />
       </List>
-      <Button sx={addButtonStyles} fullWidth={true} variant="text" startIcon={<AddIcon />}>
+      <Button sx={addButtonStyles} variant="text" startIcon={<AddIcon />}>
         Add task
       </Button>
     </StyledBoardItem>
   );
 };
 
-export default Tasks;
+export default Column;

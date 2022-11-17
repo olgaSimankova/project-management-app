@@ -22,7 +22,7 @@ const sxStyles = {
   },
 };
 
-const TasksHeader = () => {
+const ColumnHeader = () => {
   const inputRef = useRef<HTMLDivElement>();
   const [itemName, setItemName] = useState('here will be title');
 
@@ -54,4 +54,4 @@ const TasksHeader = () => {
   );
 };
 
-export default TasksHeader;
+export default ColumnHeader;
