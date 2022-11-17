@@ -1,3 +1,13 @@
+
+export type Board = {
+  title: string;
+  description: string;
+};
+
+export type BoardsContainerProps = {
+  boards: Board[];
+};
+
 export interface IAuthFormFields extends ISignInFormFields {
   name: string;
   agree: boolean;
@@ -8,7 +18,7 @@ export interface ISignInFormFields {
   password: string;
 }
 
-export interface IUserAuthInfo extends ISignInFormFields{
+export interface IUserAuthInfo extends ISignInFormFields {
   name: string;
 }
 
@@ -23,7 +33,6 @@ export interface ISignInResponse {
 }
 
 export interface IUserState {
-  user: IUser | null;
   token: string | null;
 }
 
@@ -32,9 +41,4 @@ export interface Error {
     statusCode: number;
     message: string;
   };
-}
-
-export interface IErrorResponse {
-  error: Error;
-  isUnhandledError: boolean;
 }

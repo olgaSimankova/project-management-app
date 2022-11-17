@@ -4,6 +4,7 @@ export const LINKS = {
   search: '/search',
   boards: '/boards',
   board: '/board',
+  main: '/main',
   error: '/404',
   signIn: '/signin',
   signUp: '/signup',
