@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { LINKS } from 'constants/constants';
 import { Main } from 'Pages/Main';

@@ -27,8 +27,6 @@ import { signInSchema } from '../schema/signInSchema';
 import { setUserInfo } from '../features/authSlice';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { useGetUserInfo } from '../hooks/useUserInfo';
-import { useAppSelector } from '../hooks/useAppSelector';
 
 const Authentication = () => {
   const location = useLocation();
