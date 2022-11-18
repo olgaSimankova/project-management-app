@@ -82,7 +82,7 @@ const Authentication = () => {
     if (isAuthError) {
       toast.error((authError as Error).data.message);
     }
-  }, [isError, isAuthError]);
+  }, [isError, isAuthError, authError, error]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (!isLoading && isSignIn) {
