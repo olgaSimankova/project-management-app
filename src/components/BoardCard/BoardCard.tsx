@@ -7,6 +7,8 @@ export const BoardCard = ({
   title,
   _id,
   onClick,
+  isEditing,
+  isDeleting,
 }: BoardConfig & {
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
 }) => {
@@ -25,14 +27,20 @@ export const BoardCard = ({
         boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
       }}
     >
-      <CardControlButtons id={_id || ''} onClick={(e) => onClick(e, _id || '')} />
+      <CardControlButtons
+        id={_id || ''}
+        onClick={(e) => onClick(e, _id || '')}
+        isDeleting={!!isDeleting}
+        isEditing={!!isEditing}
+      />
       <Typography
         variant="h5"
         sx={{
-          height: '2rem',
+          height: '3rem',
           width: '11rem',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
+          paddingTop: '1rem',
         }}
       >
         {newTitle}

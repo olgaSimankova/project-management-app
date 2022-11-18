@@ -1,4 +1,5 @@
-import { Box, Button, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Box, Typography } from '@mui/material';
 import {
   useCreateBoardMutation,
   useDeleteBoardMutation,
@@ -31,6 +32,7 @@ export const Main = () => {
     isLoading: isGetting,
     isError: isGettingFailed,
     error: gettingError,
+    isFetching,
   } = useGetBoardsQuery();
   const [
     createBoard,
@@ -60,7 +62,6 @@ export const Main = () => {
     },
   ] = useDeleteBoardMutation();
 
-  const isLoading = isGetting || isCreating || isUpdating || isDeleting;
   const toastErrorDisplay = (error: ErrorObject) => {
     toast.error(error.data.message || 'Something went wrong');
   };
@@ -88,6 +89,10 @@ export const Main = () => {
     deletingError,
     creatingError,
   ]);
+
+  useEffect(() => {
+    dispatch(setBoardID(''));
+  }, [isFetching, dispatch]);
 
   useEffect(() => {
     if (createSuccess) {
@@ -119,12 +124,10 @@ export const Main = () => {
   const onDeleteBoard = () => {
     deleteBoard(boardID);
     dispatch(toggleConfirmationWindow(false));
-    dispatch(setBoardID(''));
   };
 
   const onExitConfirmationModal = () => {
     dispatch(toggleConfirmationWindow(false));
-    dispatch(setBoardID(''));
   };
 
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
@@ -132,13 +135,11 @@ export const Main = () => {
       case BoardFormOptions.create:
         createBoard({ title: JSON.stringify(values), owner: 'do_when_it_be_ready', users: [] });
         dispatch(toggleModalWindow(false));
-        dispatch(setBoardID(''));
         break;
       case BoardFormOptions.edit:
         const { users, owner, _id } = boards.filter(({ _id }) => _id === boardID)[0];
         dispatch(toggleModalWindow(false));
         updateBoard({ title: JSON.stringify(values), owner, users, _id });
-        dispatch(setBoardID(''));
         break;
       default:
     }
@@ -178,15 +179,21 @@ export const Main = () => {
       }}
     >
       <Typography variant="h4">Boards</Typography>
-      <Button
-        variant="contained"
+      <LoadingButton
+        loading={isCreating}
         color="success"
+        variant="contained"
         sx={{ width: 'fit-content' }}
         onClick={handleButtonClick}
       >
         Add board
-      </Button>
-      <BoardsContainer boards={boards} isLoading={isLoading} />
+      </LoadingButton>
+      <BoardsContainer
+        boards={boards}
+        isLoading={isFetching && isGetting}
+        isDeleting={isDeleting}
+        isEditing={isUpdating}
+      />
       {isModalOpen && (
         <BoardForm
           {...{

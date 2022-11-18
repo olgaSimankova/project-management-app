@@ -8,6 +8,8 @@ export type Board = {
 export type BoardsContainerProps = {
   boards: BoardConfig[];
   isLoading: boolean;
+  isDeleting?: boolean;
+  isEditing?: boolean;
 };
 
 export type BoardConfig = {
@@ -15,6 +17,8 @@ export type BoardConfig = {
   title: string;
   owner: string;
   users: string[];
+  isDeleting?: boolean;
+  isEditing?: boolean;
 };
 
 export interface IAuthFormFields extends ISignInFormFields {
@@ -85,6 +89,8 @@ export interface BoardFormProps {
 export interface CardControlsButtonProps {
   id: string;
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
+  isDeleting: boolean;
+  isEditing: boolean;
 }
 
 export interface BoardFormFields {

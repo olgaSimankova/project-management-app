@@ -11,7 +11,12 @@ import { useAppDispatch } from 'hooks/useAppDispatch';
 import React from 'react';
 import { BoardFormOptions, BoardsContainerProps } from 'types/types';
 
-export const BoardsContainer = ({ isLoading, boards }: BoardsContainerProps) => {
+export const BoardsContainer = ({
+  isLoading,
+  boards,
+  isDeleting,
+  isEditing,
+}: BoardsContainerProps) => {
   const dispatch = useAppDispatch();
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     const target = (e.target as HTMLElement).closest('.top-level') as HTMLElement;
@@ -34,7 +39,13 @@ export const BoardsContainer = ({ isLoading, boards }: BoardsContainerProps) => 
         <Spinner />
       ) : (
         boards.map((board) => (
-          <BoardCard key={`${board._id}`} {...board} onClick={handleCardClick} />
+          <BoardCard
+            key={`${board._id}`}
+            {...board}
+            onClick={handleCardClick}
+            isEditing={isEditing}
+            isDeleting={isDeleting}
+          />
         ))
       )}
     </Box>
