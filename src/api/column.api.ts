@@ -18,7 +18,7 @@ export const columnApi = createApi({
   }),
   endpoints: (build) => ({
     getColumns: build.query<IColumn[], string>({
-      query: (id: string) => ({
+      query: (id?: string) => ({
         url: `boards/${id}/columns`,
       }),
       providesTags: ['columns'],
