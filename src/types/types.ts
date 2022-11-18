@@ -1,4 +1,3 @@
-
 export type Board = {
   title: string;
   description: string;
@@ -41,4 +40,19 @@ export interface Error {
     statusCode: number;
     message: string;
   };
+}
+
+export interface IColumnRequestParams extends IGetColumnParams {
+  title: string;
+  order: number;
+}
+
+export interface IColumn extends IColumnRequestParams {
+  _id: string;
+  boardId: string;
+}
+
+export interface IGetColumnParams {
+  boardId: string;
+  columnId?: string;
 }
