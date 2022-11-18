@@ -79,6 +79,10 @@ export const themeLight = createTheme({
         h6: {
           color: '#4F4F4F',
         },
+        subtitle1: {
+          fontSize: '1.1rem',
+          fontWeight: 600,
+        },
       },
     },
   },

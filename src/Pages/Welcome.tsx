@@ -4,10 +4,10 @@ import {
   Button,
   Container,
   CssBaseline,
-  Grid,
   ThemeProvider,
   Typography,
 } from '@mui/material';
+import UsedTechnologies from 'components/UsedTechnologies/UsedTechnologies';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { themeLight } from 'theme/themeLight';
@@ -25,13 +25,11 @@ const styles = {
     height: 150,
     marginleft: 0,
     padding: 0,
-    // backgroundColor: 'transparent',
   },
   aboutUsCintainer: {
     width: 1150,
     margin: 0,
     padding: 25,
-    // backgroundColor: 'transparent',
   },
 };
 
@@ -86,29 +84,7 @@ export const Welcome = () => {
         </Container>
         <Container>
           <Typography variant="h2">{t('usedTechnologies')}</Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={8}>
-              <Box>React</Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box>TypeScript</Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box>React Router</Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box>Redux toolkit query</Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box>Material UI</Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box>i18next</Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box>React Hook Form</Box>
-            </Grid>
-          </Grid>
+          <UsedTechnologies />
         </Container>
       </main>
     </ThemeProvider>
