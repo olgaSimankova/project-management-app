@@ -1,12 +1,5 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  ThemeProvider,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Container, CssBaseline, ThemeProvider, Typography } from '@mui/material';
+import AboutUs from 'components/AboutUs/AboutUs';
 import UsedTechnologies from 'components/UsedTechnologies/UsedTechnologies';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -61,26 +54,7 @@ export const Welcome = () => {
         </Container>
         <Container style={styles.aboutUsCintainer} maxWidth={false}>
           <Typography variant="h2">{t('teamHeading')}</Typography>
-          <Box>
-            <Avatar src=""></Avatar>
-            <Typography variant="h4">{t('teamSasha')}</Typography>
-            <Typography variant="h6">{t('aboutSasha')}</Typography>
-          </Box>
-          <Box>
-            <Avatar src=""></Avatar>
-            <Typography variant="h4">{t('teamDima')}</Typography>
-            <Typography variant="h6">{t('aboutDima')}</Typography>
-          </Box>
-          <Box>
-            <Avatar src=""></Avatar>
-            <Typography variant="h4">{t('teamOlya')}</Typography>
-            <Typography variant="h6">{t('aboutOlya')}</Typography>
-          </Box>
-          <Box>
-            <Avatar src=""></Avatar>
-            <Typography variant="h4">{t('teamAleh')}</Typography>
-            <Typography variant="h6">{t('aboutAleh')}</Typography>
-          </Box>
+          <AboutUs />
         </Container>
         <Container>
           <Typography variant="h2">{t('usedTechnologies')}</Typography>
