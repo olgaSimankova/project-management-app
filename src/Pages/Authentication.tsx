@@ -19,18 +19,32 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useSignInMutation, useSignUpMutation } from '../api/auth.api';
-import { IAuthFormFields } from '../types/types';
+import { Error, IAuthFormFields } from '../types/types';
 import { useAuth } from '../hooks/useAuth';
 import { LINKS } from '../constants/constants';
 import { signUpSchema } from '../schema/signUpSchema';
 import { signInSchema } from '../schema/signInSchema';
+import { setUserInfo } from '../features/authSlice';
+import { toast } from 'react-toastify';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 
 const Authentication = () => {
   const location = useLocation();
   const isSignIn = location.pathname === LINKS.signIn;
   const authSchema = isSignIn ? signInSchema : signUpSchema;
-  const [signIn, { isLoading, isSuccess }] = useSignInMutation();
-  const [signUp, { isLoading: isAuthLoading, isSuccess: isAuthSuccess }] = useSignUpMutation();
+  const dispatch = useAppDispatch();
+  const [signIn, { data, isLoading, isSuccess, error, isError, reset: signInReset }] =
+    useSignInMutation();
+  const [
+    signUp,
+    {
+      isLoading: isAuthLoading,
+      isSuccess: isAuthSuccess,
+      error: authError,
+      isError: isAuthError,
+      reset: signUpReset,
+    },
+  ] = useSignUpMutation();
   const {
     register,
     handleSubmit,
@@ -42,19 +56,33 @@ const Authentication = () => {
   const navigate = useNavigate();
   const { token } = useAuth();
 
-  if (token) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (token) {
+      navigate(LINKS.welcome);
+    }
+  }, [token, navigate]);
 
   useEffect(() => {
-    if (isSuccess && isSignIn) {
-      navigate(LINKS.welcome);
+    if (isSuccess && isSignIn && data) {
+      toast.success('You successfully logged in');
+      dispatch(setUserInfo(data));
     }
 
     if (isAuthSuccess && !isSignIn) {
+      toast.success('You successfully create account');
       navigate(LINKS.signIn);
     }
-  }, [isSignIn, isSuccess, isAuthSuccess, navigate]);
+  }, [isSuccess, isSignIn, isAuthSuccess, navigate, dispatch, data]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error((error as Error).data.message);
+    }
+
+    if (isAuthError) {
+      toast.error((authError as Error).data.message);
+    }
+  }, [isError, isAuthError, authError, error]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (!isLoading && isSignIn) {
@@ -70,6 +98,8 @@ const Authentication = () => {
 
   const handleResetForm = () => {
     reset();
+    signUpReset();
+    signInReset();
   };
 
   return (
@@ -149,7 +179,9 @@ const Authentication = () => {
                   {"Don't have an account? Sign Up"}
                 </NavLink>
               ) : (
-                <NavLink to={LINKS.signIn}>Already have an account? Sign in</NavLink>
+                <NavLink to={LINKS.signIn} end>
+                  Already have an account? Sign in
+                </NavLink>
               )}
             </Grid>
           </Grid>

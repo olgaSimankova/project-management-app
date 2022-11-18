@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { LINKS } from 'constants/constants';
 import { Main } from 'Pages/Main';
 import { Error } from 'Pages/Error';
@@ -11,12 +10,13 @@ import Authentication from '../Pages/Authentication';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
-import { setToken } from '../features/authSlice';
+import { setUserInfo } from '../features/authSlice';
 import { store } from './state/store';
 
 export const App = () => {
   const token = JSON.parse(localStorage.getItem('token') || 'null');
-  store.dispatch(setToken(token));
+  const login = JSON.parse(localStorage.getItem('login') || 'null');
+  store.dispatch(setUserInfo({ token, login }));
   return (
     <>
       <CssBaseline>
