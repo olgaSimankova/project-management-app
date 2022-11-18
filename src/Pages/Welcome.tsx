@@ -15,9 +15,9 @@ const styles = {
   },
   heroContainer: {
     width: 800,
-    height: 150,
+    minHeight: 150,
     marginleft: 0,
-    padding: 0,
+    padding: '0 0 20px',
   },
   aboutUsCintainer: {
     width: 1150,
@@ -27,15 +27,7 @@ const styles = {
 };
 
 export const Welcome = () => {
-  const { t, i18n } = useTranslation();
-
-  // const changeToRUS = () => {
-  //   i18n.changeLanguage('ru');
-  // };
-
-  // const changeToRENG = () => {
-  //   i18n.changeLanguage('en');
-  // };
+  const { t } = useTranslation();
 
   return (
     <ThemeProvider theme={themeLight}>
