@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { LINKS } from 'constants/constants';
 import { Main } from 'Pages/Main';
 import { Error } from 'Pages/Error';
@@ -18,7 +17,6 @@ export const App = () => {
   const token = JSON.parse(localStorage.getItem('token') || 'null');
   const login = JSON.parse(localStorage.getItem('login') || 'null');
   store.dispatch(setUserInfo({ token, login }));
-
   return (
     <>
       <CssBaseline>
