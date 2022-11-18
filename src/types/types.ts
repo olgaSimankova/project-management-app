@@ -32,7 +32,13 @@ export interface ISignInResponse {
 }
 
 export interface IUserState {
+  user: IUser | null;
+  login: string | null;
   token: string | null;
+}
+
+export interface IUserSavingData extends ISignInResponse {
+  login: string;
 }
 
 export interface Error {

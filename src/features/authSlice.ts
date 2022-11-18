@@ -1,11 +1,13 @@
-import { IUserState } from '../types/types';
+import { IUser, IUserSavingData, IUserState } from '../types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IUserState = {
+  user: null,
+  login: null,
   token: null,
 };
 
-export const authSlice = createSlice({
+export const userSlice = createSlice({
   initialState,
   name: 'userSlice',
   reducers: {
@@ -13,13 +15,18 @@ export const authSlice = createSlice({
       localStorage.clear();
       return initialState;
     },
-    setToken: (state, action: PayloadAction<string>) => {
-      localStorage.setItem('token', JSON.stringify(action.payload));
-      state.token = action.payload;
+    setUserInfo: (state, action: PayloadAction<IUserSavingData>) => {
+      localStorage.setItem('token', JSON.stringify(action.payload.token));
+      localStorage.setItem('login', JSON.stringify(action.payload.login));
+      state.token = action.payload.token;
+      state.login = action.payload.login;
+    },
+    setUser: (state, action: PayloadAction<IUser | null>) => {
+      state.user = action.payload;
     },
   },
 });
 
-export default authSlice.reducer;
+export default userSlice.reducer;
 
-export const { logout, setToken } = authSlice.actions;
+export const { logout, setUserInfo, setUser } = userSlice.actions;

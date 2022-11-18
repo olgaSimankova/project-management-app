@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { LINKS } from 'constants/constants';
 import { Main } from 'Pages/Main';
@@ -11,18 +11,14 @@ import Authentication from '../Pages/Authentication';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
-import { setToken } from '../features/authSlice';
-import { useAppDispatch } from '../hooks/useAppDispatch';
 import Board from '../features/Board/Board';
+import { setUserInfo } from '../features/authSlice';
+import { store } from './state/store';
 
 export const App = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token') || 'null');
-
-    dispatch(setToken(token));
-  }, [dispatch]);
+  const token = JSON.parse(localStorage.getItem('token') || 'null');
+  const login = JSON.parse(localStorage.getItem('login') || 'null');
+  store.dispatch(setUserInfo({ token, login }));
 
   return (
     <>

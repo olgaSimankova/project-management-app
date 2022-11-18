@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
-import { ISignInFormFields, ISignInResponse, IUser, IUserAuthInfo } from '../types/types';
+import {
+  ISignInFormFields,
+  ISignInResponse,
+  IUser,
+  IUserAuthInfo,
+  IUserSavingData,
+} from '../types/types';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -13,14 +19,14 @@ export const authApi = createApi({
         body,
       }),
     }),
-    signIn: build.mutation<string, ISignInFormFields>({
+    signIn: build.mutation<IUserSavingData, ISignInFormFields>({
       query: (body: ISignInFormFields) => ({
         url: '/auth/signin',
         method: 'POST',
         body,
       }),
-      transformResponse(response: ISignInResponse) {
-        return response.token;
+      transformResponse(response: ISignInResponse, _, arg: ISignInFormFields) {
+        return { token: response.token, login: arg.login };
       },
     }),
   }),
