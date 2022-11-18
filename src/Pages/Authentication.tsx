@@ -24,7 +24,7 @@ import { useAuth } from '../hooks/useAuth';
 import { LINKS } from '../constants/constants';
 import { signUpSchema } from '../schema/signUpSchema';
 import { signInSchema } from '../schema/signInSchema';
-import { setToken } from '../features/authSlice';
+import { setUserInfo } from '../features/authSlice';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 
@@ -65,7 +65,7 @@ const Authentication = () => {
   useEffect(() => {
     if (isSuccess && isSignIn && data) {
       toast.success('You successfully logged in');
-      dispatch(setToken(data));
+      dispatch(setUserInfo(data));
     }
 
     if (isAuthSuccess && !isSignIn) {
