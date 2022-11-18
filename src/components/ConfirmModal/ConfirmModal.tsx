@@ -18,7 +18,7 @@ export const ConfirmModal = ({ question, onYesClick, onNoClick }: ConfirmModalPr
           background: '#333333',
           opacity: '0.5',
         }}
-      ></Box>
+      />
       <Box
         sx={{
           display: 'flex',

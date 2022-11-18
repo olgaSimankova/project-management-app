@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from 'App/state/store';
-import { toast } from 'react-toastify';
-import { BoardConfig, IErrorResponse } from 'types/types';
+import { BoardConfig } from 'types/types';
 import { BASE_URL } from '../constants/constants';
 
 export const mainApi = createApi({
@@ -31,14 +30,6 @@ export const mainApi = createApi({
         body,
       }),
       invalidatesTags: ['boards'],
-      async onQueryStarted(_, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          toast.success('New board has been created!');
-        } catch (error) {
-          toast.error((error as IErrorResponse).error.data.message);
-        }
-      },
     }),
     deleteBoard: build.mutation<BoardConfig, unknown>({
       query: (board_id: string) => ({
@@ -46,14 +37,6 @@ export const mainApi = createApi({
         method: 'DELETE',
       }),
       invalidatesTags: ['boards'],
-      async onQueryStarted(_, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          toast.success('Board has been deleted!');
-        } catch (error) {
-          toast.error((error as IErrorResponse).error.data.message);
-        }
-      },
     }),
     updateBoard: build.mutation<BoardConfig, BoardConfig>({
       query: (body: BoardConfig) => {
@@ -66,14 +49,6 @@ export const mainApi = createApi({
         };
       },
       invalidatesTags: ['boards'],
-      async onQueryStarted(_, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          toast.success('Board has been updated!');
-        } catch (error) {
-          toast.error((error as IErrorResponse).error.data.message);
-        }
-      },
     }),
   }),
 });

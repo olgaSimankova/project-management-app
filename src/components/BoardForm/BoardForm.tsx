@@ -30,7 +30,7 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
           background: '#333333',
           opacity: '0.5',
         }}
-      ></Box>
+      />
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -80,7 +80,7 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
           placeholder="Description"
           label="Description"
           multiline
-          style={{ width: '80%' }}
+          sx={{ width: '80%' }}
         />
         <Button type="submit" color="success" variant="contained">
           {option}

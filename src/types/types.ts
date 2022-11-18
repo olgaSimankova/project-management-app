@@ -96,3 +96,8 @@ export interface ConfirmModalProps {
   onYesClick: () => void;
   onNoClick: () => void;
 }
+
+export interface ErrorObject {
+  status: number;
+  data: { message: string };
+}

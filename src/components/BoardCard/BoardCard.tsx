@@ -40,11 +40,13 @@ export const BoardCard = ({
       <Typography
         sx={{
           height: '3rem',
+          width: '16rem',
           display: '-webkit-box',
           boxOrient: 'vertical',
-          lineClamp: '3',
+          lineClamp: '2',
           wordBreak: 'break-all',
           overflow: 'hidden',
+          textOverflow: 'ellipsis',
         }}
       >
         {description}
