@@ -3,8 +3,8 @@ import {
   Box,
   Button,
   Container,
+  CssBaseline,
   Grid,
-  Paper,
   ThemeProvider,
   Typography,
 } from '@mui/material';
@@ -25,22 +25,30 @@ const styles = {
     height: 150,
     marginleft: 0,
     padding: 0,
+    // backgroundColor: 'transparent',
+  },
+  aboutUsCintainer: {
+    width: 1150,
+    margin: 0,
+    padding: 25,
+    // backgroundColor: 'transparent',
   },
 };
 
 export const Welcome = () => {
   const { t, i18n } = useTranslation();
 
-  const changeToRUS = () => {
-    i18n.changeLanguage('ru');
-  };
+  // const changeToRUS = () => {
+  //   i18n.changeLanguage('ru');
+  // };
 
-  const changeToRENG = () => {
-    i18n.changeLanguage('en');
-  };
+  // const changeToRENG = () => {
+  //   i18n.changeLanguage('en');
+  // };
 
   return (
     <ThemeProvider theme={themeLight}>
+      <CssBaseline />
       <main>
         <Container style={styles.paperContainer} maxWidth={false}>
           <Typography variant="h1" gutterBottom>
@@ -53,7 +61,7 @@ export const Welcome = () => {
             <Button variant="contained">{t('heroAboutBtn')}</Button>
           </Container>
         </Container>
-        <Container maxWidth={false}>
+        <Container style={styles.aboutUsCintainer} maxWidth={false}>
           <Typography variant="h2">{t('teamHeading')}</Typography>
           <Box>
             <Avatar src=""></Avatar>

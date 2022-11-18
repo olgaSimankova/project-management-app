@@ -1,6 +1,20 @@
 import { createTheme } from '@mui/material';
 
 export const themeLight = createTheme({
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
   palette: {
     mode: 'light',
     primary: {
@@ -17,6 +31,13 @@ export const themeLight = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: '#f5f5f5',
+        },
+      },
+    },
     MuiContainer: {
       styleOverrides: {
         root: {
@@ -40,17 +61,23 @@ export const themeLight = createTheme({
     MuiTypography: {
       styleOverrides: {
         h1: {
-          fontFamily: 'Paytone One',
           fontWeight: 600,
           lineHeight: 1.27,
           letterSpacing: '-0.06em',
           color: 'white',
           textAlign: 'left',
         },
-        h5: {
-          fontFamily: 'Signika',
+        h2: {
+          color: '#577DB8',
           fontWeight: 600,
+          lineHeight: 1.27,
+        },
+        h5: {
+          fontWeight: 300,
           color: 'white',
+        },
+        h6: {
+          color: '#4F4F4F',
         },
       },
     },
