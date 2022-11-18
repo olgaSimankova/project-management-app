@@ -20,7 +20,15 @@ const GithubLine = ({ nickname }: { nickname: string }) => {
 
 export const GithubPanel = ({ nicknames }: { nicknames: string[] }) => {
   return (
-    <Box sx={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        gap: '1.5rem',
+        flexWrap: 'wrap',
+        padding: '5px',
+        justifyContent: 'center',
+      }}
+    >
       {nicknames.map((nickname) => (
         <GithubLine key={`github-${nickname}`} nickname={nickname} />
       ))}

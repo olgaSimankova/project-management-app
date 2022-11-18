@@ -13,7 +13,7 @@ const UserMenu = ({ anchorEl, onClose }: IUserMenu) => {
   const dispatch = useAppDispatch();
 
   const handleClose = (event: React.MouseEvent) => {
-    const target = event.target as HTMLElement;
+    const target = event.currentTarget as HTMLElement;
 
     if (target.id === LOGOUT) {
       dispatch(logout());

@@ -9,10 +9,11 @@ export const Footer = () => {
     <Box
       sx={{
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         justifyContent: 'space-around',
-        gap: '3rem',
+        columnGap: '3rem',
         flexWrap: 'wrap',
+        height: '10vh',
       }}
     >
       <Link href={REACT_COURSE_LINK}>
