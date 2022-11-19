@@ -1,3 +1,5 @@
+import { SelectChangeEvent } from '@mui/material';
+import { ReactNode } from 'react';
 import { FieldValues } from 'react-hook-form';
 
 export type Board = {
@@ -19,6 +21,8 @@ export type BoardConfig = {
   users: string[];
   isDeleting?: boolean;
   isEditing?: boolean;
+  onChangeAssignee?: ((event: SelectChangeEvent<string[]>, child: ReactNode) => void) | undefined;
+  assignees?: string[];
 };
 
 export interface IAuthFormFields extends ISignInFormFields {
@@ -72,6 +76,7 @@ export interface MainState {
   boardID: string;
   modalOption: BoardFormOptions;
   isConfirmationOpen: boolean;
+  assignees: string[];
 }
 
 export enum BoardFormOptions {
@@ -118,4 +123,10 @@ export interface ColumnConfig {
   title: string;
   order: number;
   boardId: string;
+}
+
+export interface AssigneeProps {
+  all: string[];
+  selected: string[];
+  handleChange: ((event: SelectChangeEvent<string[]>, child: ReactNode) => void) | undefined;
 }

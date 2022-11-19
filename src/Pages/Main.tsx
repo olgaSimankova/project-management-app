@@ -17,6 +17,7 @@ import {
   toggleModalWindow,
 } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
@@ -26,7 +27,7 @@ import { BoardFormOptions, ErrorObject } from 'types/types';
 export const Main = () => {
   const dispatch = useAppDispatch();
   const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
-
+  const { user } = useAuth();
   const { data: boards = [], isLoading: isGetting, isFetching } = useGetBoardsQuery();
 
   const [
@@ -113,7 +114,7 @@ export const Main = () => {
   const onExitConfirmationModal = () => {
     dispatch(toggleConfirmationWindow(false));
   };
-
+  console.log(user);
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
     switch (modalOption) {
       case BoardFormOptions.create:

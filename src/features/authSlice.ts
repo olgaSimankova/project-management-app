@@ -16,12 +16,15 @@ export const userSlice = createSlice({
       return initialState;
     },
     setUserInfo: (state, action: PayloadAction<IUserSavingData>) => {
-      localStorage.setItem('token', JSON.stringify(action.payload.token));
-      localStorage.setItem('login', JSON.stringify(action.payload.login));
+      localStorage.setItem(
+        'credentials',
+        JSON.stringify({ token: action.payload.token, login: action.payload.login })
+      );
       state.token = action.payload.token;
       state.login = action.payload.login;
     },
     setUser: (state, action: PayloadAction<IUser | null>) => {
+      localStorage.setItem('user', JSON.stringify(action.payload));
       state.user = action.payload;
     },
   },

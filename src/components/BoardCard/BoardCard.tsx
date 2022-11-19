@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import { Assignees } from 'components/Assignees/Assignees';
 import { CardControlButtons } from 'components/CardControlButtons/CardControlButtons';
 import React from 'react';
 import { BoardConfig } from 'types/types';
@@ -9,6 +10,8 @@ export const BoardCard = ({
   onClick,
   isEditing,
   isDeleting,
+  assignees,
+  onChangeAssignee,
 }: BoardConfig & {
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
 }) => {
@@ -20,7 +23,7 @@ export const BoardCard = ({
         display: 'flex',
         flexDirection: 'column',
         width: '18rem',
-        height: '8rem',
+        height: '12rem',
         padding: '1rem',
         border: 'solid 0.1rem black',
         borderRadius: '1rem',
@@ -59,6 +62,11 @@ export const BoardCard = ({
       >
         {description}
       </Typography>
+      <Assignees
+        all={['1', '2', '3']}
+        selected={assignees ? assignees : []}
+        handleChange={onChangeAssignee}
+      />
     </Box>
   );
 };

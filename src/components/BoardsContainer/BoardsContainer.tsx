@@ -1,14 +1,16 @@
-import { Box } from '@mui/material';
+import { Box, SelectChangeEvent } from '@mui/material';
 import { BoardCard } from 'components/BoardCard/BoardCard';
 import { Spinner } from 'components/Spinner/Spinner';
 import {
+  setAssignees,
   setBoardID,
   setModalOption,
   toggleConfirmationWindow,
   toggleModalWindow,
 } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import React from 'react';
+import { useMain } from 'hooks/useMain';
+import React, { ReactNode } from 'react';
 import { BoardFormOptions, BoardsContainerProps } from 'types/types';
 
 export const BoardsContainer = ({
@@ -18,6 +20,8 @@ export const BoardsContainer = ({
   isEditing,
 }: BoardsContainerProps) => {
   const dispatch = useAppDispatch();
+  const { assignees } = useMain();
+
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     const target = (e.target as HTMLElement).closest('.top-level') as HTMLElement;
     switch (target?.dataset.id) {
@@ -33,6 +37,14 @@ export const BoardsContainer = ({
       default:
     }
   };
+
+  const onChangeAssignee = (event: SelectChangeEvent<string[]>, child: ReactNode) => {
+    const {
+      target: { value },
+    } = event;
+    console.log(value);
+    dispatch(setAssignees(typeof value === 'string' ? value.split(',') : value));
+  };
   return (
     <Box sx={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', width: '100%', height: '100%' }}>
       {isLoading ? (
@@ -45,6 +57,8 @@ export const BoardsContainer = ({
             onClick={handleCardClick}
             isEditing={isEditing}
             isDeleting={isDeleting}
+            onChangeAssignee={onChangeAssignee}
+            assignees={assignees}
           />
         ))
       )}

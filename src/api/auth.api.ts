@@ -7,6 +7,8 @@ import {
   IUserAuthInfo,
   IUserSavingData,
 } from '../types/types';
+import { setUser, setUserInfo } from '../features/authSlice';
+import { userApi } from './user.api';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -27,6 +29,20 @@ export const authApi = createApi({
       }),
       transformResponse(response: ISignInResponse, _, arg: ISignInFormFields) {
         return { token: response.token, login: arg.login };
+      },
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled.then((data) => dispatch(setUserInfo(data.data)));
+          const { data: users } = await dispatch(userApi.endpoints.getUsers.initiate());
+          const { login } = body;
+          const searchUser = users?.find((user: IUser) => user.login === login);
+
+          if (searchUser) {
+            dispatch(setUser(searchUser));
+          }
+        } catch (error) {
+          throw new Error();
+        }
       },
     }),
   }),
