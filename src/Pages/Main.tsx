@@ -27,13 +27,8 @@ export const Main = () => {
   const dispatch = useAppDispatch();
   const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
 
-  const {
-    data: boards = [],
-    isLoading: isGetting,
-    isError: isGettingFailed,
-    error: gettingError,
-    isFetching,
-  } = useGetBoardsQuery();
+  const { data: boards = [], isLoading: isGetting, isFetching } = useGetBoardsQuery();
+
   const [
     createBoard,
     {
@@ -41,6 +36,7 @@ export const Main = () => {
       isError: isCreatingFailed,
       error: creatingError,
       isSuccess: createSuccess,
+      reset: createBordReset,
     },
   ] = useCreateBoardMutation();
   const [
@@ -50,6 +46,7 @@ export const Main = () => {
       isError: isUpdatingFailed,
       error: updatingError,
       isSuccess: updateSuccess,
+      reset: updateBordReset,
     },
   ] = useUpdateBoardMutation();
   const [
@@ -59,58 +56,45 @@ export const Main = () => {
       isError: isDeletingFailed,
       error: deletingError,
       isSuccess: deleteSuccess,
+      reset: deleteBordReset,
     },
   ] = useDeleteBoardMutation();
 
   const toastErrorDisplay = (error: ErrorObject) => {
-    toast.error(error.data.message || 'Something went wrong');
+    toast.error(error?.data?.message || 'Something went wrong');
   };
 
-  useEffect(() => {
-    if (isGettingFailed) {
-      toastErrorDisplay(gettingError as ErrorObject);
-    }
-    if (isUpdatingFailed) {
-      toastErrorDisplay(updatingError as ErrorObject);
-    }
-    if (isDeletingFailed) {
-      toastErrorDisplay(deletingError as ErrorObject);
-    }
-    if (isCreatingFailed) {
-      toastErrorDisplay(creatingError as ErrorObject);
-    }
-  }, [
-    isCreatingFailed,
-    isDeletingFailed,
-    isUpdatingFailed,
-    isGettingFailed,
-    gettingError,
-    updatingError,
-    deletingError,
-    creatingError,
-  ]);
+  if (isUpdatingFailed) {
+    toastErrorDisplay(updatingError as ErrorObject);
+    updateBordReset();
+  }
+  if (isDeletingFailed) {
+    toastErrorDisplay(deletingError as ErrorObject);
+    deleteBordReset();
+  }
+  if (isCreatingFailed) {
+    toastErrorDisplay(creatingError as ErrorObject);
+    createBordReset();
+  }
+
+  if (createSuccess) {
+    toast.success('Board has been created!');
+    createBordReset();
+  }
+
+  if (updateSuccess) {
+    toast.success('Board has been updated!');
+    updateBordReset();
+  }
+
+  if (deleteSuccess) {
+    toast.success('Board has been deleted!');
+    deleteBordReset();
+  }
 
   useEffect(() => {
     dispatch(setBoardID(''));
   }, [isFetching, dispatch]);
-
-  useEffect(() => {
-    if (createSuccess) {
-      toast.success('Board has been created!');
-    }
-  }, [createSuccess]);
-
-  useEffect(() => {
-    if (updateSuccess) {
-      toast.success('Board has been updated!');
-    }
-  }, [updateSuccess]);
-
-  useEffect(() => {
-    if (deleteSuccess) {
-      toast.success('Board has been deleted!');
-    }
-  }, [deleteSuccess]);
 
   const { title, description } = JSON.parse(
     boards.filter((board) => board._id === boardID)[0]?.title || '{}'

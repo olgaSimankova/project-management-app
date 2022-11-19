@@ -112,3 +112,10 @@ export interface ErrorObject {
   status: number;
   data: { message: string };
 }
+
+export interface ColumnConfig {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+}
