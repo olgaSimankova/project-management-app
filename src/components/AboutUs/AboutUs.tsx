@@ -28,7 +28,7 @@ const AboutUs = () => {
         <Box>
           <Avatar src={sasha} sx={styles.avatar}></Avatar>
           <Typography variant="h4" sx={{ textAlign: 'center' }}>
-            {t('teamSasha')}
+            {t('nameSasha')}
           </Typography>
         </Box>
         <Typography variant="h6">{t('aboutSasha')}</Typography>
@@ -38,7 +38,7 @@ const AboutUs = () => {
         <Box>
           <Avatar src={dima} sx={styles.avatar}></Avatar>
           <Typography variant="h4" sx={{ textAlign: 'center' }}>
-            {t('teamDima')}
+            {t('nameDima')}
           </Typography>
         </Box>
       </Box>
@@ -46,7 +46,7 @@ const AboutUs = () => {
         <Box>
           <Avatar src={olya} sx={styles.avatar}></Avatar>
           <Typography variant="h4" sx={{ textAlign: 'center' }}>
-            {t('teamOlya')}
+            {t('nameOlya')}
           </Typography>
         </Box>
         <Typography variant="h6">{t('aboutOlya')}</Typography>
@@ -56,7 +56,7 @@ const AboutUs = () => {
         <Box>
           <Avatar src={aleh} sx={styles.avatar}></Avatar>
           <Typography variant="h4" sx={{ textAlign: 'center' }}>
-            {t('teamAleh')}
+            {t('nameAleh')}
           </Typography>
         </Box>
       </Box>
