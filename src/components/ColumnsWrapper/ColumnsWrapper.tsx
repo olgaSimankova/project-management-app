@@ -10,7 +10,6 @@ import ColumnAddModal from '../ColumnAddModal/ColumnAddModal';
 
 const boxStyles = {
   display: 'flex',
-  width: '100%',
   flexWrap: 'nowrap',
   gap: '15px',
   overflow: 'auto',
@@ -18,10 +17,11 @@ const boxStyles = {
 };
 
 const ColumnsWrapper = () => {
-  const [open, setOpen] = useState(false);
-  const [buttonId, setAButtonId] = useState('');
   const { boardId } = useParams();
   const { data, isLoading } = useGetColumnsQuery(boardId as string);
+
+  const [open, setOpen] = useState(false);
+  const [buttonId, setAButtonId] = useState('');
 
   const handleClose = () => setOpen(false);
   const handleOpen = (id: string) => {
@@ -29,7 +29,9 @@ const ColumnsWrapper = () => {
     setAButtonId(id);
   };
 
-  const columns = data?.map((column: IColumn) => <Column key={column._id} onClick={handleOpen} />);
+  const columns = data?.map((column: IColumn, idx) => (
+    <Column key={column._id} order={idx} onClick={handleOpen} />
+  ));
 
   if (isLoading) {
     return <Spinner />;
@@ -39,7 +41,13 @@ const ColumnsWrapper = () => {
     <Box sx={boxStyles}>
       {columns}
       <AddColumnButton onClick={handleOpen} />
-      <ColumnAddModal pressedButtonId={buttonId} open={open} onClose={handleClose} />
+      <ColumnAddModal
+        boardId={boardId}
+        pressedButtonId={buttonId}
+        open={open}
+        columnsCount={columns?.length || 0}
+        onClose={handleClose}
+      />
     </Box>
   );
 };

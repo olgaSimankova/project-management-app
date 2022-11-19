@@ -12,7 +12,7 @@ const AddTasksButtonStyles = {
     },
   },
   marginTop: '20px',
-  width: '290px',
+  minWidth: '200px',
   height: '39px',
 };
 
