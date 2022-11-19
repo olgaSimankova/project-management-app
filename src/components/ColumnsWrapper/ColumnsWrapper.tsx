@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import Column from '../Column/Column';
-import AddTasksButton from '../AddTasksButton/AddTasksButton';
+import AddColumnButton from '../AddColumnButton/AddColumnButton';
 import { useParams } from 'react-router-dom';
 import { useGetColumnsQuery } from '../../api/column.api';
 import { IColumn } from '../../types/types';
 import { Spinner } from '../Spinner/Spinner';
+import ColumnAddModal from '../ColumnAddModal/ColumnAddModal';
 
 const boxStyles = {
   display: 'flex',
@@ -17,8 +18,12 @@ const boxStyles = {
 };
 
 const ColumnsWrapper = () => {
+  const [open, setOpen] = useState(false);
   const { boardId } = useParams();
   const { data, isLoading } = useGetColumnsQuery(boardId as string);
+
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
 
   const columns = data?.map((column: IColumn) => <Column key={column._id} />);
 
@@ -29,7 +34,8 @@ const ColumnsWrapper = () => {
   return (
     <Box sx={boxStyles}>
       {columns}
-      <AddTasksButton />
+      <AddColumnButton onClick={handleOpen} />
+      <ColumnAddModal open={open} onClose={handleClose} />
     </Box>
   );
 };

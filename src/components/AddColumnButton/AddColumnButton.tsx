@@ -16,12 +16,16 @@ const AddTasksButtonStyles = {
   height: '39px',
 };
 
-const AddTasksButton = () => {
+interface AddColumnButtonProps {
+  onClick: () => void;
+}
+
+const AddColumnButton = ({ onClick }: AddColumnButtonProps) => {
   return (
-    <Button sx={AddTasksButtonStyles} variant="text" startIcon={<AddIcon />}>
+    <Button onClick={onClick} sx={AddTasksButtonStyles} variant="text" startIcon={<AddIcon />}>
       Add column
     </Button>
   );
 };
 
-export default AddTasksButton;
+export default AddColumnButton;
