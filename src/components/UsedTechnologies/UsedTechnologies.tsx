@@ -24,13 +24,13 @@ const UsedTechnologies = () => {
 
   return (
     <>
-      <Grid container spacing={2} style={styles.container}>
+      <Grid container spacing={2} sx={styles.container}>
         <Grid item lg={2}>
           <Link href="https://reactjs.org/" target="_blank" underline="hover">
-            <Card style={styles.root} variant="outlined">
+            <Card sx={styles.root} variant="outlined">
               <CardMedia component="img" image={reactIcon} title="React" />
               <CardContent>
-                <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   React
                 </Typography>
               </CardContent>
@@ -39,10 +39,10 @@ const UsedTechnologies = () => {
         </Grid>
         <Grid item lg={2}>
           <Link href="https://www.typescriptlang.org/" target="_blank" underline="hover">
-            <Card style={styles.root} variant="outlined">
+            <Card sx={styles.root} variant="outlined">
               <CardMedia component="img" image={TSIcon} title="React" />
               <CardContent>
-                <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   TypeScript
                 </Typography>
               </CardContent>
@@ -51,10 +51,10 @@ const UsedTechnologies = () => {
         </Grid>
         <Grid item lg={2}>
           <Link href="https://reactrouter.com/en/main" target="_blank" underline="hover">
-            <Card style={styles.root} variant="outlined">
+            <Card sx={styles.root} variant="outlined">
               <CardMedia component="img" image={ReactRouterIcon} title="React" />
               <CardContent>
-                <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   React Router
                 </Typography>
               </CardContent>
@@ -63,10 +63,10 @@ const UsedTechnologies = () => {
         </Grid>
         <Grid item lg={2}>
           <Link href="https://react-redux.js.org/" target="_blank" underline="hover">
-            <Card style={styles.root} variant="outlined">
+            <Card sx={styles.root} variant="outlined">
               <CardMedia component="img" image={ReduxIcon} title="React" />
-              <CardContent style={{ paddingInline: 0 }}>
-                <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+              <CardContent sx={{ paddingInline: 0 }}>
+                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   Redux Toolkit
                 </Typography>
               </CardContent>
@@ -75,10 +75,10 @@ const UsedTechnologies = () => {
         </Grid>
         <Grid item lg={2}>
           <Link href="https://mui.com/" target="_blank" underline="hover">
-            <Card style={styles.root} variant="outlined">
+            <Card sx={styles.root} variant="outlined">
               <CardMedia component="img" image={MUIIcon} title="React" />
               <CardContent>
-                <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   Material UI
                 </Typography>
               </CardContent>
@@ -87,10 +87,10 @@ const UsedTechnologies = () => {
         </Grid>
         <Grid item lg={2}>
           <Link href="https://www.i18next.com/" target="_blank" underline="hover">
-            <Card style={styles.root} variant="outlined">
+            <Card sx={styles.root} variant="outlined">
               <CardMedia component="img" image={i18nextIcon} title="React" />
               <CardContent>
-                <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   i18next
                 </Typography>
               </CardContent>
@@ -99,10 +99,10 @@ const UsedTechnologies = () => {
         </Grid>
         <Grid item lg={2}>
           <Link href="https://react-hook-form.com/" target="_blank" underline="hover">
-            <Card style={styles.root} variant="outlined">
+            <Card sx={styles.root} variant="outlined">
               <CardMedia component="img" image={ReactHookFormIcon} title="React" />
-              <CardContent style={{ paddingInline: 0 }}>
-                <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+              <CardContent sx={{ paddingInline: 0 }}>
+                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
                   React Hook Form
                 </Typography>
               </CardContent>

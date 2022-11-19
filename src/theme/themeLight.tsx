@@ -42,6 +42,7 @@ export const themeLight = createTheme({
       styleOverrides: {
         root: {
           margin: 0,
+          paddingTop: 0,
         },
       },
     },

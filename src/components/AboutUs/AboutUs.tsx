@@ -24,37 +24,37 @@ const AboutUs = () => {
 
   return (
     <>
-      <Box style={styles.flexBox}>
+      <Box sx={styles.flexBox}>
         <Box>
-          <Avatar src={sasha} style={styles.avatar}></Avatar>
+          <Avatar src={sasha} sx={styles.avatar}></Avatar>
           <Typography variant="h4" sx={{ textAlign: 'center' }}>
             {t('teamSasha')}
           </Typography>
         </Box>
         <Typography variant="h6">{t('aboutSasha')}</Typography>
       </Box>
-      <Box style={styles.flexBox}>
+      <Box sx={styles.flexBox}>
         <Typography variant="h6">{t('aboutDima')}</Typography>
         <Box>
-          <Avatar src={dima} style={styles.avatar}></Avatar>
+          <Avatar src={dima} sx={styles.avatar}></Avatar>
           <Typography variant="h4" sx={{ textAlign: 'center' }}>
             {t('teamDima')}
           </Typography>
         </Box>
       </Box>
-      <Box style={styles.flexBox}>
+      <Box sx={styles.flexBox}>
         <Box>
-          <Avatar src={olya} style={styles.avatar}></Avatar>
+          <Avatar src={olya} sx={styles.avatar}></Avatar>
           <Typography variant="h4" sx={{ textAlign: 'center' }}>
             {t('teamOlya')}
           </Typography>
         </Box>
         <Typography variant="h6">{t('aboutOlya')}</Typography>
       </Box>
-      <Box style={styles.flexBox}>
+      <Box sx={styles.flexBox}>
         <Typography variant="h6">{t('aboutAleh')}</Typography>
         <Box>
-          <Avatar src={aleh} style={styles.avatar}></Avatar>
+          <Avatar src={aleh} sx={styles.avatar}></Avatar>
           <Typography variant="h4" sx={{ textAlign: 'center' }}>
             {t('teamAleh')}
           </Typography>

@@ -22,7 +22,7 @@ const LanguageMenu = ({ anchorEl, onClose }: ILanguageMenu) => {
 
   return (
     <Menu
-      sx={{ mt: '45px' }}
+      sx={{ mt: '2.5rem' }}
       id="lang-menu"
       anchorEl={anchorEl}
       anchorOrigin={{
