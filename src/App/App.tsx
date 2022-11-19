@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { LINKS } from 'constants/constants';
 import { Main } from 'Pages/Main';
 import { Error } from 'Pages/Error';
