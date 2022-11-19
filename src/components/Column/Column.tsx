@@ -38,18 +38,19 @@ const StyledBoardItem = styled(Paper)(() => ({
 }));
 
 interface IColumnProps {
+  id: string;
   order: number;
   onClick: (id: string) => void;
 }
 
-const Column = ({ order, onClick }: IColumnProps) => {
+const Column = ({ id, order, onClick }: IColumnProps) => {
   const handleButtonClick = (e: React.MouseEvent) => {
     const target = e.currentTarget as HTMLElement;
     onClick(target.id);
   };
   return (
     <StyledBoardItem id={`${order}`} elevation={5}>
-      <ColumnHeader />
+      <ColumnHeader columnId={id} />
       <Divider sx={dividerStyles} />
       <List sx={{ p: '2px', overflowY: 'auto' }}>
         <Task />

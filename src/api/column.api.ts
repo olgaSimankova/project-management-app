@@ -33,12 +33,12 @@ export const columnApi = createApi({
     }),
     getColumn: build.query<IColumn, IGetColumnParams>({
       query: ({ boardId, columnId }) => ({
-        url: `boards/${boardId}/columns${columnId}`,
+        url: `boards/${boardId}/columns/${columnId}`,
       }),
     }),
     updateColumn: build.mutation<IColumn, IColumnRequestParams>({
       query: ({ boardId, columnId, title, order }) => ({
-        url: `boards/${boardId}/columns;${columnId}`,
+        url: `boards/${boardId}/columns/${columnId}`,
         method: 'PUT',
         body: { title, order },
       }),
@@ -46,7 +46,7 @@ export const columnApi = createApi({
     }),
     deleteColumn: build.mutation<IColumn, IGetColumnParams>({
       query: ({ boardId, columnId }) => ({
-        url: `boards/${boardId}/columns;${columnId}`,
+        url: `boards/${boardId}/columns/${columnId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['columns'],

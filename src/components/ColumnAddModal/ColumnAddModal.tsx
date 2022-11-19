@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, Button, CircularProgress, Modal, Stack, TextField, Typography } from '@mui/material';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -44,7 +44,7 @@ const ColumnAddModal = ({
 }: ColumnAddModalProps) => {
   const isAddTask = pressedButtonId === BOARD_BUTTONS.ADD_TASK;
   const addModalSchema = isAddTask ? addTaskSchema : addColumnSchema;
-  const [createColumn, { data: fetchData, isLoading }] = useCreateColumnMutation();
+  const [createColumn, { isSuccess, isLoading, reset: fetchReset }] = useCreateColumnMutation();
 
   const {
     register,
@@ -63,9 +63,10 @@ const ColumnAddModal = ({
     createColumn({ title, order: columnsCount, boardId });
   };
 
-  useEffect(() => {
+  if (isSuccess) {
     handleClose();
-  }, [fetchData]);
+    fetchReset();
+  }
 
   return (
     <Modal

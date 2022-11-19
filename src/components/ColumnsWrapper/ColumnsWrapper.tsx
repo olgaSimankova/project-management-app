@@ -30,7 +30,7 @@ const ColumnsWrapper = () => {
   };
 
   const columns = data?.map((column: IColumn, idx) => (
-    <Column key={column._id} order={idx} onClick={handleOpen} />
+    <Column key={column._id} id={column._id} order={idx} onClick={handleOpen} />
   ));
 
   if (isLoading) {
