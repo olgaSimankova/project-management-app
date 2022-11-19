@@ -17,12 +17,23 @@ const AddTasksButtonStyles = {
 };
 
 interface AddColumnButtonProps {
-  onClick: () => void;
+  onClick: (id: string) => void;
 }
 
 const AddColumnButton = ({ onClick }: AddColumnButtonProps) => {
+  const handleButtonClick = (e: React.MouseEvent) => {
+    const target = e.currentTarget as HTMLElement;
+    onClick(target.id);
+  };
+
   return (
-    <Button onClick={onClick} sx={AddTasksButtonStyles} variant="text" startIcon={<AddIcon />}>
+    <Button
+      id="add-column"
+      onClick={(e) => handleButtonClick(e)}
+      sx={AddTasksButtonStyles}
+      variant="text"
+      startIcon={<AddIcon />}
+    >
       Add column
     </Button>
   );

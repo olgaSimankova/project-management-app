@@ -116,3 +116,8 @@ export interface ErrorObject {
   status: number;
   data: { message: string };
 }
+
+export enum BOARD_BUTTONS {
+  ADD_TASK = 'add-task',
+  ADD_COLUMN = 'add-column',
+}

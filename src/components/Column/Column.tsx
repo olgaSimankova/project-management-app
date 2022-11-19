@@ -37,7 +37,15 @@ const StyledBoardItem = styled(Paper)(() => ({
   borderRadius: '10px',
 }));
 
-const Column = () => {
+interface IColumnProps {
+  onClick: (id: string) => void;
+}
+
+const Column = ({ onClick }: IColumnProps) => {
+  const handleButtonClick = (e: React.MouseEvent) => {
+    const target = e.currentTarget as HTMLElement;
+    onClick(target.id);
+  };
   return (
     <StyledBoardItem elevation={5}>
       <ColumnHeader />
@@ -48,7 +56,13 @@ const Column = () => {
         <Task />
         <Task />
       </List>
-      <Button sx={addButtonStyles} variant="text" startIcon={<AddIcon />}>
+      <Button
+        id="add-task"
+        onClick={(e) => handleButtonClick(e)}
+        sx={addButtonStyles}
+        variant="text"
+        startIcon={<AddIcon />}
+      >
         Add task
       </Button>
     </StyledBoardItem>

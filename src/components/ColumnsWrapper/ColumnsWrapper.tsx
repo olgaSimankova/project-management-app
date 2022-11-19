@@ -19,13 +19,17 @@ const boxStyles = {
 
 const ColumnsWrapper = () => {
   const [open, setOpen] = useState(false);
+  const [buttonId, setAButtonId] = useState('');
   const { boardId } = useParams();
   const { data, isLoading } = useGetColumnsQuery(boardId as string);
 
   const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (id: string) => {
+    setOpen(true);
+    setAButtonId(id);
+  };
 
-  const columns = data?.map((column: IColumn) => <Column key={column._id} />);
+  const columns = data?.map((column: IColumn) => <Column key={column._id} onClick={handleOpen} />);
 
   if (isLoading) {
     return <Spinner />;
@@ -35,7 +39,7 @@ const ColumnsWrapper = () => {
     <Box sx={boxStyles}>
       {columns}
       <AddColumnButton onClick={handleOpen} />
-      <ColumnAddModal open={open} onClose={handleClose} />
+      <ColumnAddModal pressedButtonId={buttonId} open={open} onClose={handleClose} />
     </Box>
   );
 };
