@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Container, Link, Typography } from '@mui/material';
 import React from 'react';
 import reactIcon from '../../assets/icons/ReactIcon.png';
 import TSIcon from '../../assets/icons/TSLogo.png';
@@ -7,110 +7,91 @@ import ReduxIcon from '../../assets/icons/redux.svg';
 import MUIIcon from '../../assets/icons/materialUI.svg';
 import i18nextIcon from '../../assets/icons/i18nextLogo.png';
 import ReactHookFormIcon from '../../assets/icons/ReactHookForm.png';
+import { flexbox } from '@mui/system';
+
+interface iTechnology {
+  name: string;
+  link: string;
+  icon: string;
+}
+
+const technologiesData: iTechnology[] = [
+  {
+    name: 'React',
+    link: 'https://reactjs.org/',
+    icon: `${reactIcon}`,
+  },
+  {
+    name: 'TypeScript',
+    link: 'https://www.typescriptlang.org/',
+    icon: `${TSIcon}`,
+  },
+  {
+    name: 'React Router',
+    link: 'https://reactrouter.com/en/main',
+    icon: `${ReactRouterIcon}`,
+  },
+  {
+    name: 'Redux Toolkit',
+    link: 'https://react-redux.js.org/',
+    icon: `${ReduxIcon}`,
+  },
+  {
+    name: 'Material UI',
+    link: 'https://mui.com/',
+    icon: `${MUIIcon}`,
+  },
+  {
+    name: 'i18next',
+    link: 'https://www.i18next.com/',
+    icon: `${i18nextIcon}`,
+  },
+  {
+    name: 'React Hook Form',
+    link: 'https://react-hook-form.com/',
+    icon: `${ReactHookFormIcon}`,
+  },
+];
 
 const UsedTechnologies = () => {
   const styles = {
     container: {
-      padding: 20,
+      display: 'flex',
+      gap: '1rem',
+      flexWrap: 'wrap',
+      paddingTop: 2,
       justifyContent: 'center',
     },
-    root: {
-      maxWidth: 345,
-      minHeight: 240,
+    item: {
+      minWidth: '12rem',
+      minHeight: '8rem',
+      paddingTop: 2,
+    },
+    image: {
       margin: '0 auto',
-      padding: '1em',
+      width: 'auto',
+      height: '8rem',
+      paddingBottom: '1rem',
     },
   };
 
   return (
-    <>
-      <Grid container spacing={2} sx={styles.container}>
-        <Grid item lg={2}>
-          <Link href="https://reactjs.org/" target="_blank" underline="hover">
-            <Card sx={styles.root} variant="outlined">
-              <CardMedia component="img" image={reactIcon} title="React" />
-              <CardContent>
+    <Container sx={styles.container}>
+      {technologiesData.map((item) => (
+        <Box key={item.name}>
+          <Link href={item.link} target="_blank" underline="hover">
+            <Card sx={styles.item} variant="outlined">
+              <CardMedia sx={styles.image} component="img" image={item.icon} title="React" />
+              <CardContent sx={{ padding: '5px 5px 5px 5px' }}>
                 <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                  React
+                  {item.name}
                 </Typography>
               </CardContent>
             </Card>
           </Link>
-        </Grid>
-        <Grid item lg={2}>
-          <Link href="https://www.typescriptlang.org/" target="_blank" underline="hover">
-            <Card sx={styles.root} variant="outlined">
-              <CardMedia component="img" image={TSIcon} title="React" />
-              <CardContent>
-                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                  TypeScript
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-        </Grid>
-        <Grid item lg={2}>
-          <Link href="https://reactrouter.com/en/main" target="_blank" underline="hover">
-            <Card sx={styles.root} variant="outlined">
-              <CardMedia component="img" image={ReactRouterIcon} title="React" />
-              <CardContent>
-                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                  React Router
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-        </Grid>
-        <Grid item lg={2}>
-          <Link href="https://react-redux.js.org/" target="_blank" underline="hover">
-            <Card sx={styles.root} variant="outlined">
-              <CardMedia component="img" image={ReduxIcon} title="React" />
-              <CardContent sx={{ paddingInline: 0 }}>
-                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                  Redux Toolkit
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-        </Grid>
-        <Grid item lg={2}>
-          <Link href="https://mui.com/" target="_blank" underline="hover">
-            <Card sx={styles.root} variant="outlined">
-              <CardMedia component="img" image={MUIIcon} title="React" />
-              <CardContent>
-                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                  Material UI
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-        </Grid>
-        <Grid item lg={2}>
-          <Link href="https://www.i18next.com/" target="_blank" underline="hover">
-            <Card sx={styles.root} variant="outlined">
-              <CardMedia component="img" image={i18nextIcon} title="React" />
-              <CardContent>
-                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                  i18next
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-        </Grid>
-        <Grid item lg={2}>
-          <Link href="https://react-hook-form.com/" target="_blank" underline="hover">
-            <Card sx={styles.root} variant="outlined">
-              <CardMedia component="img" image={ReactHookFormIcon} title="React" />
-              <CardContent sx={{ paddingInline: 0 }}>
-                <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
-                  React Hook Form
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-        </Grid>
-      </Grid>
-    </>
+        </Box>
+      ))}
+    </Container>
   );
 };
 
