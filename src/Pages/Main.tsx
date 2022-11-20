@@ -22,14 +22,13 @@ import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { BoardFormOptions, ErrorObject } from 'types/types';
+import { BoardConfig, BoardFormOptions, ErrorObject } from 'types/types';
 
 export const Main = () => {
   const dispatch = useAppDispatch();
   const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
   const { user } = useAuth();
   const { data: boards = [], isLoading: isGetting, isFetching } = useGetBoardsQuery();
-
   const [
     createBoard,
     {
@@ -97,10 +96,15 @@ export const Main = () => {
     dispatch(setBoardID(''));
   }, [isFetching, dispatch]);
 
+  const filterUserBoards = (data: BoardConfig[]): BoardConfig[] => {
+    return data.filter(
+      (board) => board.owner === user?._id || board.users.includes(user?._id || '')
+    );
+  };
+  const userBoards = filterUserBoards(boards);
   const { title, description } = JSON.parse(
-    boards.filter((board) => board._id === boardID)[0]?.title || '{}'
+    userBoards.filter((board) => board._id === boardID)[0]?.title || '{}'
   );
-
   const handleButtonClick = () => {
     dispatch(setModalOption(BoardFormOptions.create));
     dispatch(toggleModalWindow(true));
@@ -121,7 +125,7 @@ export const Main = () => {
         dispatch(toggleModalWindow(false));
         break;
       case BoardFormOptions.edit:
-        const { users, owner, _id } = boards.filter(({ _id }) => _id === boardID)[0];
+        const { users, owner, _id } = userBoards.filter(({ _id }) => _id === boardID)[0];
         dispatch(toggleModalWindow(false));
         updateBoard({ title: JSON.stringify(values), owner, users, _id });
         break;
@@ -138,6 +142,7 @@ export const Main = () => {
       dispatch(setBoardID(''));
     }
   };
+
   return (
     <Box
       sx={{
@@ -173,7 +178,7 @@ export const Main = () => {
         Add board
       </LoadingButton>
       <BoardsContainer
-        boards={boards}
+        boards={userBoards}
         isLoading={isFetching && isGetting}
         isDeleting={isDeleting}
         isEditing={isUpdating}

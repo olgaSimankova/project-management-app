@@ -22,7 +22,6 @@ export const BoardsContainer = ({
   const dispatch = useAppDispatch();
   const { data: users } = useGetUsersQuery();
   const [cards, setCards] = useState(boards);
-  console.log(users);
   useEffect(() => {
     setCards(boards);
   }, [boards]);
@@ -46,12 +45,14 @@ export const BoardsContainer = ({
     const {
       target: { value },
     } = event;
+    const values = typeof value === 'string' ? value.split(',') : value;
+    console.log(values);
     setCards(
       cards.map((board) =>
         board._id === id
           ? {
               ...board,
-              users: typeof value === 'string' ? value.split(',') : value,
+              users: values.map((name) => users?.find((user) => user.login === name)?._id || ''),
             }
           : board
       )

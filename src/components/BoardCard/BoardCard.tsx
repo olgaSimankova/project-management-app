@@ -18,14 +18,15 @@ export const BoardCard = ({
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
 }) => {
   const { title: newTitle, description } = JSON.parse(title);
+  const selectedUsers = users.map((id) => allUsers.find((user) => id === user._id)?.login || '');
   return (
     <Box
       sx={{
         position: 'relative',
         display: 'flex',
+        gap: '0.5rem',
         flexDirection: 'column',
-        width: '18rem',
-        height: '12rem',
+        width: '24rem',
         padding: '1rem',
         border: 'solid 0.1rem black',
         borderRadius: '1rem',
@@ -42,7 +43,7 @@ export const BoardCard = ({
         variant="h5"
         sx={{
           height: '3rem',
-          width: '11rem',
+          width: '20rem',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           paddingTop: '1rem',
@@ -53,7 +54,7 @@ export const BoardCard = ({
       <Typography
         sx={{
           height: '3rem',
-          width: '16rem',
+          width: '20rem',
           display: '-webkit-box',
           boxOrient: 'vertical',
           lineClamp: '2',
@@ -67,7 +68,7 @@ export const BoardCard = ({
       <Assignees
         all={allUsers}
         id={_id}
-        selected={users ? users : []}
+        selected={selectedUsers}
         handleChange={onChangeAssignee}
         onClose={onClose}
       />
