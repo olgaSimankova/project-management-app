@@ -10,5 +10,19 @@
   "aboutOlya": "She's better than she thinks she is. Made a Welcome page, localization and theming for the project. Likes kids, dogs, hiking and custom hooks, especially pagination. Doesn't like insects and when something doesn't work properly but there are no errors in the console.",
   "nameAleh": "Aleh",
   "aboutAleh": "Our spectacular menthor. The best one. He likes people, bikes and splitting big components to small functions. Doesn't like when students ignore his questions.",
-  "usedTechnologies": "Technologies stack that were used in this project"
+  "usedTechnologies": "Technologies stack that were used in this project",
+  "signIn": "Sing in",
+  "signUp": "Sign Up",
+  "yes": "yes",
+  "no": "no",
+  "Main": "Main",
+  "Search": "Search",
+  "addBoard": "Add Board",
+  "Boards": "Boards",
+  "toastBordCreated": "Board has been created!",
+  "toastBordUpdated": "Board has been updated!",
+  "toastBordDeleted": "Board has been deleted!",
+  "questuionDelete": "Do you really want to delete?",
+  "Edit Profile": "Edit Profile",
+  "Logout": "Logout"
 }
