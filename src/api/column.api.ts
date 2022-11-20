@@ -42,7 +42,7 @@ export const columnApi = createApi({
         method: 'PUT',
         body: { title, order },
       }),
-      invalidatesTags: ['columns'],
+      invalidatesTags: (result) => [{ type: 'columns', id: result?.columnId }],
     }),
     deleteColumn: build.mutation<IColumn, IGetColumnParams>({
       query: ({ boardId, columnId }) => ({

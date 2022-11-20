@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, CircularProgress, Modal, Stack, TextField, Typography } from '@mui/material';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -63,10 +63,10 @@ const ColumnAddModal = ({
     createColumn({ title, order: columnsCount, boardId });
   };
 
-  if (isSuccess) {
+  useEffect(() => {
     handleClose();
     fetchReset();
-  }
+  }, [isSuccess]);
 
   return (
     <Modal
@@ -124,5 +124,4 @@ const ColumnAddModal = ({
     </Modal>
   );
 };
-
 export default ColumnAddModal;

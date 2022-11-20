@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, IconButton, InputBase } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -6,7 +6,8 @@ import { styled } from '@mui/material/styles';
 import { ConfirmModal } from '../ConfirmModal/ConfirmModal';
 import { QUESTION_ON_DELETE } from '../../constants/constants';
 import { useParams } from 'react-router-dom';
-import { useDeleteColumnMutation } from '../../api/column.api';
+import { useDeleteColumnMutation, useUpdateColumnMutation } from '../../api/column.api';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 
 const StyledBoardItemHeader = styled(Box)(() => ({
   display: 'flex',
@@ -27,23 +28,29 @@ const sxStyles = {
 };
 
 interface ColumnHeaderProps {
+  name: string;
   columnId: string;
+  order: number;
 }
 
-const ColumnHeader = ({ columnId }: ColumnHeaderProps) => {
+const ColumnHeader = ({ order, name, columnId }: ColumnHeaderProps) => {
+  const { boardId } = useParams();
   const inputRef = useRef<HTMLDivElement>();
   const [open, setOpen] = useState(false);
-  const [itemName, setItemName] = useState('here will be title');
+  const [isEdit, setIsEdit] = useState(false);
+  const [columnName, setColumnName] = useState(name);
   const [deleteColumn] = useDeleteColumnMutation();
-  const { boardId } = useParams();
+  const [updateColumn] = useUpdateColumnMutation();
+
+  useEffect(() => {
+    (inputRef.current?.firstElementChild as HTMLInputElement)?.focus();
+  }, [isEdit]);
 
   const handleClick = () => {
-    (inputRef.current?.firstElementChild as HTMLInputElement)?.focus();
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    (inputRef.current?.firstElementChild as HTMLInputElement)?.blur();
+    if (isEdit && boardId) {
+      updateColumn({ title: columnName, boardId, columnId, order });
+    }
+    setIsEdit(!isEdit);
   };
 
   const handleDelete = () => {
@@ -53,16 +60,21 @@ const ColumnHeader = ({ columnId }: ColumnHeaderProps) => {
   };
 
   return (
-    <StyledBoardItemHeader component="form" onSubmit={(e) => handleSubmit(e)}>
+    <StyledBoardItemHeader>
       <InputBase
-        onChange={(e) => setItemName(e.target.value)}
+        onChange={(e) => setColumnName(e.target.value)}
         color="secondary"
-        value={itemName}
+        value={columnName}
         ref={inputRef}
         sx={sxStyles}
+        disabled={!isEdit}
       />
       <IconButton onClick={handleClick} size="medium" aria-label="edit">
-        <EditIcon fontSize="small" />
+        {isEdit ? (
+          <CheckOutlinedIcon fontSize="small" color="success" />
+        ) : (
+          <EditIcon fontSize="small" />
+        )}
       </IconButton>
       <IconButton onClick={() => setOpen(true)} size="medium" aria-label="delete">
         <DeleteIcon fontSize="small" color="error" />
