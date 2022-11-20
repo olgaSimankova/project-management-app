@@ -27,6 +27,7 @@ export const BoardCard = ({
         gap: '0.5rem',
         flexDirection: 'column',
         width: '24rem',
+        height: 'fit-content',
         padding: '1rem',
         border: 'solid 0.1rem black',
         borderRadius: '1rem',

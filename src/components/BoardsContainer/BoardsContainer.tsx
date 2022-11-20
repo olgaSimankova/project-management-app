@@ -46,7 +46,6 @@ export const BoardsContainer = ({
       target: { value },
     } = event;
     const values = typeof value === 'string' ? value.split(',') : value;
-    console.log(values);
     setCards(
       cards.map((board) =>
         board._id === id
@@ -57,10 +56,10 @@ export const BoardsContainer = ({
           : board
       )
     );
-    dispatch(setBoardID(id));
   };
   const onCloseAssignee = (id: string) => {
     const updatedBoard = cards.find((board) => board._id === id);
+    dispatch(setBoardID(id));
     if (updatedBoard) {
       update(updatedBoard);
     }
@@ -69,10 +68,10 @@ export const BoardsContainer = ({
     <Box sx={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', width: '100%', height: '100%' }}>
       {isLoading ? (
         <Spinner />
-      ) : (
+      ) : cards.length ? (
         cards.map((board) => (
           <BoardCard
-            key={`${board._id}`}
+            key={`${board._id ? board._id : board.title}`}
             {...board}
             onClick={handleCardClick}
             isEditing={isEditing}
@@ -82,6 +81,8 @@ export const BoardsContainer = ({
             allUsers={users}
           />
         ))
+      ) : (
+        'You have no boards'
       )}
     </Box>
   );
