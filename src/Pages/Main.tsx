@@ -114,11 +114,10 @@ export const Main = () => {
   const onExitConfirmationModal = () => {
     dispatch(toggleConfirmationWindow(false));
   };
-  console.log(user);
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
     switch (modalOption) {
       case BoardFormOptions.create:
-        createBoard({ title: JSON.stringify(values), owner: 'do_when_it_be_ready', users: [] });
+        createBoard({ title: JSON.stringify(values), owner: user?._id || '', users: [] });
         dispatch(toggleModalWindow(false));
         break;
       case BoardFormOptions.edit:
@@ -178,6 +177,7 @@ export const Main = () => {
         isLoading={isFetching && isGetting}
         isDeleting={isDeleting}
         isEditing={isUpdating}
+        update={updateBoard}
       />
       {isModalOpen && (
         <BoardForm

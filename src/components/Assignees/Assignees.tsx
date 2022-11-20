@@ -2,7 +2,7 @@ import { Box, Chip, MenuItem, OutlinedInput, Select } from '@mui/material';
 import React from 'react';
 import { AssigneeProps } from 'types/types';
 
-export const Assignees = ({ all, selected, handleChange }: AssigneeProps) => {
+export const Assignees = ({ all, selected, handleChange, id, onClose }: AssigneeProps) => {
   return (
     <Box>
       <Select
@@ -10,7 +10,8 @@ export const Assignees = ({ all, selected, handleChange }: AssigneeProps) => {
         labelId="demo-multiple-chip-label"
         id="demo-multiple-chip"
         label="Status"
-        onChange={handleChange}
+        onChange={(e) => (handleChange ? handleChange(e, id) : '')}
+        onClose={() => (onClose ? onClose(id) : '')}
         multiple
         sx={{ width: '100%', height: '3rem' }}
         input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
@@ -22,9 +23,9 @@ export const Assignees = ({ all, selected, handleChange }: AssigneeProps) => {
           </Box>
         )}
       >
-        {all.map((item) => (
-          <MenuItem key={item} value={item}>
-            {item}
+        {all.map(({ login }) => (
+          <MenuItem key={login} value={login}>
+            {login}
           </MenuItem>
         ))}
       </Select>

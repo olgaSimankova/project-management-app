@@ -6,12 +6,14 @@ import { BoardConfig } from 'types/types';
 
 export const BoardCard = ({
   title,
-  _id,
+  _id = '',
   onClick,
-  isEditing,
-  isDeleting,
-  assignees,
+  isEditing = false,
+  isDeleting = false,
+  users,
   onChangeAssignee,
+  onClose,
+  allUsers = [],
 }: BoardConfig & {
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
 }) => {
@@ -32,9 +34,9 @@ export const BoardCard = ({
     >
       <CardControlButtons
         id={_id || ''}
-        onClick={(e) => onClick(e, _id || '')}
-        isDeleting={!!isDeleting}
-        isEditing={!!isEditing}
+        onClick={(e) => onClick(e, _id)}
+        isDeleting={isDeleting}
+        isEditing={isEditing}
       />
       <Typography
         variant="h5"
@@ -63,9 +65,11 @@ export const BoardCard = ({
         {description}
       </Typography>
       <Assignees
-        all={['1', '2', '3']}
-        selected={assignees ? assignees : []}
+        all={allUsers}
+        id={_id}
+        selected={users ? users : []}
         handleChange={onChangeAssignee}
+        onClose={onClose}
       />
     </Box>
   );

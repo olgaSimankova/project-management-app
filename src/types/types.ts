@@ -1,5 +1,12 @@
 import { SelectChangeEvent } from '@mui/material';
-import { ReactNode } from 'react';
+import {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+  MutationDefinition,
+} from '@reduxjs/toolkit/dist/query';
+import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { FieldValues } from 'react-hook-form';
 
 export type Board = {
@@ -12,6 +19,21 @@ export type BoardsContainerProps = {
   isLoading: boolean;
   isDeleting?: boolean;
   isEditing?: boolean;
+  update: MutationTrigger<
+    MutationDefinition<
+      BoardConfig,
+      BaseQueryFn<
+        string | FetchArgs,
+        unknown,
+        FetchBaseQueryError,
+        Record<string, unknown>,
+        FetchBaseQueryMeta
+      >,
+      'boards',
+      BoardConfig,
+      'mainApi'
+    >
+  >;
 };
 
 export type BoardConfig = {
@@ -21,8 +43,10 @@ export type BoardConfig = {
   users: string[];
   isDeleting?: boolean;
   isEditing?: boolean;
-  onChangeAssignee?: ((event: SelectChangeEvent<string[]>, child: ReactNode) => void) | undefined;
+  onChangeAssignee?: (event: SelectChangeEvent<string[]>, id: string) => void;
   assignees?: string[];
+  onClose?: (id: string) => void;
+  allUsers?: IUser[] | undefined;
 };
 
 export interface IAuthFormFields extends ISignInFormFields {
@@ -126,7 +150,9 @@ export interface ColumnConfig {
 }
 
 export interface AssigneeProps {
-  all: string[];
+  all: IUser[];
   selected: string[];
-  handleChange: ((event: SelectChangeEvent<string[]>, child: ReactNode) => void) | undefined;
+  handleChange: ((event: SelectChangeEvent<string[]>, id: string) => void) | undefined;
+  id: string;
+  onClose: ((id: string) => void) | undefined;
 }
