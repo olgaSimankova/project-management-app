@@ -11,13 +11,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
 import Board from '../features/Board/Board';
-import { setUserInfo } from '../features/authSlice';
-import { store } from './state/store';
+import { init } from './app.config';
 
 export const App = () => {
-  const token = JSON.parse(localStorage.getItem('token') || 'null');
-  const login = JSON.parse(localStorage.getItem('login') || 'null');
-  store.dispatch(setUserInfo({ token, login }));
+  init();
+
   return (
     <>
       <CssBaseline>
