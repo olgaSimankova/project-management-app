@@ -2,6 +2,8 @@ export const BASE_URL = 'https://final-task-backend-production-d31d.up.railway.a
 export const LINKS = {
   welcome: `/`,
   search: '/search',
+  boards: '/boards',
+  board: '/board',
   main: '/main',
   error: '/404',
   signIn: '/signin',
@@ -15,3 +17,4 @@ export const REACT_COURSE_LINK = 'https://rs.school/react/';
 export const GITHUB_BASE = 'https://github.com';
 export const OUR_GITHUB_NICKNAMES = ['olgasimankova', 'freshman10', 'nester-dev', 'alehharnizonau'];
 export const initBoardData = { title: '', owner: '', users: [] };
+export const QUESTION_ON_DELETE = 'Do you really want to delete?';
