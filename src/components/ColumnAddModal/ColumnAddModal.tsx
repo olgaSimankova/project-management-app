@@ -63,10 +63,15 @@ const ColumnAddModal = ({
     createColumn({ title, order: columnsCount, boardId });
   };
 
+  if (isSuccess) {
+    handleClose();
+    fetchReset();
+  }
+
   useEffect(() => {
     handleClose();
     fetchReset();
-  }, [isSuccess, fetchReset]);
+  }, [isSuccess]);
 
   return (
     <Modal
