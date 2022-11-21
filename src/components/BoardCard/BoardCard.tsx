@@ -23,7 +23,7 @@ export const BoardCard = ({
 
   const handleClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (!target.closest('button')) {
+    if (!target.closest('button') && target.nodeName !== 'LI') {
       navigate(`/main/${_id}`);
     }
   };

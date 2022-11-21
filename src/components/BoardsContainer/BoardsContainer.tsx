@@ -42,6 +42,7 @@ export const BoardsContainer = ({
   };
 
   const onChangeAssignee = (event: SelectChangeEvent<string[]>, id: string) => {
+    event.stopPropagation();
     const {
       target: { value },
     } = event;
@@ -57,7 +58,8 @@ export const BoardsContainer = ({
       )
     );
   };
-  const onCloseAssignee = (id: string) => {
+  const onCloseAssignee = (event: React.SyntheticEvent<Element, Event>, id: string) => {
+    event.stopPropagation();
     const updatedBoard = cards.find((board) => board._id === id);
     dispatch(setBoardID(id));
     if (updatedBoard) {

@@ -13,8 +13,9 @@ export const Assignees = ({ all, selected, handleChange, id, onClose }: Assignee
         labelId="demo-multiple-chip-label"
         id="chip"
         label="Status"
+        className="assignees"
         onChange={(e) => (handleChange ? handleChange(e, id) : '')}
-        onClose={() => (onClose ? onClose(id) : '')}
+        onClose={(e) => (onClose ? onClose(e, id) : '')}
         multiple
         sx={{ width: '100%', backgroundColor: '#cccccc', border: '1px solid #cccccc' }}
         input={

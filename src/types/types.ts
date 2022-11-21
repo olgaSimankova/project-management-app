@@ -45,7 +45,7 @@ export type BoardConfig = {
   isEditing?: boolean;
   onChangeAssignee?: (event: SelectChangeEvent<string[]>, id: string) => void;
   assignees?: string[];
-  onClose?: (id: string) => void;
+  onClose?: (event: React.SyntheticEvent<Element, Event>, id: string) => void;
   allUsers?: IUser[] | undefined;
 };
 
@@ -169,5 +169,5 @@ export interface AssigneeProps {
   selected: string[];
   handleChange: ((event: SelectChangeEvent<string[]>, id: string) => void) | undefined;
   id: string;
-  onClose: ((id: string) => void) | undefined;
+  onClose: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
 }
