@@ -11,7 +11,7 @@ export const LINKS = {
 };
 
 export const PAGES = ['Main', 'Search'];
-export const USER_SETTINGS = ['Edit Profile', 'Change lang', 'Logout'];
+export const USER_SETTINGS = ['Edit Profile', 'Logout'];
 export const LOGOUT = 'Logout';
 export const REACT_COURSE_LINK = 'https://rs.school/react/';
 export const GITHUB_BASE = 'https://github.com';
