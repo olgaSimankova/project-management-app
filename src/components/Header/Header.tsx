@@ -6,6 +6,7 @@ import { User } from '../User/User';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import { useAuth } from '../../hooks/useAuth';
+import LanguageButton from 'components/LanguageButton/LanguageButton';
 
 export const Header = () => {
   const { token } = useAuth();
@@ -27,6 +28,7 @@ export const Header = () => {
         ) : (
           <AuthButtons />
         )}
+        <LanguageButton />
       </Toolbar>
     </AppBar>
   );

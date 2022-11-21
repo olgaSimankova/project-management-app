@@ -9,7 +9,6 @@ import {
 import { BoardForm } from 'components/BoardForm/BoardForm';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
-import { QUESTION_ON_DELETE } from 'constants/constants';
 import {
   setBoardID,
   setModalOption,
@@ -21,10 +20,12 @@ import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { BoardConfig, BoardFormOptions, ErrorObject } from 'types/types';
 
 export const Main = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
   const { user } = useAuth();
@@ -167,7 +168,7 @@ export const Main = () => {
         },
       }}
     >
-      <Typography variant="h4">Boards</Typography>
+      <Typography variant="h4">{t('Boards')}</Typography>
       <LoadingButton
         loading={isCreating}
         color="success"
@@ -175,7 +176,7 @@ export const Main = () => {
         sx={{ width: 'fit-content' }}
         onClick={handleButtonClick}
       >
-        Add board
+        {t('addBoard')}
       </LoadingButton>
       <BoardsContainer
         boards={userBoards}
@@ -184,6 +185,7 @@ export const Main = () => {
         isEditing={isUpdating}
         update={updateBoard}
       />
+
       {isModalOpen && (
         <BoardForm
           {...{
@@ -197,7 +199,7 @@ export const Main = () => {
       {isConfirmationOpen && (
         <ConfirmModal
           {...{
-            question: QUESTION_ON_DELETE,
+            question: t('questuionDelete'),
             onYesClick: onDeleteBoard,
             onNoClick: onExitConfirmationModal,
           }}
