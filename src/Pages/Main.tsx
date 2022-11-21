@@ -118,6 +118,7 @@ export const Main = () => {
 
   const onExitConfirmationModal = () => {
     dispatch(toggleConfirmationWindow(false));
+    dispatch(setBoardID(''));
   };
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
     switch (modalOption) {
