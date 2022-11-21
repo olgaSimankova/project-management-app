@@ -10,6 +10,7 @@ import Authentication from '../Pages/Authentication';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
+import Board from '../features/Board/Board';
 import { init } from './app.config';
 
 export const App = () => {
@@ -21,9 +22,10 @@ export const App = () => {
         <ToastContainer autoClose={2000} />
         <Routes>
           <Route path={LINKS.welcome} element={<Layout />}>
-            <Route path={LINKS.welcome} element={<Welcome />} />
+            <Route index path={LINKS.welcome} element={<Welcome />} />
             <Route path={LINKS.search} element={<Search />} />
             <Route path={LINKS.main} element={<Main />} />
+            <Route path={`${LINKS.main}/:boardId`} element={<Board />} />
           </Route>
           <Route path={LINKS.signIn} element={<Authentication />} />
           <Route path={LINKS.signUp} element={<Authentication />} />

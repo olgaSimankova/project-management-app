@@ -90,9 +90,19 @@ export interface Error {
   };
 }
 
-export interface IErrorResponse {
-  error: Error;
-  isUnhandledError: boolean;
+export interface IColumnRequestParams extends IGetColumnParams {
+  title: string;
+  order: number;
+}
+
+export interface IColumn extends IColumnRequestParams {
+  _id: string;
+  boardId: string;
+}
+
+export interface IGetColumnParams {
+  boardId: string;
+  columnId?: string;
 }
 
 export interface MainState {
@@ -140,6 +150,11 @@ export interface ConfirmModalProps {
 export interface ErrorObject {
   status: number;
   data: { message: string };
+}
+
+export enum BOARD_BUTTONS {
+  ADD_TASK = 'add-task',
+  ADD_COLUMN = 'add-column',
 }
 
 export interface ColumnConfig {

@@ -3,6 +3,7 @@ import { Assignees } from 'components/Assignees/Assignees';
 import { CardControlButtons } from 'components/CardControlButtons/CardControlButtons';
 import React from 'react';
 import { BoardConfig } from 'types/types';
+import { useNavigate } from 'react-router-dom';
 
 export const BoardCard = ({
   title,
@@ -17,10 +18,21 @@ export const BoardCard = ({
 }: BoardConfig & {
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
 }) => {
+  const navigate = useNavigate();
   const { title: newTitle, description } = JSON.parse(title);
+
+  const handleClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('button')) {
+      navigate(`/main/${_id}`);
+    }
+  };
+
   const selectedUsers = users.map((id) => allUsers.find((user) => id === user._id)?.login || '');
+
   return (
     <Box
+      onClick={(e) => handleClick(e)}
       sx={{
         position: 'relative',
         display: 'flex',
@@ -32,6 +44,7 @@ export const BoardCard = ({
         border: 'solid 0.1rem black',
         borderRadius: '1rem',
         boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+        cursor: 'pointer',
       }}
     >
       <CardControlButtons
