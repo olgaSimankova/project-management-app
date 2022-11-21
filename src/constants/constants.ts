@@ -8,6 +8,7 @@ export const LINKS = {
   error: '/404',
   signIn: '/signin',
   signUp: '/signup',
+  settings: '/settings',
 };
 
 export const PAGES = ['Main', 'Search'];

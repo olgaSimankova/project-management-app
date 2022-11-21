@@ -171,3 +171,8 @@ export interface AssigneeProps {
   id: string;
   onClose: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
 }
+
+export interface EditableTextFieldProps {
+  defaultValue: string;
+  isDisabled: boolean;
+}

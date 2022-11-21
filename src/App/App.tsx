@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
 import Board from '../features/Board/Board';
 import { init } from './app.config';
+import { Settings } from 'Pages/Settings';
 
 export const App = () => {
   init();
@@ -25,6 +26,7 @@ export const App = () => {
             <Route index path={LINKS.welcome} element={<Welcome />} />
             <Route path={LINKS.search} element={<Search />} />
             <Route path={LINKS.main} element={<Main />} />
+            <Route path={LINKS.settings} element={<Settings />} />
             <Route path={`${LINKS.main}/:boardId`} element={<Board />} />
           </Route>
           <Route path={LINKS.signIn} element={<Authentication />} />
