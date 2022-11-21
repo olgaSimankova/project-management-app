@@ -68,6 +68,7 @@ export interface MainState {
   boardID: string;
   modalOption: BoardFormOptions;
   isConfirmationOpen: boolean;
+  theme: string;
 }
 
 export enum BoardFormOptions {

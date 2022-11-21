@@ -159,10 +159,11 @@ export const Main = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'space-between',
         gap: '1rem',
         width: '80vw',
-        height: '71vh',
-        margin: '1rem auto',
+        height: '81.7vh',
+        margin: '0 auto',
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
           width: 7,
@@ -182,7 +183,7 @@ export const Main = () => {
       <Button
         variant="contained"
         color="success"
-        sx={{ width: 'fit-content' }}
+        sx={{ width: 'fit-content', padding: '10px 10px' }}
         onClick={handleButtonClick}
       >
         {t('addBoard')}

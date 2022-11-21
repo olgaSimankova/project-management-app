@@ -8,11 +8,16 @@ import { useTranslation } from 'react-i18next';
 
 const AuthButtons = () => {
   const { t } = useTranslation();
-
+  const buttonStyles = {
+    background: 'transparent',
+    padding: '0px 5px 0px 5px',
+    boxShadow: 'none',
+    ml: 2,
+  };
   return (
     <Box ml="auto">
       <NavLink to={LINKS.signIn} end>
-        <Button variant="outlined" sx={{ color: 'white' }}>
+        <Button variant="outlined" sx={buttonStyles}>
           <SvgIcon fontSize="small" sx={{ mr: 1 }}>
             <Login />
           </SvgIcon>
@@ -21,7 +26,7 @@ const AuthButtons = () => {
       </NavLink>
 
       <NavLink to={LINKS.signUp} end>
-        <Button variant="outlined" sx={{ ml: 2, color: 'white' }}>
+        <Button variant="outlined" sx={buttonStyles}>
           <SvgIcon fontSize="small" sx={{ mr: 1 }}>
             <AddUser />
           </SvgIcon>

@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material';
 
-export const themeLight = createTheme({
+export const themeDark = createTheme({
   typography: {
     fontFamily: [
       '-apple-system',
@@ -16,25 +16,26 @@ export const themeLight = createTheme({
     ].join(','),
   },
   palette: {
-    mode: 'light',
-    primary: {
-      light: '#81d4fa[200]',
-      main: '#2196f3[500]',
-      dark: '#0277bd[800]',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ffe082[200]',
-      main: '#ffc107[500]',
-      dark: '#ff8f00[800]',
-      contrastText: '#fff',
-    },
+    mode: 'dark',
+    // primary: {
+    //   light: '#81d4fa[200]',
+    //   main: '#2196f3[500]',
+    //   dark: '#0277bd[800]',
+    //   contrastText: '#fff',
+    // },
+    // secondary: {
+    //   light: '#ffe082[200]',
+    //   main: '#ffc107[500]',
+    //   dark: '#ff8f00[800]',
+    //   contrastText: '#fff',
+    // },
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: '#f5f5f5',
+          background:
+            'linear-gradient(9deg, rgba(4,38,66,1) 0%, rgba(9,75,116,1) 39%, rgba(12,113,170,1) 100%)',
         },
       },
     },
@@ -49,7 +50,6 @@ export const themeLight = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          variant: 'contained',
           background: 'linear-gradient(45deg, #FF6753 30%, #FF8F50 90%)',
           borderRadius: 10,
           border: 0,
@@ -70,22 +70,28 @@ export const themeLight = createTheme({
           textAlign: 'left',
         },
         h2: {
-          color: '#577DB8',
+          color: 'whiteSmoke',
           fontWeight: 600,
           lineHeight: 1.27,
           textAlign: 'center',
         },
         h5: {
           fontWeight: 300,
-          color: 'white',
+          color: 'whiteSmoke',
         },
         h6: {
-          color: '#4F4F4F',
+          color: 'lightGray',
         },
         subtitle1: {
           fontSize: '1.1rem',
           fontWeight: 600,
+          color: '#042641',
         },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: { backgroundColor: '#e9f3f5' },
       },
     },
   },

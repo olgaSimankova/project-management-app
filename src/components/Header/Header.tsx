@@ -7,9 +7,19 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import { useAuth } from '../../hooks/useAuth';
 import LanguageButton from 'components/LanguageButton/LanguageButton';
+import { setTheme } from 'features/mainSlice';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useMain } from 'hooks/useMain';
 
 export const Header = () => {
+  const { theme } = useMain();
   const { token } = useAuth();
+  const dispatch = useAppDispatch();
+
+  const handleThemeChange = () => {
+    console.log(theme);
+    theme === 'light' ? dispatch(setTheme('dark')) : dispatch(setTheme('light'));
+  };
 
   return (
     <AppBar position="sticky" sx={{ zIndex: '1', background: '#063970' }}>
@@ -21,7 +31,7 @@ export const Header = () => {
         {token ? (
           <>
             <NavLinks /> <User />
-            <IconButton sx={{ ml: 2 }}>
+            <IconButton sx={{ ml: 2 }} onClick={handleThemeChange}>
               <DarkModeIcon />
             </IconButton>
           </>
