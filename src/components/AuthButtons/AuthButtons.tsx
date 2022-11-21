@@ -4,8 +4,11 @@ import { ReactComponent as AddUser } from '../../assets/icons/addUser.svg';
 import { ReactComponent as Login } from '../../assets/icons/login.svg';
 import { NavLink } from 'react-router-dom';
 import { LINKS } from '../../constants/constants';
+import { useTranslation } from 'react-i18next';
 
 const AuthButtons = () => {
+  const { t } = useTranslation();
+
   return (
     <Box ml="auto">
       <NavLink to={LINKS.signIn} end>
@@ -13,7 +16,7 @@ const AuthButtons = () => {
           <SvgIcon fontSize="small" sx={{ mr: 1 }}>
             <Login />
           </SvgIcon>
-          Sign in
+          {t('signIn')}
         </Button>
       </NavLink>
 
@@ -22,7 +25,7 @@ const AuthButtons = () => {
           <SvgIcon fontSize="small" sx={{ mr: 1 }}>
             <AddUser />
           </SvgIcon>
-          Sign up
+          {t('signUp')}
         </Button>
       </NavLink>
     </Box>

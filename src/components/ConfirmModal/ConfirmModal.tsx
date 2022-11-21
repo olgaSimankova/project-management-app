@@ -1,8 +1,10 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ConfirmModalProps } from 'types/types';
 
 export const ConfirmModal = ({ question, onYesClick, onNoClick }: ConfirmModalProps) => {
+  const { t } = useTranslation();
   return (
     <Box>
       <Box
@@ -39,10 +41,10 @@ export const ConfirmModal = ({ question, onYesClick, onNoClick }: ConfirmModalPr
         <Typography variant="h5">{question}</Typography>
         <Box sx={{ display: 'flex', gap: '20px' }}>
           <Button color="success" variant="contained" onClick={onYesClick}>
-            YES
+            {t('yes')}
           </Button>
           <Button color="error" variant="contained" onClick={onNoClick}>
-            NO
+            {t('no')}
           </Button>
         </Box>
       </Box>

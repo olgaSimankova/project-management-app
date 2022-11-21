@@ -8,7 +8,6 @@ import {
 import { BoardForm } from 'components/BoardForm/BoardForm';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
-import { QUESTION_ON_DELETE } from 'constants/constants';
 import {
   setBoardID,
   setModalOption,
@@ -19,10 +18,12 @@ import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { BoardFormOptions, ErrorObject } from 'types/types';
 
 export const Main = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
 
@@ -91,19 +92,19 @@ export const Main = () => {
 
   useEffect(() => {
     if (createSuccess) {
-      toast.success('Board has been created!');
+      toast.success(`${t('toastBordCreated')}`);
     }
   }, [createSuccess]);
 
   useEffect(() => {
     if (updateSuccess) {
-      toast.success('Board has been updated!');
+      toast.success(`${t('toastBordUpdated')}`);
     }
   }, [updateSuccess]);
 
   useEffect(() => {
     if (deleteSuccess) {
-      toast.success('Board has been deleted!');
+      toast.success(`${t('toastBordDeleted')}`);
     }
   }, [deleteSuccess]);
 
@@ -177,14 +178,14 @@ export const Main = () => {
         },
       }}
     >
-      <Typography variant="h4">Boards</Typography>
+      <Typography variant="h4">{t('Boards')}</Typography>
       <Button
         variant="contained"
         color="success"
         sx={{ width: 'fit-content' }}
         onClick={handleButtonClick}
       >
-        Add board
+        {t('addBoard')}
       </Button>
       <BoardsContainer boards={boards} isLoading={isLoading} />
       {isModalOpen && (
@@ -200,7 +201,7 @@ export const Main = () => {
       {isConfirmationOpen && (
         <ConfirmModal
           {...{
-            question: QUESTION_ON_DELETE,
+            question: t('questuionDelete'),
             onYesClick: onDeleteBoard,
             onNoClick: onExitConfirmationModal,
           }}
