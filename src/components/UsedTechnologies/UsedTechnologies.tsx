@@ -7,7 +7,6 @@ import ReduxIcon from '../../assets/icons/redux.svg';
 import MUIIcon from '../../assets/icons/materialUI.svg';
 import i18nextIcon from '../../assets/icons/i18nextLogo.png';
 import ReactHookFormIcon from '../../assets/icons/ReactHookForm.png';
-import { flexbox } from '@mui/system';
 
 interface iTechnology {
   name: string;

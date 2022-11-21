@@ -1,4 +1,5 @@
-import { Box, Button, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Box, Typography } from '@mui/material';
 import {
   useCreateBoardMutation,
   useDeleteBoardMutation,
@@ -15,24 +16,20 @@ import {
   toggleModalWindow,
 } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { BoardFormOptions, ErrorObject } from 'types/types';
+import { BoardConfig, BoardFormOptions, ErrorObject } from 'types/types';
 
 export const Main = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
-
-  const {
-    data: boards = [],
-    isLoading: isGetting,
-    isError: isGettingFailed,
-    error: gettingError,
-  } = useGetBoardsQuery();
+  const { user } = useAuth();
+  const { data: boards = [], isLoading: isGetting, isFetching } = useGetBoardsQuery();
   const [
     createBoard,
     {
@@ -40,6 +37,7 @@ export const Main = () => {
       isError: isCreatingFailed,
       error: creatingError,
       isSuccess: createSuccess,
+      reset: createBordReset,
     },
   ] = useCreateBoardMutation();
   const [
@@ -49,6 +47,7 @@ export const Main = () => {
       isError: isUpdatingFailed,
       error: updatingError,
       isSuccess: updateSuccess,
+      reset: updateBordReset,
     },
   ] = useUpdateBoardMutation();
   const [
@@ -58,60 +57,55 @@ export const Main = () => {
       isError: isDeletingFailed,
       error: deletingError,
       isSuccess: deleteSuccess,
+      reset: deleteBordReset,
     },
   ] = useDeleteBoardMutation();
 
-  const isLoading = isGetting || isCreating || isUpdating || isDeleting;
   const toastErrorDisplay = (error: ErrorObject) => {
-    toast.error(error.data.message || 'Something went wrong');
+    toast.error(error?.data?.message || 'Something went wrong');
   };
 
-  useEffect(() => {
-    if (isGettingFailed) {
-      toastErrorDisplay(gettingError as ErrorObject);
-    }
-    if (isUpdatingFailed) {
-      toastErrorDisplay(updatingError as ErrorObject);
-    }
-    if (isDeletingFailed) {
-      toastErrorDisplay(deletingError as ErrorObject);
-    }
-    if (isCreatingFailed) {
-      toastErrorDisplay(creatingError as ErrorObject);
-    }
-  }, [
-    isCreatingFailed,
-    isDeletingFailed,
-    isUpdatingFailed,
-    isGettingFailed,
-    gettingError,
-    updatingError,
-    deletingError,
-    creatingError,
-  ]);
+  if (isUpdatingFailed) {
+    toastErrorDisplay(updatingError as ErrorObject);
+    updateBordReset();
+  }
+  if (isDeletingFailed) {
+    toastErrorDisplay(deletingError as ErrorObject);
+    deleteBordReset();
+  }
+  if (isCreatingFailed) {
+    toastErrorDisplay(creatingError as ErrorObject);
+    createBordReset();
+  }
+
+  if (createSuccess) {
+    toast.success('Board has been created!');
+    createBordReset();
+  }
+
+  if (updateSuccess) {
+    toast.success('Board has been updated!');
+    updateBordReset();
+  }
+
+  if (deleteSuccess) {
+    toast.success('Board has been deleted!');
+    deleteBordReset();
+  }
 
   useEffect(() => {
-    if (createSuccess) {
-      toast.success(`${t('toastBordCreated')}`);
-    }
-  }, [createSuccess]);
+    dispatch(setBoardID(''));
+  }, [isFetching, dispatch]);
 
-  useEffect(() => {
-    if (updateSuccess) {
-      toast.success(`${t('toastBordUpdated')}`);
-    }
-  }, [updateSuccess]);
-
-  useEffect(() => {
-    if (deleteSuccess) {
-      toast.success(`${t('toastBordDeleted')}`);
-    }
-  }, [deleteSuccess]);
-
+  const filterUserBoards = (data: BoardConfig[]): BoardConfig[] => {
+    return data.filter(
+      (board) => board.owner === user?._id || board.users.includes(user?._id || '')
+    );
+  };
+  const userBoards = filterUserBoards(boards);
   const { title, description } = JSON.parse(
-    boards.filter((board) => board._id === boardID)[0]?.title || '{}'
+    userBoards.filter((board) => board._id === boardID)[0]?.title || '{}'
   );
-
   const handleButtonClick = () => {
     dispatch(setModalOption(BoardFormOptions.create));
     dispatch(toggleModalWindow(true));
@@ -120,26 +114,21 @@ export const Main = () => {
   const onDeleteBoard = () => {
     deleteBoard(boardID);
     dispatch(toggleConfirmationWindow(false));
-    dispatch(setBoardID(''));
   };
 
   const onExitConfirmationModal = () => {
     dispatch(toggleConfirmationWindow(false));
-    dispatch(setBoardID(''));
   };
-
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
     switch (modalOption) {
       case BoardFormOptions.create:
-        createBoard({ title: JSON.stringify(values), owner: 'do_when_it_be_ready', users: [] });
+        createBoard({ title: JSON.stringify(values), owner: user?._id || '', users: [] });
         dispatch(toggleModalWindow(false));
-        dispatch(setBoardID(''));
         break;
       case BoardFormOptions.edit:
-        const { users, owner, _id } = boards.filter(({ _id }) => _id === boardID)[0];
+        const { users, owner, _id } = userBoards.filter(({ _id }) => _id === boardID)[0];
         dispatch(toggleModalWindow(false));
         updateBoard({ title: JSON.stringify(values), owner, users, _id });
-        dispatch(setBoardID(''));
         break;
       default:
     }
@@ -154,6 +143,7 @@ export const Main = () => {
       dispatch(setBoardID(''));
     }
   };
+
   return (
     <Box
       sx={{
@@ -179,15 +169,23 @@ export const Main = () => {
       }}
     >
       <Typography variant="h4">{t('Boards')}</Typography>
-      <Button
-        variant="contained"
+      <LoadingButton
+        loading={isCreating}
         color="success"
+        variant="contained"
         sx={{ width: 'fit-content' }}
         onClick={handleButtonClick}
       >
         {t('addBoard')}
-      </Button>
-      <BoardsContainer boards={boards} isLoading={isLoading} />
+      </LoadingButton>
+      <BoardsContainer
+        boards={userBoards}
+        isLoading={isFetching && isGetting}
+        isDeleting={isDeleting}
+        isEditing={isUpdating}
+        update={updateBoard}
+      />
+
       {isModalOpen && (
         <BoardForm
           {...{

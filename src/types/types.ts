@@ -1,3 +1,12 @@
+import { SelectChangeEvent } from '@mui/material';
+import {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+  MutationDefinition,
+} from '@reduxjs/toolkit/dist/query';
+import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { FieldValues } from 'react-hook-form';
 
 export type Board = {
@@ -8,6 +17,23 @@ export type Board = {
 export type BoardsContainerProps = {
   boards: BoardConfig[];
   isLoading: boolean;
+  isDeleting?: boolean;
+  isEditing?: boolean;
+  update: MutationTrigger<
+    MutationDefinition<
+      BoardConfig,
+      BaseQueryFn<
+        string | FetchArgs,
+        unknown,
+        FetchBaseQueryError,
+        Record<string, unknown>,
+        FetchBaseQueryMeta
+      >,
+      'boards',
+      BoardConfig,
+      'mainApi'
+    >
+  >;
 };
 
 export type BoardConfig = {
@@ -15,6 +41,12 @@ export type BoardConfig = {
   title: string;
   owner: string;
   users: string[];
+  isDeleting?: boolean;
+  isEditing?: boolean;
+  onChangeAssignee?: (event: SelectChangeEvent<string[]>, id: string) => void;
+  assignees?: string[];
+  onClose?: (id: string) => void;
+  allUsers?: IUser[] | undefined;
 };
 
 export interface IAuthFormFields extends ISignInFormFields {
@@ -68,6 +100,7 @@ export interface MainState {
   boardID: string;
   modalOption: BoardFormOptions;
   isConfirmationOpen: boolean;
+  assignees: string[];
 }
 
 export enum BoardFormOptions {
@@ -85,6 +118,8 @@ export interface BoardFormProps {
 export interface CardControlsButtonProps {
   id: string;
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
+  isDeleting: boolean;
+  isEditing: boolean;
 }
 
 export interface BoardFormFields {
@@ -105,4 +140,19 @@ export interface ConfirmModalProps {
 export interface ErrorObject {
   status: number;
   data: { message: string };
+}
+
+export interface ColumnConfig {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+}
+
+export interface AssigneeProps {
+  all: IUser[];
+  selected: string[];
+  handleChange: ((event: SelectChangeEvent<string[]>, id: string) => void) | undefined;
+  id: string;
+  onClose: ((id: string) => void) | undefined;
 }
