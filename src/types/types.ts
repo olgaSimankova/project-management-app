@@ -175,4 +175,7 @@ export interface AssigneeProps {
 export interface EditableTextFieldProps {
   defaultValue: string;
   isDisabled: boolean;
+  handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
+  tag: string;
 }
