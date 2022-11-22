@@ -175,7 +175,6 @@ export const Main = () => {
         loading={isCreating}
         color="success"
         sx={{ width: 'fit-content', padding: '10px 10px' }}
-        variant="contained"
         onClick={handleButtonClick}
       >
         {t('addBoard')}

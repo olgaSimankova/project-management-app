@@ -17,18 +17,24 @@ export const themeDark = createTheme({
   },
   palette: {
     mode: 'dark',
-    // primary: {
-    //   light: '#81d4fa[200]',
-    //   main: '#2196f3[500]',
-    //   dark: '#0277bd[800]',
-    //   contrastText: '#fff',
-    // },
-    // secondary: {
-    //   light: '#ffe082[200]',
-    //   main: '#ffc107[500]',
-    //   dark: '#ff8f00[800]',
-    //   contrastText: '#fff',
-    // },
+    primary: {
+      light: '#81d4fa',
+      main: '#2196f3',
+      dark: '#0277bd',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff897a',
+      main: '#FF6753',
+      dark: '#ff3e26',
+      contrastText: '#fff',
+    },
+    info: {
+      light: '#fff',
+      main: '#0c3c67',
+      dark: '#ff8f00',
+      contrastText: '#fff',
+    },
   },
   components: {
     MuiCssBaseline: {
@@ -60,6 +66,7 @@ export const themeDark = createTheme({
         },
       },
     },
+
     MuiTypography: {
       styleOverrides: {
         h1: {

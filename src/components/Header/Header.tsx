@@ -17,7 +17,6 @@ export const Header = () => {
   const dispatch = useAppDispatch();
 
   const handleThemeChange = () => {
-    console.log(theme);
     theme === 'light' ? dispatch(setTheme('dark')) : dispatch(setTheme('light'));
   };
 

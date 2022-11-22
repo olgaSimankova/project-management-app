@@ -102,15 +102,19 @@ const Authentication = () => {
     signInReset();
   };
 
+  const linkStyles = {
+    color: '#33b5ee',
+  };
+
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Container component="main" maxWidth="xs" sx={{ margin: '0 auto' }}>
       <Box
         sx={{
-          marginTop: 8,
+          height: '100vh',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -175,11 +179,11 @@ const Authentication = () => {
           <Grid container justifyContent={'end'}>
             <Grid item onClick={handleResetForm}>
               {isSignIn ? (
-                <NavLink to={LINKS.signUp} end>
+                <NavLink style={linkStyles} to={LINKS.signUp} end>
                   {"Don't have an account? Sign Up"}
                 </NavLink>
               ) : (
-                <NavLink to={LINKS.signIn} end>
+                <NavLink style={linkStyles} to={LINKS.signIn} end>
                   Already have an account? Sign in
                 </NavLink>
               )}
