@@ -17,7 +17,13 @@ export const Header = () => {
   const dispatch = useAppDispatch();
 
   const handleThemeChange = () => {
-    theme === 'light' ? dispatch(setTheme('dark')) : dispatch(setTheme('light'));
+    if (theme === 'light') {
+      dispatch(setTheme('dark'));
+      localStorage.setItem('theme', 'dark');
+    } else {
+      dispatch(setTheme('light'));
+      localStorage.setItem('theme', 'light');
+    }
   };
 
   return (

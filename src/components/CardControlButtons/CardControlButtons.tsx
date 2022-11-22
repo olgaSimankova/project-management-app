@@ -5,7 +5,6 @@ import { LoadingButton } from '@mui/lab';
 import { CardControlsButtonProps } from 'types/types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useMain } from 'hooks/useMain';
-import { info } from 'console';
 
 export const CardControlButtons = ({
   id,
