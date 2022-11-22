@@ -64,9 +64,9 @@ export interface IUserAuthInfo extends ISignInFormFields {
 }
 
 export interface IUser {
-  _id: 'string';
-  name: 'string';
-  login: 'string';
+  _id: string;
+  name: string;
+  login: string;
 }
 
 export interface ISignInResponse {
@@ -178,4 +178,18 @@ export interface EditableTextFieldProps {
   handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
   tag: string;
+}
+
+export interface CheckPasswordModalProps {
+  onClickYes: (password: string) => void;
+  onClickNo: () => void;
+  isWrongPassword: boolean;
+  isLoading: boolean;
+}
+
+export interface FullUserData {
+  _id: string;
+  name: string;
+  login: string;
+  password: string;
 }

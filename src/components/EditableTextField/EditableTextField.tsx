@@ -12,15 +12,14 @@ export const EditableTextField = ({
   tag,
 }: EditableTextFieldProps) => {
   return (
-    <Box
-      sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}
-      onClick={(e) => handleClick(e, tag)}
-    >
+    <Box sx={{ display: 'flex', alignItems: 'center' }} onClick={(e) => handleClick(e, tag)}>
       <TextField
+        label={tag}
         defaultValue={defaultValue}
         placeholder="******"
         disabled={isDisabled}
         onChange={(e) => handleChange(e, tag)}
+        sx={{}}
       />
       {isDisabled ? (
         <Button
