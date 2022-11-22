@@ -8,7 +8,6 @@ import AddIcon from '@mui/icons-material/Add';
 const dividerStyles = {
   '&.MuiDivider-root': {
     borderColor: 'rgba(0, 0, 0, 0.42)',
-    borderWidth: '1px',
   },
   marginTop: '5px',
 };
@@ -35,6 +34,7 @@ const StyledBoardItem = styled(Paper)(() => ({
   padding: '10px',
   overflow: 'hidden',
   borderRadius: '10px',
+  backgroundColor: '#eef2f9',
 }));
 
 interface IColumnProps {

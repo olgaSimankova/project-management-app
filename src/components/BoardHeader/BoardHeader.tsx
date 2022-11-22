@@ -26,7 +26,7 @@ const BoardHeader = () => {
   }
 
   return (
-    <>
+    <Box color="#707090">
       <StyledBoardBox pt={3}>
         <Button
           onClick={() => navigate(LINKS.main)}
@@ -35,10 +35,12 @@ const BoardHeader = () => {
         >
           back
         </Button>
-        <Typography fontSize={18}>{isSuccess ? title : ''}</Typography>
+        <Typography>{isSuccess ? description : ''}</Typography>
       </StyledBoardBox>
-      <Typography mt={1}>{isSuccess ? description : ''}</Typography>
-    </>
+      <Typography textAlign="center" fontSize={20}>
+        {isSuccess ? title : ''}
+      </Typography>
+    </Box>
   );
 };
 
