@@ -17,7 +17,7 @@ const AddTasksButtonStyles = {
 };
 
 interface AddColumnButtonProps {
-  onClick: (id: string) => void;
+  onClick: (buttonId: string) => void;
 }
 
 const AddColumnButton = ({ onClick }: AddColumnButtonProps) => {

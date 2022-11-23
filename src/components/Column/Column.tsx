@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Button, Divider, List, Paper } from '@mui/material';
 import ColumnHeader from '../ColumnHeader/ColumnHeader';
@@ -46,19 +46,27 @@ interface IColumnProps {
   boardId?: string;
   name: string;
   order: number;
-  onClick: (id: string) => void;
+  onDataReceived: (count: number) => void;
+  onClick: (buttonId: string, columnId?: string) => void;
 }
 
-const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
-  const { data, isLoading, isError, error } = useGetTasksQuery({ boardId, columnId: id });
+const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnProps) => {
+  const { data, isSuccess, isLoading, isError, error } = useGetTasksQuery({
+    boardId,
+    columnId: id,
+  });
   const handleButtonClick = (e: React.MouseEvent) => {
     const target = e.currentTarget as HTMLElement;
-    onClick(target.id);
+    onClick(target.id, id);
   };
 
   const tasks = data?.map((task: ITaskConfig) => (
     <Task key={task._id} title={task.title} description={task.description} />
   ));
+
+  useEffect(() => {
+    onDataReceived(tasks?.length || 0);
+  }, [isSuccess, tasks?.length, onDataReceived]);
 
   if (isLoading) {
     return <Spinner />;

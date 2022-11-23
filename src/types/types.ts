@@ -96,7 +96,7 @@ export interface IColumnRequestParams extends IGetParams {
 }
 
 export interface IColumn extends IColumnRequestParams {
-  _id: string;
+  _id?: string;
   boardId: string;
 }
 
@@ -176,5 +176,5 @@ export interface AssigneeProps {
 export interface ITaskConfig extends IColumn {
   description: string;
   userId: string;
-  user: string[];
+  users: string[];
 }

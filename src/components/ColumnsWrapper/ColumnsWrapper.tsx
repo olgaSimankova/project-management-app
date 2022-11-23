@@ -21,22 +21,26 @@ const ColumnsWrapper = () => {
   const { data, isLoading } = useGetColumnsQuery(boardId as string);
 
   const [open, setOpen] = useState(false);
+  const [tasksCount, setTasksCount] = useState(0);
   const [buttonId, setButtonId] = useState('');
+  const [columnId, setColumnId] = useState('');
 
   const handleClose = () => setOpen(false);
-  const handleOpen = (id: string) => {
+  const handleOpen = (buttonId: string, columnId?: string) => {
     setOpen(true);
-    setButtonId(id);
+    setButtonId(buttonId);
+    setColumnId(columnId || '');
   };
 
   const columns = data?.map((column: IColumn, idx) => (
     <Column
       key={column._id}
       boardId={boardId}
-      id={column._id}
+      id={column._id || ''}
       order={idx}
       name={column.title}
       onClick={handleOpen}
+      onDataReceived={setTasksCount}
     />
   ));
 
@@ -50,9 +54,11 @@ const ColumnsWrapper = () => {
       <AddColumnButton onClick={handleOpen} />
       <ColumnAddModal
         boardId={boardId}
+        columnId={columnId}
         pressedButtonId={buttonId}
         open={open}
         columnsCount={columns?.length || 0}
+        tasksCount={tasksCount}
         onClose={handleClose}
       />
     </Box>
