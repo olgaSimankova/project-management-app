@@ -8,12 +8,14 @@ import { useTranslation } from 'react-i18next';
 
 const AuthButtons = () => {
   const { t } = useTranslation();
+
   const buttonStyles = {
     background: 'transparent',
     padding: '0px 5px 0px 5px',
     boxShadow: 'none',
     ml: 2,
   };
+
   return (
     <Box ml="auto">
       <NavLink to={LINKS.signIn} end>

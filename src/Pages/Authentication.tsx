@@ -6,10 +6,10 @@ import {
   Checkbox,
   CircularProgress,
   Container,
-  CssBaseline,
   FormControlLabel,
   FormHelperText,
   Grid,
+  Link,
   TextField,
   Typography,
 } from '@mui/material';
@@ -27,8 +27,10 @@ import { signInSchema } from '../schema/signInSchema';
 import { setUserInfo } from '../features/authSlice';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../hooks/useAppDispatch';
+import { useTranslation } from 'react-i18next';
 
 const Authentication = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const isSignIn = location.pathname === LINKS.signIn;
   const authSchema = isSignIn ? signInSchema : signUpSchema;
@@ -102,10 +104,6 @@ const Authentication = () => {
     signInReset();
   };
 
-  const linkStyles = {
-    color: '#33b5ee',
-  };
-
   return (
     <Container component="main" maxWidth="xs" sx={{ margin: '0 auto' }}>
       <Box
@@ -121,7 +119,7 @@ const Authentication = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {isSignIn ? 'Sign In ' : 'Sign Up'}
+          {isSignIn ? t('signIn') : t('signUp')}
         </Typography>
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
           {!isSignIn && (
@@ -131,7 +129,7 @@ const Authentication = () => {
               name="name"
               fullWidth
               id="firstName"
-              label="First Name"
+              label={t('firstName')}
               autoFocus
               error={!!errors.name}
               helperText={errors.name?.message}
@@ -142,7 +140,7 @@ const Authentication = () => {
             margin="normal"
             fullWidth
             id="login"
-            label="Login"
+            label={t('login')}
             name="login"
             type="text"
             autoComplete="login"
@@ -154,7 +152,7 @@ const Authentication = () => {
             margin="normal"
             fullWidth
             name="password"
-            label="Password"
+            label={t('password')}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -165,13 +163,13 @@ const Authentication = () => {
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox {...register('agree', { required: true })} name="agree" />}
-                label="I agree to the processing of personal data."
+                label={t('processingPersonalData')}
               />
               <FormHelperText error={!!errors.agree}>{errors.agree?.message}</FormHelperText>
             </Grid>
           )}
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            {isSignIn ? 'Sign In ' : 'Sign Up'}
+            {isSignIn ? t('signIn') : t('signUp')}
             {(isLoading || isAuthLoading) && (
               <CircularProgress size={16} color={'inherit'} sx={{ ml: 2 }} />
             )}
@@ -179,13 +177,9 @@ const Authentication = () => {
           <Grid container justifyContent={'end'}>
             <Grid item onClick={handleResetForm}>
               {isSignIn ? (
-                <NavLink style={linkStyles} to={LINKS.signUp} end>
-                  {"Don't have an account? Sign Up"}
-                </NavLink>
+                <Link href={LINKS.signUp}>{t('dontHaveAccount')}</Link>
               ) : (
-                <NavLink style={linkStyles} to={LINKS.signIn} end>
-                  Already have an account? Sign in
-                </NavLink>
+                <Link href={LINKS.signIn}>{t('haveAccount')}</Link>
               )}
             </Grid>
           </Grid>

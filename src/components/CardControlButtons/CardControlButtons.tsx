@@ -5,6 +5,7 @@ import { LoadingButton } from '@mui/lab';
 import { CardControlsButtonProps } from 'types/types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useMain } from 'hooks/useMain';
+import { useTranslation } from 'react-i18next';
 
 export const CardControlButtons = ({
   id,
@@ -12,6 +13,7 @@ export const CardControlButtons = ({
   isDeleting,
   isEditing,
 }: CardControlsButtonProps) => {
+  const { t } = useTranslation();
   const { boardID } = useMain();
   const styles = {
     background: 'transparent',
@@ -33,7 +35,7 @@ export const CardControlButtons = ({
         className="top-level"
         data-id="edit"
       >
-        EDIT
+        {t('edit')}
       </LoadingButton>
       <LoadingButton
         sx={styles}
@@ -44,7 +46,7 @@ export const CardControlButtons = ({
         className="top-level"
         data-id="delete"
       >
-        DELETE
+        {t('delete')}
       </LoadingButton>
     </Box>
   );

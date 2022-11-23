@@ -27,7 +27,7 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
           left: '0',
           width: '100vw',
           height: '100vh',
-          background: 'black',
+          background: '#000',
           opacity: '0.5',
         }}
       />
