@@ -5,7 +5,7 @@ import { Error } from 'Pages/Error';
 import { Search } from 'Pages/Search';
 import { Welcome } from 'Pages/Welcome';
 import { Routes, Route } from 'react-router-dom';
-import { CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import Authentication from '../Pages/Authentication';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,13 +15,12 @@ import { init } from './app.config';
 import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
 import { useCustomTheme } from 'hooks/useCustomTheme';
+import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 
 export const App = () => {
-  init();
-  let { theme } = useCustomTheme();
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const userTheme = prefersDarkMode ? 'dark' : 'light';
-  if (!theme) theme = userTheme;
+  const userTheme = useUserSystemTheme();
+  init(userTheme);
+  const { theme } = useCustomTheme();
 
   return (
     <>

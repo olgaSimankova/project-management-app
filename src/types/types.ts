@@ -173,5 +173,5 @@ export interface AssigneeProps {
 }
 
 export interface ThemeSlice {
-  theme: string;
+  theme?: string;
 }
