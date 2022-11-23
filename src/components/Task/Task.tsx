@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Grid, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
+import EditTaskModal from '../EditTaskModal/EditTaskModal';
 
 const boxStyles = {
   '&.MuiBox-root': {
@@ -39,6 +40,9 @@ const addRespStyles = {
 };
 
 const Task = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Grid sx={boxStyles}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -60,10 +64,11 @@ const Task = () => {
             Responsible:
           </Typography>
         </Box>
-        <IconButton sx={addRespStyles} size="small">
+        <IconButton onClick={handleOpen} sx={addRespStyles} size="small">
           <SearchSharpIcon sx={{ fontSize: '17px' }} />
         </IconButton>
       </Box>
+      <EditTaskModal open={open} onClose={handleClose} />
     </Grid>
   );
 };
