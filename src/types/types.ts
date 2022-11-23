@@ -101,7 +101,7 @@ export interface IColumn extends IColumnRequestParams {
 }
 
 export interface IGetParams {
-  boardId: string;
+  boardId?: string;
   columnId?: string;
   taskId?: string;
 }

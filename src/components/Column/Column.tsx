@@ -4,6 +4,10 @@ import { Button, Divider, List, Paper } from '@mui/material';
 import ColumnHeader from '../ColumnHeader/ColumnHeader';
 import Task from '../Task/Task';
 import AddIcon from '@mui/icons-material/Add';
+import { useGetTasksQuery } from '../../api/task.api';
+import { Error, ITaskConfig } from '../../types/types';
+import { Spinner } from '../Spinner/Spinner';
+import { toast } from 'react-toastify';
 
 const dividerStyles = {
   '&.MuiDivider-root': {
@@ -39,26 +43,36 @@ const StyledBoardItem = styled(Paper)(() => ({
 
 interface IColumnProps {
   id: string;
+  boardId?: string;
   name: string;
   order: number;
   onClick: (id: string) => void;
 }
 
-const Column = ({ id, name, order, onClick }: IColumnProps) => {
+const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
+  const { data, isLoading, isError, error } = useGetTasksQuery({ boardId, columnId: id });
   const handleButtonClick = (e: React.MouseEvent) => {
     const target = e.currentTarget as HTMLElement;
     onClick(target.id);
   };
+
+  const tasks = data?.map((task: ITaskConfig) => (
+    <Task key={task._id} title={task.title} description={task.description} />
+  ));
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    toast.error((error as Error).data.message);
+  }
+
   return (
     <StyledBoardItem id={`${order}`} elevation={5}>
       <ColumnHeader order={order} name={name} columnId={id} />
       <Divider sx={dividerStyles} />
-      <List sx={{ p: '2px', overflowY: 'auto' }}>
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-      </List>
+      <List sx={{ p: '2px', overflowY: 'auto' }}>{tasks}</List>
       <Button
         id="add-task"
         onClick={(e) => handleButtonClick(e)}

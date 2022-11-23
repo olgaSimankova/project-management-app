@@ -39,7 +39,12 @@ const addRespStyles = {
   },
 };
 
-const Task = () => {
+interface ITaskProps {
+  title: string;
+  description: string;
+}
+
+const Task = ({ title, description }: ITaskProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -48,7 +53,7 @@ const Task = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box sx={titleStyles}>
           <Typography color="white" sx={{ lineHeight: 1.3 }}>
-            Title
+            {title}
           </Typography>
         </Box>
         <IconButton size="small">
@@ -56,7 +61,7 @@ const Task = () => {
         </IconButton>
       </Box>
       <Typography color="#707090" fontSize="14px">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur culpa deserunt nobis
+        {description}
       </Typography>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box sx={respStyles}>

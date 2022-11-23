@@ -19,7 +19,7 @@ export const taskApi = createApi({
   endpoints: (build) => ({
     getTasks: build.query<ITaskConfig[], IGetParams>({
       query: ({ boardId, columnId }) => ({
-        url: `boards/${boardId}/columns/${columnId}`,
+        url: `boards/${boardId}/columns/${columnId}/tasks`,
       }),
       providesTags: ['task'],
     }),

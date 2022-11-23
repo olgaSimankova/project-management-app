@@ -21,16 +21,23 @@ const ColumnsWrapper = () => {
   const { data, isLoading } = useGetColumnsQuery(boardId as string);
 
   const [open, setOpen] = useState(false);
-  const [buttonId, setAButtonId] = useState('');
+  const [buttonId, setButtonId] = useState('');
 
   const handleClose = () => setOpen(false);
   const handleOpen = (id: string) => {
     setOpen(true);
-    setAButtonId(id);
+    setButtonId(id);
   };
 
   const columns = data?.map((column: IColumn, idx) => (
-    <Column key={column._id} id={column._id} order={idx} name={column.title} onClick={handleOpen} />
+    <Column
+      key={column._id}
+      boardId={boardId}
+      id={column._id}
+      order={idx}
+      name={column.title}
+      onClick={handleOpen}
+    />
   ));
 
   if (isLoading) {
