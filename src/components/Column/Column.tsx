@@ -61,7 +61,14 @@ const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnPr
   };
 
   const tasks = data?.map((task: ITaskConfig) => (
-    <Task key={task._id} title={task.title} description={task.description} />
+    <Task
+      key={task._id}
+      id={task._id}
+      boardId={boardId}
+      columnId={id}
+      title={task.title}
+      description={task.description}
+    />
   ));
 
   useEffect(() => {
@@ -80,7 +87,7 @@ const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnPr
     <StyledBoardItem id={`${order}`} elevation={5}>
       <ColumnHeader order={order} name={name} columnId={id} />
       <Divider sx={dividerStyles} />
-      <List sx={{ p: '2px', overflowY: 'auto' }}>{tasks}</List>
+      <List sx={{ p: '2px', overflowY: 'auto', position: 'unset' }}>{tasks}</List>
       <Button
         id="add-task"
         onClick={(e) => handleButtonClick(e)}
