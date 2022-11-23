@@ -6,7 +6,6 @@ const initialState: MainState = {
   boardID: '',
   modalOption: BoardFormOptions.create,
   isConfirmationOpen: false,
-  theme: 'dark',
   assignees: [],
 };
 
@@ -26,9 +25,6 @@ export const mainSlice = createSlice({
     setBoardID: (state, action: PayloadAction<string>) => {
       state.boardID = action.payload;
     },
-    setTheme: (state, action: PayloadAction<string>) => {
-      state.theme = action.payload;
-    },
     setAssignees: (state, action: PayloadAction<string[]>) => {
       state.assignees = action.payload;
     },
@@ -41,6 +37,5 @@ export const {
   setModalOption,
   setBoardID,
   toggleConfirmationWindow,
-  setTheme,
   setAssignees,
 } = mainSlice.actions;

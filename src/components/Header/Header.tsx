@@ -7,12 +7,12 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import { useAuth } from '../../hooks/useAuth';
 import LanguageButton from 'components/LanguageButton/LanguageButton';
-import { setTheme } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useMain } from 'hooks/useMain';
+import { useCustomTheme } from 'hooks/useCustomTheme';
+import { setTheme } from 'theme/themeSlice';
 
 export const Header = () => {
-  const { theme } = useMain();
+  const { theme } = useCustomTheme();
   const { token } = useAuth();
   const dispatch = useAppDispatch();
 

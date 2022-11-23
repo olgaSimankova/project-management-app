@@ -14,11 +14,11 @@ import Board from '../features/Board/Board';
 import { init } from './app.config';
 import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
-import { useMain } from 'hooks/useMain';
+import { useCustomTheme } from 'hooks/useCustomTheme';
 
 export const App = () => {
   init();
-  const { theme } = useMain();
+  const { theme } = useCustomTheme();
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? themeLight : themeDark}>

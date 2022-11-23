@@ -1,6 +1,6 @@
 import { store } from './state/store';
 import { setUser, setUserInfo } from '../features/authSlice';
-import { setTheme } from 'features/mainSlice';
+import { setTheme } from 'theme/themeSlice';
 
 export const init = () => {
   const theme = localStorage.getItem('theme');

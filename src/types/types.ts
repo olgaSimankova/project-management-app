@@ -110,7 +110,6 @@ export interface MainState {
   boardID: string;
   modalOption: BoardFormOptions;
   isConfirmationOpen: boolean;
-  theme: string;
   assignees: string[];
 }
 
@@ -171,4 +170,8 @@ export interface AssigneeProps {
   handleChange: ((event: SelectChangeEvent<string[]>, id: string) => void) | undefined;
   id: string;
   onClose: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
+}
+
+export interface ThemeSlice {
+  theme: string;
 }

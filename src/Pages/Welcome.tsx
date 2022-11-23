@@ -1,14 +1,14 @@
 import { Box, Button, Container, Typography } from '@mui/material';
-import AboutUs from 'components/AboutUs/AboutUs';
+import AboutUs from '../components/AboutUs/AboutUs';
 import UsedTechnologies from 'components/UsedTechnologies/UsedTechnologies';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import bgLight from '../assets/img/bgLight.png';
 import bgDark from '../assets/img/bgDark.png';
-import { useMain } from 'hooks/useMain';
+import { useCustomTheme } from 'hooks/useCustomTheme';
 
 export const Welcome = () => {
-  const { theme } = useMain();
+  const { theme } = useCustomTheme();
 
   const styles = {
     heroWrapper: {
@@ -47,7 +47,9 @@ export const Welcome = () => {
           </Typography>
           <Container sx={styles.heroContainer} maxWidth={false}>
             <Box sx={styles.heroContainer}>
-              <Typography variant="h5">{t('welcomeHero')}</Typography>
+              <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                {t('welcomeHero')}
+              </Typography>
             </Box>
             <Button variant="contained">{t('heroAboutBtn')}</Button>
           </Container>
@@ -66,6 +68,3 @@ export const Welcome = () => {
     </main>
   );
 };
-function interpolate(arg0: { inputRange: number[]; outputRange: string[] }) {
-  throw new Error('Function not implemented.');
-}
