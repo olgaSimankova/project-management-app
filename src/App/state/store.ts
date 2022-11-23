@@ -6,6 +6,7 @@ import userSlice from '../../features/authSlice';
 import { columnApi } from '../../api/column.api';
 import { userApi } from '../../api/user.api';
 import { taskApi } from '../../api/task.api';
+import themeSlice from 'theme/themeSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     mainState: mainSlice,
     [mainApi.reducerPath]: mainApi.reducer,
     [taskApi.reducerPath]: taskApi.reducer,
+    themeState: themeSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

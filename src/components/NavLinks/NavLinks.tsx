@@ -5,10 +5,15 @@ import { useTranslation } from 'react-i18next';
 
 const NavLinks = () => {
   const { t } = useTranslation();
+  const buttonStyles = {
+    background: 'transparent',
+    padding: 0,
+    boxShadow: 'none',
+  };
   return (
     <Box m="0 auto">
       {PAGES.map((page) => (
-        <Button key={page} sx={{ color: 'white' }}>
+        <Button key={page} sx={buttonStyles}>
           {t(page)}
         </Button>
       ))}

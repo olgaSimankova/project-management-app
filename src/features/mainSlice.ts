@@ -32,7 +32,6 @@ export const mainSlice = createSlice({
 });
 
 export default mainSlice.reducer;
-
 export const {
   toggleModalWindow,
   setModalOption,

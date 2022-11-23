@@ -1,10 +1,11 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import { CardControlsButtonProps } from 'types/types';
 import { LoadingButton } from '@mui/lab';
+import { CardControlsButtonProps } from 'types/types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useMain } from 'hooks/useMain';
+import { useTranslation } from 'react-i18next';
 
 export const CardControlButtons = ({
   id,
@@ -12,13 +13,21 @@ export const CardControlButtons = ({
   isDeleting,
   isEditing,
 }: CardControlsButtonProps) => {
+  const { t } = useTranslation();
   const { boardID } = useMain();
+  const styles = {
+    background: 'transparent',
+    padding: '0px',
+    boxShadow: 'none',
+    color: 'info.light',
+  };
   return (
     <Box
       onClick={(e) => onClick(e, id)}
-      sx={{ position: 'absolute', top: '0rem', right: '0.5rem' }}
+      sx={{ position: 'absolute', top: '0rem', right: '0.5rem', display: 'flex', gap: 1 }}
     >
       <LoadingButton
+        sx={styles}
         loading={boardID === id ? isEditing : false}
         loadingPosition="start"
         startIcon={<EditIcon color="info" />}
@@ -26,9 +35,10 @@ export const CardControlButtons = ({
         className="top-level"
         data-id="edit"
       >
-        EDIT
+        {t('edit')}
       </LoadingButton>
       <LoadingButton
+        sx={styles}
         loading={boardID === id ? isDeleting : false}
         loadingPosition="start"
         startIcon={<DeleteIcon color="error" />}
@@ -36,7 +46,7 @@ export const CardControlButtons = ({
         className="top-level"
         data-id="delete"
       >
-        DELETE
+        {t('delete')}
       </LoadingButton>
     </Box>
   );

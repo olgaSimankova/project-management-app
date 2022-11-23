@@ -178,3 +178,7 @@ export interface ITaskConfig extends IColumn {
   userId: string;
   users: string[];
 }
+
+export interface ThemeSlice {
+  theme?: string;
+}
