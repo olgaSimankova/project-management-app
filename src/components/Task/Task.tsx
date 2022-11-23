@@ -50,9 +50,10 @@ interface ITaskProps {
   columnId?: string;
   title: string;
   description: string;
+  order: number;
 }
 
-const Task = ({ id, boardId, columnId, title, description }: ITaskProps) => {
+const Task = ({ id, order, boardId, columnId, title, description }: ITaskProps) => {
   const [deleteTask, { isError, error }] = useDeleteTaskMutation();
   const [open, setOpen] = React.useState(false);
   const [confirmOpen, setConfirmOpen] = React.useState(false);
@@ -93,7 +94,16 @@ const Task = ({ id, boardId, columnId, title, description }: ITaskProps) => {
             <SearchSharpIcon sx={{ fontSize: '17px' }} />
           </IconButton>
         </Box>
-        <EditTaskModal open={open} onClose={handleClose} />
+        <EditTaskModal
+          title={title}
+          order={order}
+          description={description}
+          open={open}
+          boardId={boardId}
+          columnId={columnId}
+          taskId={id}
+          onClose={handleClose}
+        />
         {confirmOpen && (
           <ConfirmModal
             question={QUESTION_ON_DELETE}

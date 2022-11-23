@@ -40,7 +40,7 @@ export const taskApi = createApi({
       query: ({ boardId, columnId, taskId, ...body }) => ({
         url: `boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
         method: 'PUT',
-        body,
+        body: { ...body, columnId },
       }),
       invalidatesTags: (result) => [{ type: 'task', id: result?.taskId }],
     }),

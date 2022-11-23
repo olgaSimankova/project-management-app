@@ -6,7 +6,6 @@ import Task from '../Task/Task';
 import AddIcon from '@mui/icons-material/Add';
 import { useGetTasksQuery } from '../../api/task.api';
 import { Error, ITaskConfig } from '../../types/types';
-import { Spinner } from '../Spinner/Spinner';
 import { toast } from 'react-toastify';
 
 const dividerStyles = {
@@ -51,7 +50,7 @@ interface IColumnProps {
 }
 
 const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnProps) => {
-  const { data, isSuccess, isLoading, isError, error } = useGetTasksQuery({
+  const { data, isSuccess, isError, error } = useGetTasksQuery({
     boardId,
     columnId: id,
   });
@@ -67,6 +66,7 @@ const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnPr
       boardId={boardId}
       columnId={id}
       title={task.title}
+      order={task.order}
       description={task.description}
     />
   ));
@@ -74,10 +74,6 @@ const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnPr
   useEffect(() => {
     onDataReceived(tasks?.length || 0);
   }, [isSuccess, tasks?.length, onDataReceived]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   if (isError) {
     toast.error((error as Error).data.message);
