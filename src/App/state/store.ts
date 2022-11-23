@@ -5,6 +5,7 @@ import { authApi } from '../../api/auth.api';
 import userSlice from '../../features/authSlice';
 import { columnApi } from '../../api/column.api';
 import { userApi } from '../../api/user.api';
+import { taskApi } from '../../api/task.api';
 
 export const store = configureStore({
   reducer: {
@@ -14,13 +15,15 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     mainState: mainSlice,
     [mainApi.reducerPath]: mainApi.reducer,
+    [taskApi.reducerPath]: taskApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
       columnApi.middleware,
       userApi.middleware,
-      mainApi.middleware
+      mainApi.middleware,
+      taskApi.middleware
     ),
 });
 
