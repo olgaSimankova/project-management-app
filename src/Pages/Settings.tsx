@@ -1,14 +1,19 @@
+import { LoadingButton } from '@mui/lab';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useSignInMutation } from 'api/auth.api';
-import { useUpdateUserMutation } from 'api/user.api';
+import { useDeleteUserMutation, useUpdateUserMutation } from 'api/user.api';
 import { CheckPasswordModal } from 'components/CheckPasswordModal/CheckPasswordModal';
 import { EditableTextField } from 'components/EditableTextField/EditableTextField';
-import { setUser } from 'features/authSlice';
+import { logout, setUser } from 'features/authSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAuth } from 'hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
+import { useNavigate } from 'react-router-dom';
+import { LINKS } from 'constants/constants';
 
 export const Settings = () => {
   const [signIn, { isLoading, isSuccess, isError, reset: signInReset }] = useSignInMutation();
@@ -16,6 +21,9 @@ export const Settings = () => {
     updateUser,
     { isSuccess: isSuccessfullyUpdated, reset: updateReset, isError: updateFailed },
   ] = useUpdateUserMutation();
+  const navigate = useNavigate();
+  const [deleteUser, { isSuccess: userDeleted, reset: deleteReset, isLoading: deleteLoading }] =
+    useDeleteUserMutation();
   const dispatch = useAppDispatch();
   const { user } = useAuth();
   const [credits, setCredits] = useState({
@@ -31,6 +39,7 @@ export const Settings = () => {
     password: true,
     isModal: false,
     isDisabled: true,
+    isConfirmOpen: false,
   });
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => {
@@ -66,6 +75,16 @@ export const Settings = () => {
     signIn({ login: user?.login || '', password });
     setCredits((credits) => ({ ...credits, oldPassword: password }));
   };
+  const handleDeleteClick = () => {
+    setFlags((flags) => ({ ...flags, isConfirmOpen: true }));
+  };
+  const handleDelete = () => {
+    setFlags((flags) => ({ ...flags, isConfirmOpen: false }));
+    deleteUser(user?._id || '');
+  };
+  const handleCloseConfirmWindow = () => {
+    setFlags((flags) => ({ ...flags, isConfirmOpen: false }));
+  };
   useEffect(() => {
     if (isSuccess) {
       closeModal();
@@ -92,6 +111,16 @@ export const Settings = () => {
     updateUser,
     user?._id,
   ]);
+
+  useEffect(() => {
+    if (userDeleted) {
+      dispatch(logout());
+      navigate(LINKS.welcome);
+      dispatch(setUser({ _id: '', name: '', login: '' }));
+      deleteReset();
+    }
+  }, [userDeleted, dispatch, navigate, deleteReset]);
+
   useEffect(() => {
     if (isSuccessfullyUpdated) {
       updateReset();
@@ -149,14 +178,22 @@ export const Settings = () => {
           tag="password"
           handleChange={handleChange}
         />
-        <Button
-          variant="contained"
-          color="success"
-          onClick={handleClickConfirmChanges}
-          disabled={flags.isDisabled || !flags.name || !flags.login || !flags.password}
-        >
-          Confirm changes
-        </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+          <LoadingButton
+            loading={deleteLoading}
+            loadingPosition="start"
+            onClick={handleDeleteClick}
+            startIcon={<DeleteIcon sx={{ marginLeft: '0.5rem' }} color="error" />}
+          />
+          <Button
+            variant="contained"
+            color="success"
+            onClick={handleClickConfirmChanges}
+            disabled={flags.isDisabled || !flags.name || !flags.login || !flags.password}
+          >
+            Confirm changes
+          </Button>
+        </Box>
       </Box>
       {flags.isModal ? (
         <CheckPasswordModal
@@ -164,6 +201,15 @@ export const Settings = () => {
           onClickNo={closeModal}
           isWrongPassword={isError}
           isLoading={isLoading}
+        />
+      ) : (
+        <></>
+      )}
+      {flags.isConfirmOpen ? (
+        <ConfirmModal
+          question="Do you want to delete user?"
+          onYesClick={handleDelete}
+          onNoClick={handleCloseConfirmWindow}
         />
       ) : (
         <></>
