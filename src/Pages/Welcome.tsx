@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography, useMediaQuery } from '@mui/material';
 import AboutUs from '../components/AboutUs/AboutUs';
 import UsedTechnologies from 'components/UsedTechnologies/UsedTechnologies';
 import React from 'react';
@@ -8,7 +8,10 @@ import bgDark from '../assets/img/bgDark.png';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 
 export const Welcome = () => {
-  const { theme } = useCustomTheme();
+  let { theme } = useCustomTheme();
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const userTheme = prefersDarkMode ? 'dark' : 'light';
+  if (!theme) theme = userTheme;
 
   const styles = {
     heroWrapper: {
