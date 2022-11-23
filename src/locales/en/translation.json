@@ -24,5 +24,13 @@
   "toastBordDeleted": "Board has been deleted!",
   "questuionDelete": "Do you really want to delete?",
   "Edit Profile": "Edit Profile",
-  "Logout": "Logout"
+  "Logout": "Logout",
+  "dontHaveAccount": "Don't have an account? Sign Up",
+  "haveAccount": "Already have an account? Sign in",
+  "edit": "EDIT",
+  "delete": "DELETE",
+  "processingPersonalData": "I agree to the processing of personal data.",
+  "firstName": "First Name",
+  "login": "Login",
+  "password": "Password"
 }

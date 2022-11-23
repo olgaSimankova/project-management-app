@@ -193,3 +193,7 @@ export interface FullUserData {
   login: string;
   password: string;
 }
+
+export interface ThemeSlice {
+  theme?: string;
+}

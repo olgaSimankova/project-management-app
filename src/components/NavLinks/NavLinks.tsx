@@ -15,10 +15,16 @@ const NavLinks = () => {
     }
   };
 
+  const buttonStyles = {
+    background: 'transparent',
+    padding: 0,
+    boxShadow: 'none',
+  };
+
   return (
     <Box m="0 auto" onClick={handleClick}>
       {PAGES.map((page) => (
-        <Button key={page} sx={{ color: 'white' }} data-id={page}>
+        <Button key={page} sx={buttonStyles} data-id={page}>
           {t(page)}
         </Button>
       ))}

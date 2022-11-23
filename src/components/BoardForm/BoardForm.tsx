@@ -27,7 +27,7 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
           left: '0',
           width: '100vw',
           height: '100vh',
-          background: '#333333',
+          background: '#000',
           opacity: '0.5',
         }}
       />
@@ -47,11 +47,11 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
           minWidth: '300px',
           width: '50vw',
           padding: '1rem',
-          background: 'white',
+          backgroundColor: 'info.main',
           borderRadius: '1rem',
         }}
       >
-        <Typography variant="h5">
+        <Typography variant="h5" sx={{ color: 'info.contrastText' }}>
           {`${option.slice(0, 1).toUpperCase()}${option.slice(1)}`} project
         </Typography>
         <TextField
@@ -97,7 +97,10 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
             right: '0',
             width: '3rem',
             height: '3rem',
-            background: 'white',
+            background: 'linear-gradient(45deg, #FF6753 30%, #FF8F50 90%)',
+            borderRadius: 50,
+            border: 0,
+            color: 'white',
           }}
         >
           <CloseIcon />
