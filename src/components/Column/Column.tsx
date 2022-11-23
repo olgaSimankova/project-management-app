@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
-import { Button, Divider, List, Paper } from '@mui/material';
+import { Box, Button, Divider, List, Paper } from '@mui/material';
 import ColumnHeader from '../ColumnHeader/ColumnHeader';
 import Task from '../Task/Task';
 import AddIcon from '@mui/icons-material/Add';
@@ -26,19 +26,31 @@ const addButtonStyles = {
   },
   marginTop: '5px',
   width: '290px',
-  height: '39px',
+  minHeight: '39px',
 };
 
 const StyledBoardItem = styled(Paper)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
   minWidth: '280px',
   maxHeight: '100%',
-  marginTop: '20px',
-  marginBottom: '20px',
   padding: '10px',
   overflow: 'hidden',
   borderRadius: '10px',
   backgroundColor: '#eef2f9',
 }));
+
+const taskListStyle = {
+  position: 'unset',
+  minHeight: '1px',
+  mb: '10px',
+  p: '2px',
+  display: 'flex',
+  gridGap: '7px',
+  gap: '7px',
+  flexDirection: 'column',
+  overflow: 'hidden auto',
+};
 
 interface IColumnProps {
   id: string;
@@ -80,20 +92,22 @@ const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnPr
   }
 
   return (
-    <StyledBoardItem id={`${order}`} elevation={5}>
-      <ColumnHeader order={order} name={name} columnId={id} />
-      <Divider sx={dividerStyles} />
-      <List sx={{ p: '2px', overflowY: 'auto', position: 'unset' }}>{tasks}</List>
-      <Button
-        id="add-task"
-        onClick={(e) => handleButtonClick(e)}
-        sx={addButtonStyles}
-        variant="text"
-        startIcon={<AddIcon />}
-      >
-        Add task
-      </Button>
-    </StyledBoardItem>
+    <Box>
+      <StyledBoardItem id={`${order}`} elevation={5}>
+        <ColumnHeader order={order} name={name} columnId={id} />
+        <Divider sx={dividerStyles} />
+        <List sx={taskListStyle}>{tasks}</List>
+        <Button
+          id="add-task"
+          onClick={(e) => handleButtonClick(e)}
+          sx={addButtonStyles}
+          variant="text"
+          startIcon={<AddIcon />}
+        >
+          Add task
+        </Button>
+      </StyledBoardItem>
+    </Box>
   );
 };
 

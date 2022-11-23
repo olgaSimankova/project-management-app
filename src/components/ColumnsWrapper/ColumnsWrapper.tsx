@@ -14,6 +14,7 @@ const boxStyles = {
   gap: '15px',
   overflow: 'auto',
   padding: '10px',
+  height: 'calc(100vh - 216px)',
 };
 
 const ColumnsWrapper = () => {
