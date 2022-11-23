@@ -5,6 +5,7 @@ import { authApi } from '../../api/auth.api';
 import userSlice from '../../features/authSlice';
 import { columnApi } from '../../api/column.api';
 import { userApi } from '../../api/user.api';
+import themeSlice from 'theme/themeSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     mainState: mainSlice,
     [mainApi.reducerPath]: mainApi.reducer,
+    themeState: themeSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
