@@ -14,6 +14,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
 import { useNavigate } from 'react-router-dom';
 import { LINKS } from 'constants/constants';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { userSchema } from 'schema/userSchema';
+import { UserFields } from 'types/types';
 
 export const Settings = () => {
   const [signIn, { isLoading, isSuccess, isError, reset: signInReset }] = useSignInMutation();
@@ -40,6 +44,14 @@ export const Settings = () => {
     isModal: false,
     isDisabled: true,
     isConfirmOpen: false,
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserFields>({
+    defaultValues: { name: credits.name, login: credits.login, password: '' },
+    resolver: yupResolver(userSchema),
   });
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => {
@@ -147,6 +159,8 @@ export const Settings = () => {
       }}
     >
       <Box
+        component="form"
+        onSubmit={handleSubmit(handleClickConfirmChanges)}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -163,6 +177,8 @@ export const Settings = () => {
           handleClick={handleClick}
           handleChange={handleChange}
           tag="name"
+          register={register}
+          errors={errors}
         />
         <EditableTextField
           defaultValue={credits.login}
@@ -170,6 +186,8 @@ export const Settings = () => {
           handleClick={handleClick}
           tag="login"
           handleChange={handleChange}
+          register={register}
+          errors={errors}
         />
         <EditableTextField
           defaultValue={credits.password}
@@ -177,6 +195,8 @@ export const Settings = () => {
           handleClick={handleClick}
           tag="password"
           handleChange={handleChange}
+          register={register}
+          errors={errors}
         />
         <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
           <LoadingButton
@@ -186,9 +206,9 @@ export const Settings = () => {
             startIcon={<DeleteIcon sx={{ marginLeft: '0.5rem' }} color="error" />}
           />
           <Button
+            type="submit"
             variant="contained"
             color="success"
-            onClick={handleClickConfirmChanges}
             disabled={flags.isDisabled || !flags.name || !flags.login || !flags.password}
           >
             Confirm changes

@@ -10,16 +10,21 @@ export const EditableTextField = ({
   handleClick,
   handleChange,
   tag,
+  register,
+  errors,
 }: EditableTextFieldProps) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }} onClick={(e) => handleClick(e, tag)}>
       <TextField
+        {...register(tag)}
         label={tag}
-        defaultValue={defaultValue}
+        name={tag}
+        value={defaultValue}
         placeholder="******"
         disabled={isDisabled}
         onChange={(e) => handleChange(e, tag)}
-        sx={{}}
+        error={!!errors[tag]}
+        helperText={errors[tag]?.message}
       />
       {isDisabled ? (
         <Button

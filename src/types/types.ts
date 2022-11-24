@@ -7,7 +7,7 @@ import {
   MutationDefinition,
 } from '@reduxjs/toolkit/dist/query';
 import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-import { FieldValues } from 'react-hook-form';
+import { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form';
 
 export type Board = {
   title: string;
@@ -177,7 +177,15 @@ export interface EditableTextFieldProps {
   isDisabled: boolean;
   handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
-  tag: string;
+  tag: 'name' | 'password' | 'login';
+  register: UseFormRegister<UserFields>;
+  errors: Partial<
+    FieldErrorsImpl<{
+      name: string;
+      login: string;
+      password: string;
+    }>
+  >;
 }
 
 export interface CheckPasswordModalProps {
@@ -196,4 +204,10 @@ export interface FullUserData {
 
 export interface ThemeSlice {
   theme?: string;
+}
+
+export interface UserFields {
+  name: string;
+  login: string;
+  password: string;
 }
