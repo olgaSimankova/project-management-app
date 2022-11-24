@@ -27,7 +27,7 @@ export const Assignees = ({ all, selected, handleChange, id, onClose }: Assignee
         }
         renderValue={(selected: string[]) => (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.2rem' }}>
-            {selected.map((value) => (value ? <Chip key={value} label={value} /> : <></>))}
+            {selected.map((value) => (value ? <Chip key={value} label={value} /> : null))}
           </Box>
         )}
       >

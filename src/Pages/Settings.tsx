@@ -226,18 +226,14 @@ export const Settings = () => {
           isWrongPassword={isError}
           isLoading={isLoading}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
       {flags.isConfirmOpen ? (
         <ConfirmModal
           question="Do you want to delete user?"
           onYesClick={handleDelete}
           onNoClick={handleCloseConfirmWindow}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </Box>
   );
 };

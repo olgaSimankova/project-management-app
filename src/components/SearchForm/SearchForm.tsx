@@ -1,9 +1,18 @@
 import { Button, Chip, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import { Box } from '@mui/system';
+import { useGetAllColumnsByUserIDQuery } from 'api/column.api';
+import { useAuth } from 'hooks/useAuth';
 import React from 'react';
 
 export const SearchForm = () => {
   const names = ['1', '2', '3', '4'];
+  const { user } = useAuth();
+  const { data } = useGetAllColumnsByUserIDQuery(user?._id || '');
+
+  const handleChangeSearchField = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {};
+
   return (
     <Box
       sx={{
@@ -21,6 +30,7 @@ export const SearchForm = () => {
         type="text"
         autoFocus
         variant="outlined"
+        onChange={handleChangeSearchField}
         placeholder="serch in task titles or description"
         sx={{ width: '80%', borderRadius: '3rem' }}
       />
