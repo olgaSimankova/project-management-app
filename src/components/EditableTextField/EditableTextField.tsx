@@ -26,21 +26,18 @@ export const EditableTextField = ({
         error={!!errors[tag]}
         helperText={errors[tag]?.message}
       />
-      {isDisabled ? (
-        <Button
-          variant="text"
-          className="top-level"
-          data-id={`edit-${tag}`}
-          startIcon={<EditIcon color="info" sx={{ marginLeft: '0.5rem' }} />}
-        />
-      ) : (
-        <Button
-          variant="text"
-          className="top-level"
-          data-id={`done-${tag}`}
-          startIcon={<DoneOutlineIcon color="success" sx={{ marginLeft: '0.5rem' }} />}
-        />
-      )}
+      <Button
+        variant="text"
+        className="top-level"
+        data-id={`${isDisabled ? 'edit' : 'done'}-${tag}`}
+        startIcon={
+          isDisabled ? (
+            <EditIcon color="info" sx={{ marginLeft: '0.5rem' }} />
+          ) : (
+            <DoneOutlineIcon color="success" sx={{ marginLeft: '0.5rem' }} />
+          )
+        }
+      />
     </Box>
   );
 };
