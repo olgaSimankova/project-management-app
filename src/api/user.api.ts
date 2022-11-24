@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
 import { RootState } from '../App/state/store';
-import { FullUserData, IUser } from '../types/types';
+import { FullUserData, ISignInFormFields, IUser, IUserSavingData } from '../types/types';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -34,7 +34,19 @@ export const userApi = createApi({
         method: 'DELETE',
       }),
     }),
+    checkUserPassword: build.mutation<IUserSavingData, ISignInFormFields>({
+      query: (body: ISignInFormFields) => ({
+        url: '/auth/signin',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useUpdateUserMutation, useDeleteUserMutation } = userApi;
+export const {
+  useGetUsersQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+  useCheckUserPasswordMutation,
+} = userApi;

@@ -1,8 +1,11 @@
 import { LoadingButton } from '@mui/lab';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useSignInMutation } from 'api/auth.api';
-import { useDeleteUserMutation, useUpdateUserMutation } from 'api/user.api';
+import {
+  useCheckUserPasswordMutation,
+  useDeleteUserMutation,
+  useUpdateUserMutation,
+} from 'api/user.api';
 import { CheckPasswordModal } from 'components/CheckPasswordModal/CheckPasswordModal';
 import { EditableTextField } from 'components/EditableTextField/EditableTextField';
 import { logout, setUser } from 'features/authSlice';
@@ -20,7 +23,8 @@ import { userSchema } from 'schema/userSchema';
 import { UserFields } from 'types/types';
 
 export const Settings = () => {
-  const [signIn, { isLoading, isSuccess, isError, reset: signInReset }] = useSignInMutation();
+  const [checkUserPassword, { isLoading, isSuccess, isError, reset: signInReset }] =
+    useCheckUserPasswordMutation();
   const [
     updateUser,
     { isSuccess: isSuccessfullyUpdated, reset: updateReset, isError: updateFailed },
@@ -84,7 +88,7 @@ export const Settings = () => {
     setFlags((flags) => ({ ...flags, isModal: false }));
   };
   const checkPassword = (password: string) => {
-    signIn({ login: user?.login || '', password });
+    checkUserPassword({ login: user?.login || '', password });
     setCredits((credits) => ({ ...credits, oldPassword: password }));
   };
   const handleDeleteClick = () => {
