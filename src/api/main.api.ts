@@ -18,8 +18,8 @@ export const mainApi = createApi({
   }),
   endpoints: (build) => ({
     getBoard: build.query<BoardConfig, string>({
-      query: (board_id: string) => ({
-        url: `/boards/${board_id}`,
+      query: (boardId: string) => ({
+        url: `/boards/${boardId}`,
       }),
     }),
     getBoards: build.query<BoardConfig[], void>({

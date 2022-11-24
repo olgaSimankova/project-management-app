@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Grid, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
@@ -55,8 +55,8 @@ interface ITaskProps {
 
 const Task = ({ id, order, boardId, columnId, title, description }: ITaskProps) => {
   const [deleteTask, { isError, error }] = useDeleteTaskMutation();
-  const [open, setOpen] = React.useState(false);
-  const [confirmOpen, setConfirmOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

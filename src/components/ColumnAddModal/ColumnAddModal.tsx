@@ -87,12 +87,7 @@ const ColumnAddModal = ({
   useEffect(() => {
     handleClose();
     fetchReset();
-  }, [isSuccess]);
-
-  useEffect(() => {
-    handleClose();
-    taskReset();
-  }, [taskSuccess]);
+  }, [isSuccess, taskSuccess]);
 
   return (
     <Modal

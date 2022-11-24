@@ -161,7 +161,6 @@ const EditTaskModal = ({
               sx={editStyles}
               fullWidth
               loading={isLoading}
-              // loadingPosition="start"
               variant="contained"
             >
               Confirm edit
