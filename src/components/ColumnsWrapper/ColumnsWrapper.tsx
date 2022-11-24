@@ -14,6 +14,7 @@ const boxStyles = {
   gap: '15px',
   overflow: 'auto',
   padding: '10px',
+  height: 'calc(100vh - 216px)',
 };
 
 const ColumnsWrapper = () => {
@@ -21,16 +22,27 @@ const ColumnsWrapper = () => {
   const { data, isLoading } = useGetColumnsQuery(boardId as string);
 
   const [open, setOpen] = useState(false);
-  const [buttonId, setAButtonId] = useState('');
+  const [tasksCount, setTasksCount] = useState(0);
+  const [buttonId, setButtonId] = useState('');
+  const [columnId, setColumnId] = useState('');
 
   const handleClose = () => setOpen(false);
-  const handleOpen = (id: string) => {
+  const handleOpen = (buttonId: string, columnId?: string) => {
     setOpen(true);
-    setAButtonId(id);
+    setButtonId(buttonId);
+    setColumnId(columnId || '');
   };
 
   const columns = data?.map((column: IColumn, idx) => (
-    <Column key={column._id} id={column._id} order={idx} name={column.title} onClick={handleOpen} />
+    <Column
+      key={column._id}
+      boardId={boardId}
+      id={column._id || ''}
+      order={idx}
+      name={column.title}
+      onClick={handleOpen}
+      onDataReceived={setTasksCount}
+    />
   ));
 
   if (isLoading) {
@@ -43,9 +55,11 @@ const ColumnsWrapper = () => {
       <AddColumnButton onClick={handleOpen} />
       <ColumnAddModal
         boardId={boardId}
+        columnId={columnId}
         pressedButtonId={buttonId}
         open={open}
         columnsCount={columns?.length || 0}
+        tasksCount={tasksCount}
         onClose={handleClose}
       />
     </Box>

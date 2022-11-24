@@ -2,8 +2,11 @@ import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { LINKS } from '../../constants/constants';
+import { useGetBoardQuery } from '../../api/main.api';
+import { toast } from 'react-toastify';
+import { Error } from '../../types/types';
 
 const StyledBoardBox = styled(Box)(() => ({
   display: 'flex',
@@ -13,9 +16,17 @@ const StyledBoardBox = styled(Box)(() => ({
 
 const BoardHeader = () => {
   const navigate = useNavigate();
+  const { boardId } = useParams();
+  const { data, isSuccess, isError, error } = useGetBoardQuery(boardId as string);
+
+  const { title, description } = JSON.parse(data?.title || '{}');
+
+  if (isError) {
+    toast.error((error as Error).data.message);
+  }
 
   return (
-    <>
+    <Box color="#707090">
       <StyledBoardBox pt={3}>
         <Button
           onClick={() => navigate(LINKS.main)}
@@ -24,10 +35,12 @@ const BoardHeader = () => {
         >
           back
         </Button>
-        <Typography fontSize={18}>here will be board name</Typography>
+        <Typography>{isSuccess ? description : ''}</Typography>
       </StyledBoardBox>
-      <Typography mt={1}>here will be board description</Typography>
-    </>
+      <Typography textAlign="center" fontSize={20}>
+        {isSuccess ? title : ''}
+      </Typography>
+    </Box>
   );
 };
 
