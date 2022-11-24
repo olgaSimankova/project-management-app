@@ -153,7 +153,7 @@ export const Main = () => {
         justifyContent: 'space-between',
         gap: '1rem',
         width: '80vw',
-        height: '81.7vh',
+        height: 'calc(100vh - 114px)',
         margin: '0 auto',
         overflowY: 'auto',
         '&::-webkit-scrollbar': {

@@ -8,6 +8,8 @@ import { addColumnSchema } from '../../schema/addColumnSchema';
 import { addTaskSchema } from '../../schema/addTaskSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useCreateColumnMutation } from '../../api/column.api';
+import { useCreateTaskMutation } from '../../api/task.api';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 const modalStyle = {
   position: 'absolute',
@@ -29,8 +31,10 @@ const inputStyle = {
 
 interface ColumnAddModalProps {
   boardId?: string;
+  columnId?: string;
   columnsCount: number;
   open: boolean;
+  tasksCount: number;
   onClose: () => void;
   pressedButtonId: string;
 }
@@ -38,13 +42,18 @@ interface ColumnAddModalProps {
 const ColumnAddModal = ({
   boardId = '',
   columnsCount,
+  columnId,
+  tasksCount,
   open,
   onClose,
   pressedButtonId,
 }: ColumnAddModalProps) => {
+  const { user } = useAppSelector((state) => state.userState);
   const isAddTask = pressedButtonId === BOARD_BUTTONS.ADD_TASK;
   const addModalSchema = isAddTask ? addTaskSchema : addColumnSchema;
   const [createColumn, { isSuccess, isLoading, reset: fetchReset }] = useCreateColumnMutation();
+  const [createTask, { isSuccess: taskSuccess, isLoading: isTaskLoading, reset: taskReset }] =
+    useCreateTaskMutation();
 
   const {
     register,
@@ -59,14 +68,26 @@ const ColumnAddModal = ({
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const { title } = data;
-    createColumn({ title, order: columnsCount, boardId });
+    const { title, description } = data;
+    if (isAddTask) {
+      createTask({
+        boardId,
+        columnId,
+        title,
+        description,
+        order: tasksCount,
+        userId: user?._id || '',
+        users: [''],
+      });
+    } else {
+      createColumn({ title, order: columnsCount, boardId });
+    }
   };
 
   useEffect(() => {
     handleClose();
     fetchReset();
-  }, [isSuccess, fetchReset]);
+  }, [isSuccess, taskSuccess]);
 
   return (
     <Modal
@@ -111,7 +132,11 @@ const ColumnAddModal = ({
             type={'submit'}
             variant="contained"
             endIcon={
-              isLoading ? <CircularProgress size={16} color={'inherit'} /> : <CheckOutlinedIcon />
+              isLoading || isTaskLoading ? (
+                <CircularProgress size={16} color={'inherit'} />
+              ) : (
+                <CheckOutlinedIcon />
+              )
             }
           >
             Confirm

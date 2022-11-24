@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
-import { IColumn, IColumnRequestParams, IGetColumnParams } from '../types/types';
+import { IColumn, IColumnRequestParams, IGetParams } from '../types/types';
 import { RootState } from '../App/state/store';
 
 export const columnApi = createApi({
@@ -31,7 +31,7 @@ export const columnApi = createApi({
       }),
       invalidatesTags: ['columns'],
     }),
-    getColumn: build.query<IColumn, IGetColumnParams>({
+    getColumn: build.query<IColumn, IGetParams>({
       query: ({ boardId, columnId }) => ({
         url: `boards/${boardId}/columns/${columnId}`,
       }),
@@ -44,7 +44,7 @@ export const columnApi = createApi({
       }),
       invalidatesTags: (result) => [{ type: 'columns', id: result?.columnId }],
     }),
-    deleteColumn: build.mutation<IColumn, IGetColumnParams>({
+    deleteColumn: build.mutation<IColumn, IGetParams>({
       query: ({ boardId, columnId }) => ({
         url: `boards/${boardId}/columns/${columnId}`,
         method: 'DELETE',
