@@ -1,26 +1,20 @@
-import { LoadingButton } from '@mui/lab';
-import { Button, Typography } from '@mui/material';
-import { Box } from '@mui/system';
 import {
   useCheckUserPasswordMutation,
   useDeleteUserMutation,
   useUpdateUserMutation,
 } from 'api/user.api';
-import { CheckPasswordModal } from 'components/CheckPasswordModal/CheckPasswordModal';
-import { EditableTextField } from 'components/EditableTextField/EditableTextField';
 import { logout, setUser } from 'features/authSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAuth } from 'hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
 import { useNavigate } from 'react-router-dom';
 import { LINKS } from 'constants/constants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema } from 'schema/userSchema';
 import { UserFields } from 'types/types';
+import { SettingsContainer } from 'components/SettingsContainer/SettingsContainer';
 
 export const Settings = () => {
   const [checkUserPassword, { isLoading, isSuccess, isError, reset: signInReset }] =
@@ -39,7 +33,6 @@ export const Settings = () => {
     login: user?.login || '',
     password: '',
     oldPassword: '',
-    user: '',
   });
   const [flags, setFlags] = useState({
     name: true,
@@ -152,88 +145,25 @@ export const Settings = () => {
     updateReset();
   }
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        height: '74vh',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
+    <SettingsContainer
+      {...{
+        handleChange,
+        register,
+        handleClick,
+        handleClickConfirmChanges,
+        handleCloseConfirmWindow,
+        handleDelete,
+        handleDeleteClick,
+        handleSubmit,
+        isError,
+        isLoading,
+        credits,
+        checkPassword,
+        errors,
+        flags,
+        deleteLoading,
+        closeModal,
       }}
-    >
-      <Box
-        component="form"
-        onSubmit={handleSubmit(handleClickConfirmChanges)}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.5rem',
-          backgroundColor: '#dddddd',
-          padding: '2rem',
-          borderRadius: '1rem',
-        }}
-      >
-        <Typography variant="h5">Edit your account</Typography>
-        <EditableTextField
-          defaultValue={credits.name}
-          isDisabled={flags.name}
-          handleClick={handleClick}
-          handleChange={handleChange}
-          tag="name"
-          register={register}
-          errors={errors}
-        />
-        <EditableTextField
-          defaultValue={credits.login}
-          isDisabled={flags.login}
-          handleClick={handleClick}
-          tag="login"
-          handleChange={handleChange}
-          register={register}
-          errors={errors}
-        />
-        <EditableTextField
-          defaultValue={credits.password}
-          isDisabled={flags.password}
-          handleClick={handleClick}
-          tag="password"
-          handleChange={handleChange}
-          register={register}
-          errors={errors}
-        />
-        <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-          <LoadingButton
-            loading={deleteLoading}
-            loadingPosition="start"
-            onClick={handleDeleteClick}
-            startIcon={<DeleteIcon sx={{ marginLeft: '0.5rem' }} color="error" />}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="success"
-            disabled={flags.isDisabled || !flags.name || !flags.login || !flags.password}
-          >
-            Confirm changes
-          </Button>
-        </Box>
-      </Box>
-      {flags.isModal ? (
-        <CheckPasswordModal
-          onClickYes={checkPassword}
-          onClickNo={closeModal}
-          isWrongPassword={isError}
-          isLoading={isLoading}
-        />
-      ) : null}
-      {flags.isConfirmOpen ? (
-        <ConfirmModal
-          question="Do you want to delete user?"
-          onYesClick={handleDelete}
-          onNoClick={handleCloseConfirmWindow}
-        />
-      ) : null}
-    </Box>
+    />
   );
 };
