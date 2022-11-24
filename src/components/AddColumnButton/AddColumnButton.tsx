@@ -11,13 +11,12 @@ const AddTasksButtonStyles = {
       border: '1px solid #b3bac3',
     },
   },
-  marginTop: '20px',
   minWidth: '200px',
   height: '39px',
 };
 
 interface AddColumnButtonProps {
-  onClick: (id: string) => void;
+  onClick: (buttonId: string) => void;
 }
 
 const AddColumnButton = ({ onClick }: AddColumnButtonProps) => {

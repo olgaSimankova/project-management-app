@@ -5,6 +5,7 @@ import { authApi } from '../../api/auth.api';
 import userSlice from '../../features/authSlice';
 import { columnApi } from '../../api/column.api';
 import { userApi } from '../../api/user.api';
+import { taskApi } from '../../api/task.api';
 import themeSlice from 'theme/themeSlice';
 
 export const store = configureStore({
@@ -15,6 +16,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     mainState: mainSlice,
     [mainApi.reducerPath]: mainApi.reducer,
+    [taskApi.reducerPath]: taskApi.reducer,
     themeState: themeSlice,
   },
   middleware: (getDefaultMiddleware) =>
@@ -22,7 +24,8 @@ export const store = configureStore({
       authApi.middleware,
       columnApi.middleware,
       userApi.middleware,
-      mainApi.middleware
+      mainApi.middleware,
+      taskApi.middleware
     ),
 });
 

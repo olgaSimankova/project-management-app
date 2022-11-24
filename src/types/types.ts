@@ -90,19 +90,20 @@ export interface Error {
   };
 }
 
-export interface IColumnRequestParams extends IGetColumnParams {
+export interface IColumnRequestParams extends IGetParams {
   title: string;
   order: number;
 }
 
 export interface IColumn extends IColumnRequestParams {
-  _id: string;
+  _id?: string;
   boardId: string;
 }
 
-export interface IGetColumnParams {
-  boardId: string;
+export interface IGetParams {
+  boardId?: string;
   columnId?: string;
+  taskId?: string;
 }
 
 export interface MainState {
@@ -200,6 +201,12 @@ export interface FullUserData {
   name: string;
   login: string;
   password: string;
+}
+
+export interface ITaskConfig extends IColumn {
+  description: string;
+  userId: string;
+  users: string[];
 }
 
 export interface ThemeSlice {
