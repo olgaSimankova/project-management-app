@@ -7,7 +7,12 @@ import {
   MutationDefinition,
 } from '@reduxjs/toolkit/dist/query';
 import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-import { FieldValues } from 'react-hook-form';
+import {
+  FieldErrorsImpl,
+  FieldValues,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from 'react-hook-form';
 
 export type Board = {
   title: string;
@@ -64,9 +69,9 @@ export interface IUserAuthInfo extends ISignInFormFields {
 }
 
 export interface IUser {
-  _id: 'string';
-  name: 'string';
-  login: 'string';
+  _id: string;
+  name: string;
+  login: string;
 }
 
 export interface ISignInResponse {
@@ -173,6 +178,36 @@ export interface AssigneeProps {
   onClose: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
 }
 
+export interface EditableTextFieldProps {
+  defaultValue: string;
+  isDisabled: boolean;
+  handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
+  tag: 'name' | 'password' | 'login';
+  register: UseFormRegister<UserFields>;
+  errors: Partial<
+    FieldErrorsImpl<{
+      name: string;
+      login: string;
+      password: string;
+    }>
+  >;
+}
+
+export interface CheckPasswordModalProps {
+  onClickYes: (password: string) => void;
+  onClickNo: () => void;
+  isWrongPassword: boolean;
+  isLoading: boolean;
+}
+
+export interface FullUserData {
+  _id: string;
+  name: string;
+  login: string;
+  password: string;
+}
+
 export interface ITaskConfig extends IColumn {
   description: string;
   userId: string;
@@ -181,4 +216,42 @@ export interface ITaskConfig extends IColumn {
 
 export interface ThemeSlice {
   theme?: string;
+}
+
+export interface UserFields {
+  name: string;
+  login: string;
+  password: string;
+}
+
+export interface SettingsContainerProps {
+  handleCloseConfirmWindow: () => void;
+  handleDelete: () => void;
+  isError: boolean;
+  isLoading: boolean;
+  handleSubmit: UseFormHandleSubmit<UserFields>;
+  handleClickConfirmChanges: () => void;
+  credits: { name: string; login: string; password: string; oldPassword: string };
+  register: UseFormRegister<UserFields>;
+  errors: Partial<
+    FieldErrorsImpl<{
+      name: string;
+      login: string;
+      password: string;
+    }>
+  >;
+  flags: {
+    name: boolean;
+    login: boolean;
+    password: boolean;
+    isModal: boolean;
+    isDisabled: boolean;
+    isConfirmOpen: boolean;
+  };
+  handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
+  deleteLoading: boolean;
+  handleDeleteClick: () => void;
+  checkPassword: (password: string) => void;
+  closeModal: () => void;
 }

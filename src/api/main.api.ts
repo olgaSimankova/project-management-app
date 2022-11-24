@@ -53,7 +53,7 @@ export const mainApi = createApi({
           body: data,
         };
       },
-      invalidatesTags: ['boards'],
+      invalidatesTags: (result) => [{ type: 'boards', _id: result?._id }],
     }),
   }),
 });

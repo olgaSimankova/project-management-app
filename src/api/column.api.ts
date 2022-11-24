@@ -51,6 +51,11 @@ export const columnApi = createApi({
       }),
       invalidatesTags: ['columns'],
     }),
+    getAllColumnsByUserID: build.query<IColumn[], string>({
+      query: (id?: string) => ({
+        url: `columnsSet?userId=${id}`,
+      }),
+    }),
   }),
 });
 
@@ -60,4 +65,5 @@ export const {
   useGetColumnQuery,
   useUpdateColumnMutation,
   useDeleteColumnMutation,
+  useGetAllColumnsByUserIDQuery,
 } = columnApi;

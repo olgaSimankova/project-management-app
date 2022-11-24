@@ -13,11 +13,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { useSignInMutation, useSignUpMutation } from '../api/auth.api';
 import { Error, IAuthFormFields } from '../types/types';
 import { useAuth } from '../hooks/useAuth';
