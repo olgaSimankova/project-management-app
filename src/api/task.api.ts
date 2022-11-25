@@ -51,6 +51,12 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
+    getAllTasksByUserID: build.query<ITaskConfig[], string>({
+      query: (id?: string) => ({
+        url: `tasksSet?userId=${id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -60,4 +66,5 @@ export const {
   useGetTaskQuery,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
+  useGetAllTasksByUserIDQuery,
 } = taskApi;

@@ -13,11 +13,9 @@ interface StatusProps {
   all: string[];
   selected: string[];
   onChange: (event: SelectChangeEvent<string[]>) => void;
-  onClose: () => void;
 }
 
-export const StatusChip = ({ all, selected, onChange, onClose }: StatusProps) => {
-  console.log(selected.length);
+export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
   return (
     <Box>
       <InputLabel variant="standard" htmlFor="chip">
@@ -30,7 +28,6 @@ export const StatusChip = ({ all, selected, onChange, onClose }: StatusProps) =>
         label="Status"
         className="assignees"
         onChange={onChange}
-        onClose={onClose}
         multiple
         sx={{ width: '100%', backgroundColor: '#cccccc', border: '1px solid #cccccc' }}
         input={
