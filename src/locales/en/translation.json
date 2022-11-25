@@ -32,6 +32,8 @@
   "processingPersonalData": "I agree to the processing of personal data.",
   "firstName": "First Name",
   "login": "Login",
-  "password": "Password"
-
+  "password": "Password",
+  "somethingWrong": "Something went wrong",
+  "tryAgain": "Try Again",
+  "goMain": "Go to Main"
 }

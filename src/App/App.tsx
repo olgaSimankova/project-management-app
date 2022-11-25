@@ -1,7 +1,6 @@
 import React from 'react';
 import { LINKS } from 'constants/constants';
 import { Main } from 'Pages/Main';
-import { Error } from 'Pages/Error';
 import { Search } from 'Pages/Search';
 import { Welcome } from 'Pages/Welcome';
 import { Routes, Route } from 'react-router-dom';
@@ -16,6 +15,8 @@ import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from 'components/ErrorFallback/ErrorFallback';
 
 export const App = () => {
   const userTheme = useUserSystemTheme();
@@ -24,22 +25,27 @@ export const App = () => {
 
   return (
     <>
-      <ThemeProvider theme={theme === 'light' ? themeLight : themeDark}>
-        <CssBaseline>
-          <ToastContainer autoClose={2000} />
-          <Routes>
-            <Route path={LINKS.welcome} element={<Layout />}>
-              <Route index path={LINKS.welcome} element={<Welcome />} />
-              <Route path={LINKS.search} element={<Search />} />
-              <Route path={LINKS.main} element={<Main />} />
-              <Route path={`${LINKS.main}/:boardId`} element={<Board />} />
-            </Route>
-            <Route path={LINKS.signIn} element={<Authentication />} />
-            <Route path={LINKS.signUp} element={<Authentication />} />
-            <Route path={LINKS.error} element={<Error />} />
-          </Routes>
-        </CssBaseline>
-      </ThemeProvider>
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => console.log('123')}
+        // resetKeys={[]}
+      >
+        <ThemeProvider theme={theme === 'light' ? themeLight : themeDark}>
+          <CssBaseline>
+            <ToastContainer autoClose={2000} />
+            <Routes>
+              <Route path={LINKS.welcome} element={<Layout />}>
+                <Route index path={LINKS.welcome} element={<Welcome />} />
+                <Route path={LINKS.search} element={<Search />} />
+                <Route path={LINKS.main} element={<Main />} />
+                <Route path={`${LINKS.main}/:boardId`} element={<Board />} />
+              </Route>
+              <Route path={LINKS.signIn} element={<Authentication />} />
+              <Route path={LINKS.signUp} element={<Authentication />} />
+            </Routes>
+          </CssBaseline>
+        </ThemeProvider>
+      </ErrorBoundary>
     </>
   );
 };
