@@ -12,11 +12,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
 import Board from '../features/Board/Board';
 import { init } from './app.config';
-import { Settings } from 'Pages/Settings';
 import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
+import { SettingsPage } from 'features/Settings';
 
 export const App = () => {
   const userTheme = useUserSystemTheme();
@@ -33,7 +33,7 @@ export const App = () => {
               <Route index path={LINKS.welcome} element={<Welcome />} />
               <Route path={LINKS.search} element={<Search />} />
               <Route path={LINKS.main} element={<Main />} />
-              <Route path={LINKS.settings} element={<Settings />} />
+              <Route path={LINKS.settings} element={<SettingsPage />} />
               <Route path={`${LINKS.main}/:boardId`} element={<Board />} />
             </Route>
             <Route path={LINKS.signIn} element={<Authentication />} />

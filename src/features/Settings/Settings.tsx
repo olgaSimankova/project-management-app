@@ -2,13 +2,46 @@ import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { EditableTextField } from 'components/EditableTextField/EditableTextField';
 import DeleteIcon from '@mui/icons-material/Delete';
-import React from 'react';
+import React, { memo } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { CheckPasswordModal } from 'components/CheckPasswordModal/CheckPasswordModal';
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
-import { SettingsContainerProps } from 'types/types';
+import { FieldErrorsImpl, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
+import { UserFields } from 'types/types';
 
-export const SettingsContainer = ({
+interface SettingsProps {
+  handleCloseConfirmWindow: () => void;
+  handleDelete: () => void;
+  isError: boolean;
+  isLoading: boolean;
+  handleSubmit: UseFormHandleSubmit<UserFields>;
+  handleClickConfirmChanges: () => void;
+  credits: { name: string; login: string; password: string; oldPassword: string };
+  register: UseFormRegister<UserFields>;
+  errors: Partial<
+    FieldErrorsImpl<{
+      name: string;
+      login: string;
+      password: string;
+    }>
+  >;
+  flags: {
+    name: boolean;
+    login: boolean;
+    password: boolean;
+    isModal: boolean;
+    isDisabled: boolean;
+    isConfirmOpen: boolean;
+  };
+  handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
+  deleteLoading: boolean;
+  handleDeleteClick: () => void;
+  checkPassword: (password: string) => void;
+  closeModal: () => void;
+}
+
+const Settings = ({
   handleCloseConfirmWindow,
   handleDelete,
   isError,
@@ -25,7 +58,7 @@ export const SettingsContainer = ({
   handleDeleteClick,
   checkPassword,
   closeModal,
-}: SettingsContainerProps) => {
+}: SettingsProps) => {
   return (
     <Box
       sx={{
@@ -112,3 +145,5 @@ export const SettingsContainer = ({
     </Box>
   );
 };
+
+export default memo(Settings);
