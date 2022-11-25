@@ -14,7 +14,7 @@ export const Footer = () => {
         justifyContent: 'space-around',
         columnGap: '3rem',
         flexWrap: 'wrap',
-        height: '10vh',
+        height: '50px',
         zIndex: '1',
       }}
     >
