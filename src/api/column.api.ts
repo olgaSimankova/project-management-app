@@ -54,6 +54,7 @@ export const columnApi = createApi({
     getAllColumnsByUserID: build.query<IColumn[], string>({
       query: (id?: string) => ({
         url: `columnsSet?userId=${id}`,
+        method: 'GET',
       }),
     }),
   }),

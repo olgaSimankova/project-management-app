@@ -16,7 +16,7 @@ import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
-import { SettingsPage } from 'features/Settings';
+import Settings from 'features/Settings';
 
 export const App = () => {
   const userTheme = useUserSystemTheme();
@@ -33,7 +33,7 @@ export const App = () => {
               <Route index path={LINKS.welcome} element={<Welcome />} />
               <Route path={LINKS.search} element={<Search />} />
               <Route path={LINKS.main} element={<Main />} />
-              <Route path={LINKS.settings} element={<SettingsPage />} />
+              <Route path={LINKS.settings} element={<Settings />} />
               <Route path={`${LINKS.main}/:boardId`} element={<Board />} />
             </Route>
             <Route path={LINKS.signIn} element={<Authentication />} />
