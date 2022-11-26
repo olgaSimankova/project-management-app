@@ -5,7 +5,6 @@ import { Search } from 'Pages/Search';
 import { Welcome } from 'Pages/Welcome';
 import { Routes, Route } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import Authentication from '../Pages/Authentication';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
@@ -17,6 +16,7 @@ import { useCustomTheme } from 'hooks/useCustomTheme';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 import Settings from 'features/Settings';
 import Main from 'features/Main';
+import Authentication from 'features/Authentication';
 
 export const App = () => {
   const userTheme = useUserSystemTheme();
