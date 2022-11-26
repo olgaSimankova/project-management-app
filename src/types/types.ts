@@ -173,22 +173,6 @@ export interface AssigneeProps {
   onClose: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
 }
 
-export interface EditableTextFieldProps {
-  defaultValue: string;
-  isDisabled: boolean;
-  handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
-  tag: 'name' | 'password' | 'login';
-  register: UseFormRegister<UserFields>;
-  errors: Partial<
-    FieldErrorsImpl<{
-      name: string;
-      login: string;
-      password: string;
-    }>
-  >;
-}
-
 export interface CheckPasswordModalProps {
   onClickYes: (password: string) => void;
   onClickNo: () => void;

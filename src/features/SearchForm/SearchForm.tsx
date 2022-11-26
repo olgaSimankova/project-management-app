@@ -6,25 +6,23 @@ import React from 'react';
 import { IColumn, ITaskConfig } from 'types/types';
 
 interface SearchFormProps {
-  handleChangeSearchField: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChangeSearchField: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   search: string;
   status: {
     all: string[];
     selected: string[];
     columns: IColumn[];
   };
-  handleChangeStatus: (event: SelectChangeEvent<string[]>) => void;
+  onChangeStatus: (event: SelectChangeEvent<string[]>) => void;
   tasks: ITaskConfig[];
-  handleSearchClick: () => void;
 }
 
 export const SearchForm = ({
-  handleChangeSearchField,
+  onChangeSearchField,
   search,
   status,
-  handleChangeStatus,
+  onChangeStatus,
   tasks,
-  handleSearchClick,
 }: SearchFormProps) => {
   return (
     <Box
@@ -43,16 +41,13 @@ export const SearchForm = ({
         type="text"
         autoFocus
         variant="outlined"
-        onChange={handleChangeSearchField}
+        onChange={onChangeSearchField}
         value={search}
         placeholder="search in task titles or description"
         sx={{ width: '80%', borderRadius: '3rem' }}
       />
-      <StatusChip all={status.all} selected={status.selected} onChange={handleChangeStatus} />
+      <StatusChip all={status.all} selected={status.selected} onChange={onChangeStatus} />
       <TasksContainer tasks={tasks} />
-      <Button color="success" variant="contained" onClick={handleSearchClick}>
-        Check for updates
-      </Button>
     </Box>
   );
 };

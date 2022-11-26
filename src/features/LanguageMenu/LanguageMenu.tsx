@@ -1,25 +1,13 @@
 import React from 'react';
 import { Menu, MenuItem, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 
-interface ILanguageMenu {
+interface ILanguageMenuProps {
   anchorEl: null | HTMLElement;
   onClose: () => void;
+  onClick: (event: React.MouseEvent) => void;
 }
 
-const LanguageMenu = ({ anchorEl, onClose }: ILanguageMenu) => {
-  const { i18n } = useTranslation();
-
-  const changeLang = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
-
-  const handleClick = (event: React.MouseEvent) => {
-    const target = event.target as HTMLElement;
-    changeLang(target.id);
-    onClose();
-  };
-
+const LanguageMenu = ({ anchorEl, onClose, onClick }: ILanguageMenuProps) => {
   return (
     <Menu
       sx={{ mt: '2.5rem' }}
@@ -37,12 +25,12 @@ const LanguageMenu = ({ anchorEl, onClose }: ILanguageMenu) => {
       open={Boolean(anchorEl)}
       onClose={onClose}
     >
-      <MenuItem id="en" onClick={(e) => handleClick(e)}>
+      <MenuItem id="en" onClick={onClick}>
         <Typography id="en" textAlign="center">
           en
         </Typography>
       </MenuItem>
-      <MenuItem id="ru" onClick={(e) => handleClick(e)}>
+      <MenuItem id="ru" onClick={onClick}>
         <Typography id="ru" textAlign="center">
           ru
         </Typography>

@@ -147,14 +147,14 @@ const SettingsContainer = () => {
   return (
     <Settings
       {...{
-        handleChange,
+        onChange: handleChange,
         register,
-        handleClick,
-        handleClickConfirmChanges,
-        handleCloseConfirmWindow,
-        handleDelete,
-        handleDeleteClick,
-        handleSubmit,
+        onClick: handleClick,
+        onClickConfirmChanges: handleClickConfirmChanges,
+        onCloseConfirmWindow: handleCloseConfirmWindow,
+        onDelete: handleDelete,
+        onDeleteClick: handleDeleteClick,
+        onSubmit: handleSubmit,
         isError,
         isLoading,
         credits,

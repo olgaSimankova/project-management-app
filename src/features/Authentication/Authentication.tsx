@@ -19,7 +19,6 @@ import { TFunction } from 'i18next';
 import {
   FieldErrorsImpl,
   FieldValues,
-  FormState,
   UseFormHandleSubmit,
   UseFormRegister,
 } from 'react-hook-form';

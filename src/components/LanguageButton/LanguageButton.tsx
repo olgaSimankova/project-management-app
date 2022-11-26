@@ -1,7 +1,7 @@
 import { IconButton } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import React, { useState } from 'react';
-import LanguageMenu from 'components/LanguageMenu/LanguageMenu';
+import LanguageMenu from 'features/LanguageMenu';
 
 export const LanguageButton = () => {
   const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);

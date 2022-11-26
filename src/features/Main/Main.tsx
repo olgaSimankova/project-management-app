@@ -20,7 +20,7 @@ import { BoardConfig, BoardFormOptions } from 'types/types';
 interface MainProps {
   t: TFunction<'translation', undefined>;
   isCreating: boolean;
-  handleButtonClick: () => void;
+  onButtonClick: () => void;
   userBoards: BoardConfig[];
   isFetching: boolean;
   isGetting: boolean;
@@ -45,8 +45,8 @@ interface MainProps {
   modalOption: BoardFormOptions;
   title: string;
   description: string;
-  handleClickModal: (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => void;
-  handleSubmit: (values: FieldValues) => void;
+  onClickModal: (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => void;
+  onSubmit: (values: FieldValues) => void;
   isConfirmationOpen: boolean;
   onDeleteBoard: () => void;
   onExitConfirmationModal: () => void;
@@ -55,7 +55,7 @@ interface MainProps {
 export const Main = ({
   t,
   isCreating,
-  handleButtonClick,
+  onButtonClick,
   userBoards,
   isFetching,
   isGetting,
@@ -66,8 +66,8 @@ export const Main = ({
   modalOption,
   title,
   description,
-  handleClickModal,
-  handleSubmit,
+  onClickModal,
+  onSubmit,
   isConfirmationOpen,
   onDeleteBoard,
   onExitConfirmationModal,
@@ -102,7 +102,7 @@ export const Main = ({
         loading={isCreating}
         color="success"
         sx={{ width: 'fit-content', padding: '10px 10px' }}
-        onClick={handleButtonClick}
+        onClick={onButtonClick}
       >
         {t('addBoard')}
       </LoadingButton>
@@ -118,8 +118,8 @@ export const Main = ({
         <BoardForm
           {...{
             option: modalOption,
-            onClick: handleClickModal,
-            onSubmit: handleSubmit,
+            onClick: onClickModal,
+            onSubmit: onSubmit,
             defaultValue: { title, description },
           }}
         />

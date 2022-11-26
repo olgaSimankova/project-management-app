@@ -10,12 +10,12 @@ import { FieldErrorsImpl, UseFormHandleSubmit, UseFormRegister } from 'react-hoo
 import { UserFields } from 'types/types';
 
 interface SettingsProps {
-  handleCloseConfirmWindow: () => void;
-  handleDelete: () => void;
+  onCloseConfirmWindow: () => void;
+  onDelete: () => void;
   isError: boolean;
   isLoading: boolean;
-  handleSubmit: UseFormHandleSubmit<UserFields>;
-  handleClickConfirmChanges: () => void;
+  onSubmit: UseFormHandleSubmit<UserFields>;
+  onClickConfirmChanges: () => void;
   credits: { name: string; login: string; password: string; oldPassword: string };
   register: UseFormRegister<UserFields>;
   errors: Partial<
@@ -33,29 +33,29 @@ interface SettingsProps {
     isDisabled: boolean;
     isConfirmOpen: boolean;
   };
-  handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
   deleteLoading: boolean;
-  handleDeleteClick: () => void;
+  onDeleteClick: () => void;
   checkPassword: (password: string) => void;
   closeModal: () => void;
 }
 
 const Settings = ({
-  handleCloseConfirmWindow,
-  handleDelete,
+  onCloseConfirmWindow,
+  onDelete,
   isError,
   isLoading,
-  handleSubmit,
-  handleClickConfirmChanges,
+  onSubmit,
+  onClickConfirmChanges,
   credits,
   register,
   errors,
   flags,
-  handleClick,
-  handleChange,
+  onClick,
+  onChange,
   deleteLoading,
-  handleDeleteClick,
+  onDeleteClick,
   checkPassword,
   closeModal,
 }: SettingsProps) => {
@@ -72,7 +72,7 @@ const Settings = ({
     >
       <Box
         component="form"
-        onSubmit={handleSubmit(handleClickConfirmChanges)}
+        onSubmit={onSubmit(onClickConfirmChanges)}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -86,8 +86,8 @@ const Settings = ({
         <EditableTextField
           defaultValue={credits.name}
           isDisabled={flags.name}
-          handleClick={handleClick}
-          handleChange={handleChange}
+          onClick={onClick}
+          onChange={onChange}
           tag="name"
           register={register}
           errors={errors}
@@ -95,18 +95,18 @@ const Settings = ({
         <EditableTextField
           defaultValue={credits.login}
           isDisabled={flags.login}
-          handleClick={handleClick}
+          onClick={onClick}
           tag="login"
-          handleChange={handleChange}
+          onChange={onChange}
           register={register}
           errors={errors}
         />
         <EditableTextField
           defaultValue={credits.password}
           isDisabled={flags.password}
-          handleClick={handleClick}
+          onClick={onClick}
           tag="password"
-          handleChange={handleChange}
+          onChange={onChange}
           register={register}
           errors={errors}
         />
@@ -114,7 +114,7 @@ const Settings = ({
           <LoadingButton
             loading={deleteLoading}
             loadingPosition="start"
-            onClick={handleDeleteClick}
+            onClick={onDeleteClick}
             startIcon={<DeleteIcon sx={{ marginLeft: '0.5rem' }} color="error" />}
           />
           <Button
@@ -138,8 +138,8 @@ const Settings = ({
       {flags.isConfirmOpen ? (
         <ConfirmModal
           question="Do you want to delete user?"
-          onYesClick={handleDelete}
-          onNoClick={handleCloseConfirmWindow}
+          onYesClick={onDelete}
+          onNoClick={onCloseConfirmWindow}
         />
       ) : null}
     </Box>

@@ -21,6 +21,7 @@ const SearchFormContainer = () => {
     refetch,
   } = useGetAllTasksByUserIDQuery(user?._id || '');
   const [tasks, setTasks] = useState(tasksData);
+
   const handleChangeSearchField = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -31,7 +32,7 @@ const SearchFormContainer = () => {
     if (isSuccess) {
       setStatus((state) => ({ ...state, all: statuses.map((el) => el.title), columns: statuses }));
     }
-  }, [statuses, isSuccess]);
+  }, [statuses, isSuccess, tasks]);
 
   const filterTasks = (tasks: ITaskConfig[]): ITaskConfig[] => {
     let filteredTasks = [...tasks];
@@ -63,14 +64,15 @@ const SearchFormContainer = () => {
     }));
   };
 
-  const handleSearchClick = () => {
-    refetch();
-    setTasks(filterTasks(tasksData));
-  };
-
   return (
     <SearchForm
-      {...{ handleChangeSearchField, search, status, handleChangeStatus, tasks, handleSearchClick }}
+      {...{
+        onChangeSearchField: handleChangeSearchField,
+        search,
+        status,
+        onChangeStatus: handleChangeStatus,
+        tasks,
+      }}
     />
   );
 };
