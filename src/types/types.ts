@@ -7,7 +7,7 @@ import {
   MutationDefinition,
 } from '@reduxjs/toolkit/dist/query';
 import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-import { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 
 export type Board = {
   title: string;

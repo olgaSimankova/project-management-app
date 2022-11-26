@@ -1,4 +1,4 @@
-import { Button, SelectChangeEvent, TextField } from '@mui/material';
+import { SelectChangeEvent, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import { StatusChip } from 'components/StatusChip/StatusChip';
 import { TasksContainer } from 'components/TasksContainer/TasksContainer';
