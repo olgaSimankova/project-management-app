@@ -1,14 +1,12 @@
-import { Button, SelectChangeEvent, TextField } from '@mui/material';
-import { Box } from '@mui/system';
+import { SelectChangeEvent } from '@mui/material';
 import { useGetAllColumnsByUserIDQuery } from 'api/column.api';
 import { useGetAllTasksByUserIDQuery } from 'api/task.api';
-import { StatusChip } from 'components/StatusChip/StatusChip';
-import { TasksContainer } from 'components/TasksContainer/TasksContainer';
 import { useAuth } from 'hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import { ITaskConfig } from 'types/types';
+import { SearchForm } from './SearchForm';
 
-export const SearchForm = () => {
+const SearchFormContainer = () => {
   const { user } = useAuth();
   const { data: statuses = [], isSuccess } = useGetAllColumnsByUserIDQuery(user?._id || '');
   const [search, setSearch] = useState('');
@@ -71,32 +69,10 @@ export const SearchForm = () => {
   };
 
   return (
-    <Box
-      sx={{
-        maxWidth: '80vw',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '0.5rem',
-      }}
-    >
-      <TextField
-        name="search"
-        id="search"
-        type="text"
-        autoFocus
-        variant="outlined"
-        onChange={handleChangeSearchField}
-        value={search}
-        placeholder="search in task titles or description"
-        sx={{ width: '80%', borderRadius: '3rem' }}
-      />
-      <StatusChip all={status.all} selected={status.selected} onChange={handleChangeStatus} />
-      <TasksContainer tasks={tasks} />
-      <Button color="success" variant="contained" onClick={handleSearchClick}>
-        Check for updates
-      </Button>
-    </Box>
+    <SearchForm
+      {...{ handleChangeSearchField, search, status, handleChangeStatus, tasks, handleSearchClick }}
+    />
   );
 };
+
+export default SearchFormContainer;
