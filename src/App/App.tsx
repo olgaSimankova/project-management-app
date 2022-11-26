@@ -1,6 +1,5 @@
 import React from 'react';
 import { LINKS } from 'constants/constants';
-import { Main } from 'Pages/Main';
 import { Error } from 'Pages/Error';
 import { Search } from 'Pages/Search';
 import { Welcome } from 'Pages/Welcome';
@@ -17,6 +16,7 @@ import { themeDark } from 'theme/themeDark';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 import Settings from 'features/Settings';
+import Main from 'features/Main';
 
 export const App = () => {
   const userTheme = useUserSystemTheme();
