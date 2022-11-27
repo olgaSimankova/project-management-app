@@ -5,7 +5,7 @@ import { RootState } from '../App/state/store';
 
 export const columnApi = createApi({
   reducerPath: 'columnApi',
-  tagTypes: ['columns'],
+  tagTypes: ['columns', 'allUserColumns'],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers, { getState }) => {
@@ -29,7 +29,7 @@ export const columnApi = createApi({
         method: 'POST',
         body: { title, order },
       }),
-      invalidatesTags: ['columns'],
+      invalidatesTags: ['columns', 'allUserColumns'],
     }),
     getColumn: build.query<IColumn, IGetParams>({
       query: ({ boardId, columnId }) => ({
@@ -42,19 +42,24 @@ export const columnApi = createApi({
         method: 'PUT',
         body: { title, order },
       }),
-      invalidatesTags: (result) => [{ type: 'columns', id: result?.columnId }],
+      invalidatesTags: (result) => [
+        { type: 'columns', id: result?.columnId },
+        { type: 'allUserColumns', id: result?.columnId },
+      ],
     }),
     deleteColumn: build.mutation<IColumn, IGetParams>({
       query: ({ boardId, columnId }) => ({
         url: `boards/${boardId}/columns/${columnId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['columns'],
+      invalidatesTags: ['columns', 'allUserColumns'],
     }),
     getAllColumnsByUserID: build.query<IColumn[], string>({
       query: (id?: string) => ({
         url: `columnsSet?userId=${id}`,
+        method: 'GET',
       }),
+      providesTags: ['allUserColumns'],
     }),
   }),
 });
