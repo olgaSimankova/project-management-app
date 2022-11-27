@@ -16,7 +16,7 @@ import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary, useErrorHandler } from 'react-error-boundary';
 import { ErrorFallback } from 'components/ErrorFallback/ErrorFallback';
 
 export const App = () => {
@@ -26,13 +26,12 @@ export const App = () => {
 
   return (
     <>
-      <ErrorBoundary
-        FallbackComponent={ErrorFallback}
-        onReset={() => console.log('123')}
-        // resetKeys={[]}
-      >
-        <ThemeProvider theme={theme === 'light' ? themeLight : themeDark}>
-          <CssBaseline>
+      <ThemeProvider theme={theme === 'light' ? themeLight : themeDark}>
+        <CssBaseline>
+          <ErrorBoundary
+            FallbackComponent={ErrorFallback}
+            onError={(error, errorInfo) => console.log({ error, errorInfo })}
+          >
             <ToastContainer autoClose={2000} />
             <Routes>
               <Route path={LINKS.welcome} element={<Layout />}>
@@ -45,9 +44,9 @@ export const App = () => {
               <Route path={LINKS.signIn} element={<Authentication />} />
               <Route path={LINKS.signUp} element={<Authentication />} />
             </Routes>
-          </CssBaseline>
-        </ThemeProvider>
-      </ErrorBoundary>
+          </ErrorBoundary>
+        </CssBaseline>
+      </ThemeProvider>
     </>
   );
 };

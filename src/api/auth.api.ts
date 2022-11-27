@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
 import {
   ISignInFormFields,
@@ -41,7 +41,7 @@ export const authApi = createApi({
             dispatch(setUser(searchUser));
           }
         } catch (error) {
-          throw new Error();
+          console.log('Наша ошибка', error);
         }
       },
     }),

@@ -27,6 +27,7 @@ import { setUserInfo } from '../features/authSlice';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useTranslation } from 'react-i18next';
+import { useErrorHandler } from 'react-error-boundary';
 
 const Authentication = () => {
   const { t } = useTranslation();
@@ -34,18 +35,36 @@ const Authentication = () => {
   const isSignIn = location.pathname === LINKS.signIn;
   const authSchema = isSignIn ? signInSchema : signUpSchema;
   const dispatch = useAppDispatch();
-  const [signIn, { data, isLoading, isSuccess, error, isError, reset: signInReset }] =
-    useSignInMutation();
+
+  const [
+    signIn,
+    {
+      data,
+      isLoading,
+      isSuccess,
+      error: signInError,
+      // status: signInStatus,
+      isError,
+      reset: signInReset,
+    },
+  ] = useSignInMutation();
+
+  useErrorHandler(signInError); // Вот это срабатывает в случае возникновения ошибки
+
   const [
     signUp,
     {
       isLoading: isAuthLoading,
       isSuccess: isAuthSuccess,
       error: authError,
+      // status: signUpStatus,
       isError: isAuthError,
       reset: signUpReset,
     },
   ] = useSignUpMutation();
+
+  useErrorHandler(authError); // Это тоже
+
   const {
     register,
     handleSubmit,
@@ -54,6 +73,7 @@ const Authentication = () => {
   } = useForm<IAuthFormFields>({
     resolver: yupResolver(authSchema),
   });
+
   const navigate = useNavigate();
   const { token } = useAuth();
 
@@ -70,20 +90,21 @@ const Authentication = () => {
     }
 
     if (isAuthSuccess && !isSignIn) {
-      toast.success('You successfully create account');
+      toast.success(t('successCreateAccount'));
       navigate(LINKS.signIn);
     }
   }, [isSuccess, isSignIn, isAuthSuccess, navigate, dispatch, data]);
 
+  // Этот useEffect вообще не сработает, когда выше ошибки отправляются в error boundary
   useEffect(() => {
     if (isError) {
-      toast.error((error as Error).data.message);
+      toast.error((signInError as Error)?.data?.message || 'Что-то ужасное произошло');
     }
 
     if (isAuthError) {
       toast.error((authError as Error).data.message);
     }
-  }, [isError, isAuthError, authError, error]);
+  }, [isError, isAuthError, authError, signInError]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (!isLoading && isSignIn) {
