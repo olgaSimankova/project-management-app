@@ -147,7 +147,7 @@ const SettingsContainer = () => {
   return (
     <Settings
       {...{
-        onChange: handleChange,
+        onInputChange: handleChange,
         register,
         onClick: handleClick,
         onClickConfirmChanges: handleClickConfirmChanges,

@@ -12,13 +12,12 @@ import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { BoardForm } from 'components/BoardForm/BoardForm';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
-import { TFunction } from 'i18next';
 import React from 'react';
 import { FieldValues } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { BoardConfig, BoardFormOptions } from 'types/types';
 
 interface MainProps {
-  t: TFunction<'translation', undefined>;
   isCreating: boolean;
   onButtonClick: () => void;
   userBoards: BoardConfig[];
@@ -53,7 +52,6 @@ interface MainProps {
 }
 
 export const Main = ({
-  t,
   isCreating,
   onButtonClick,
   userBoards,
@@ -72,6 +70,7 @@ export const Main = ({
   onDeleteBoard,
   onExitConfirmationModal,
 }: MainProps) => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{

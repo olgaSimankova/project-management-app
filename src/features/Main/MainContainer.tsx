@@ -15,13 +15,11 @@ import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { BoardConfig, BoardFormOptions, ErrorObject } from 'types/types';
 import { Main } from './Main';
 
 const MainContainer = () => {
-  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
   const { user } = useAuth();
@@ -144,7 +142,6 @@ const MainContainer = () => {
   return (
     <Main
       {...{
-        t,
         isConfirmationOpen,
         isCreating,
         isDeleting,

@@ -5,7 +5,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSignInMutation, useSignUpMutation } from '../../api/auth.api';
 import { Error, IAuthFormFields } from '../../types/types';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
 import Authentication from './Authentication';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { setUserInfo } from 'features/authSlice';
@@ -15,7 +14,6 @@ import { LINKS } from 'constants/constants';
 import { useAuth } from 'hooks/useAuth';
 
 const AuthenticationContainer = () => {
-  const { t } = useTranslation();
   const location = useLocation();
   const isSignIn = location.pathname === LINKS.signIn;
   const authSchema = isSignIn ? signInSchema : signUpSchema;
@@ -93,7 +91,6 @@ const AuthenticationContainer = () => {
     <Authentication
       {...{
         isSignIn,
-        t,
         handleSubmit,
         onSubmit,
         register,

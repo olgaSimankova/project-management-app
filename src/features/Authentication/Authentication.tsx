@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { LINKS } from 'constants/constants';
-import { TFunction } from 'i18next';
 import {
   FieldErrorsImpl,
   FieldValues,
@@ -23,10 +22,10 @@ import {
   UseFormRegister,
 } from 'react-hook-form';
 import { IAuthFormFields } from 'types/types';
+import { useTranslation } from 'react-i18next';
 
 interface AuthenticationProps {
   isSignIn: boolean;
-  t: TFunction<'translation', undefined>;
   handleSubmit: UseFormHandleSubmit<IAuthFormFields>;
   onSubmit: (data: FieldValues) => void;
   register: UseFormRegister<IAuthFormFields>;
@@ -45,7 +44,6 @@ interface AuthenticationProps {
 
 const Authentication = ({
   isSignIn,
-  t,
   handleSubmit,
   onSubmit,
   register,
@@ -54,6 +52,7 @@ const Authentication = ({
   isAuthLoading,
   handleResetForm,
 }: AuthenticationProps) => {
+  const { t } = useTranslation();
   return (
     <Container component="main" maxWidth="xs" sx={{ margin: '0 auto' }}>
       <Box

@@ -9,7 +9,10 @@ interface EditableTextFieldProps {
   defaultValue: string;
   isDisabled: boolean;
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tag: string) => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, tag: string) => void;
+  onInputChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    tag: string
+  ) => void;
   tag: 'name' | 'password' | 'login';
   register: UseFormRegister<UserFields>;
   errors: Partial<
@@ -25,7 +28,7 @@ export const EditableTextField = ({
   defaultValue,
   isDisabled,
   onClick,
-  onChange,
+  onInputChange,
   tag,
   register,
   errors,
@@ -39,7 +42,7 @@ export const EditableTextField = ({
         value={defaultValue}
         placeholder="******"
         disabled={isDisabled}
-        onChange={(e) => onChange(e, tag)}
+        onChange={(e) => onInputChange(e, tag)}
         error={!!errors[tag]}
         helperText={errors[tag]?.message}
       />
