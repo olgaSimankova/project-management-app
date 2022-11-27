@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
-import { IGetParams, ITaskConfig } from '../types/types';
+import { IGetParams, ITaskConfig, ITasksPatch } from '../types/types';
 import { RootState } from '../App/state/store';
 
 export const taskApi = createApi({
@@ -21,6 +21,9 @@ export const taskApi = createApi({
       query: ({ boardId, columnId }) => ({
         url: `boards/${boardId}/columns/${columnId}/tasks`,
       }),
+      transformResponse: (response: ITaskConfig[]) => {
+        return response.sort((a, b) => a.order - b.order);
+      },
       providesTags: ['task'],
     }),
     createTask: build.mutation<ITaskConfig, ITaskConfig>({
@@ -51,6 +54,13 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ['task'],
     }),
+    tasksSet: build.mutation<ITaskConfig[], ITasksPatch[]>({
+      query: (body) => ({
+        url: '/tasksSet',
+        method: 'PATCH',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -60,4 +70,5 @@ export const {
   useGetTaskQuery,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
+  useTasksSetMutation,
 } = taskApi;

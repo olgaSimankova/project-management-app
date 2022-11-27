@@ -8,6 +8,7 @@ import { ConfirmModal } from '../ConfirmModal/ConfirmModal';
 import { QUESTION_ON_DELETE } from '../../constants/constants';
 import { toast } from 'react-toastify';
 import { Error } from '../../types/types';
+import { Draggable } from 'react-beautiful-dnd';
 
 const boxStyles = {
   '&.MuiBox-root': {
@@ -45,9 +46,9 @@ const addRespStyles = {
 };
 
 interface ITaskProps {
-  id?: string;
+  id: string;
   boardId?: string;
-  columnId?: string;
+  columnId: string;
   title: string;
   description: string;
   order: number;
@@ -69,50 +70,57 @@ const Task = ({ id, order, boardId, columnId, title, description }: ITaskProps) 
   }
 
   return (
-    <>
-      <Grid sx={boxStyles}>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Box sx={titleStyles}>
-            <Typography color="white" sx={{ lineHeight: 1.3 }}>
-              {title}
-            </Typography>
+    <Draggable draggableId={id || ''} index={order}>
+      {(provided) => (
+        <Grid
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          sx={boxStyles}
+        >
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box sx={titleStyles}>
+              <Typography color="white" sx={{ lineHeight: 1.3 }}>
+                {title}
+              </Typography>
+            </Box>
+            <IconButton onClick={() => setConfirmOpen(true)} size="small">
+              <CloseIcon fontSize="small" />
+            </IconButton>
           </Box>
-          <IconButton onClick={() => setConfirmOpen(true)} size="small">
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        </Box>
-        <Typography color="#707090" fontSize="14px">
-          {description}
-        </Typography>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Box sx={respStyles}>
-            <Typography color="white" fontSize="13px">
-              Responsible:
-            </Typography>
+          <Typography color="#707090" fontSize="14px">
+            {description}
+          </Typography>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box sx={respStyles}>
+              <Typography color="white" fontSize="13px">
+                Responsible:
+              </Typography>
+            </Box>
+            <IconButton onClick={handleOpen} sx={addRespStyles} size="small">
+              <SearchSharpIcon sx={{ fontSize: '17px' }} />
+            </IconButton>
           </Box>
-          <IconButton onClick={handleOpen} sx={addRespStyles} size="small">
-            <SearchSharpIcon sx={{ fontSize: '17px' }} />
-          </IconButton>
-        </Box>
-        <EditTaskModal
-          title={title}
-          order={order}
-          description={description}
-          open={open}
-          boardId={boardId}
-          columnId={columnId}
-          taskId={id}
-          onClose={handleClose}
-        />
-        {confirmOpen && (
-          <ConfirmModal
-            question={QUESTION_ON_DELETE}
-            onYesClick={handleDelete}
-            onNoClick={() => setConfirmOpen(false)}
+          <EditTaskModal
+            title={title}
+            order={order}
+            description={description}
+            open={open}
+            boardId={boardId}
+            columnId={columnId}
+            taskId={id}
+            onClose={handleClose}
           />
-        )}
-      </Grid>
-    </>
+          {confirmOpen && (
+            <ConfirmModal
+              question={QUESTION_ON_DELETE}
+              onYesClick={handleDelete}
+              onNoClick={() => setConfirmOpen(false)}
+            />
+          )}
+        </Grid>
+      )}
+    </Draggable>
   );
 };
 

@@ -119,6 +119,11 @@ export interface MainState {
   assignees: string[];
 }
 
+export interface BoardState {
+  columns: IColumn[];
+  tasks: { [key: string]: ITaskConfig[] };
+}
+
 export enum BoardFormOptions {
   create = 'create',
   edit = 'edit',
@@ -212,6 +217,15 @@ export interface ITaskConfig extends IColumn {
   description: string;
   userId: string;
   users: string[];
+}
+
+export interface IColumnPatch {
+  _id: string;
+  order: number;
+}
+
+export interface ITasksPatch extends IColumnPatch {
+  columnId: string;
 }
 
 export interface ThemeSlice {

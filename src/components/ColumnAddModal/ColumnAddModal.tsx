@@ -32,18 +32,14 @@ const inputStyle = {
 interface ColumnAddModalProps {
   boardId?: string;
   columnId?: string;
-  columnsCount: number;
   open: boolean;
-  tasksCount: number;
   onClose: () => void;
   pressedButtonId: string;
 }
 
 const ColumnAddModal = ({
   boardId = '',
-  columnsCount,
-  columnId,
-  tasksCount,
+  columnId = '',
   open,
   onClose,
   pressedButtonId,
@@ -54,6 +50,7 @@ const ColumnAddModal = ({
   const [createColumn, { isSuccess, isLoading, reset: fetchReset }] = useCreateColumnMutation();
   const [createTask, { isSuccess: taskSuccess, isLoading: isTaskLoading, reset: taskReset }] =
     useCreateTaskMutation();
+  const { columns, tasks } = useAppSelector((state) => state.boardState);
 
   const {
     register,
@@ -75,18 +72,24 @@ const ColumnAddModal = ({
         columnId,
         title,
         description,
-        order: tasksCount,
+        order: tasks[columnId].length,
         userId: user?._id || '',
         users: [''],
       });
     } else {
-      createColumn({ title, order: columnsCount, boardId });
+      createColumn({ title, order: columns.length, boardId });
     }
   };
 
   useEffect(() => {
+    if (isSuccess) {
+      fetchReset();
+    }
+
+    if (taskSuccess) {
+      taskReset();
+    }
     handleClose();
-    fetchReset();
   }, [isSuccess, taskSuccess]);
 
   return (

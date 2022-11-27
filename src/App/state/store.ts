@@ -7,10 +7,12 @@ import { columnApi } from '../../api/column.api';
 import { userApi } from '../../api/user.api';
 import { taskApi } from '../../api/task.api';
 import themeSlice from 'theme/themeSlice';
+import boardSlice from '../../features/columnSlice';
 
 export const store = configureStore({
   reducer: {
     userState: userSlice,
+    boardState: boardSlice,
     [authApi.reducerPath]: authApi.reducer,
     [columnApi.reducerPath]: columnApi.reducer,
     [userApi.reducerPath]: userApi.reducer,

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants/constants';
-import { IColumn, IColumnRequestParams, IGetParams } from '../types/types';
+import { IColumn, IColumnPatch, IColumnRequestParams, IGetParams } from '../types/types';
 import { RootState } from '../App/state/store';
 
 export const columnApi = createApi({
@@ -22,6 +22,9 @@ export const columnApi = createApi({
         url: `boards/${id}/columns`,
       }),
       providesTags: ['columns'],
+      transformResponse: (response: IColumn[]) => {
+        return response.sort((a, b) => a.order - b.order);
+      },
     }),
     createColumn: build.mutation<IColumn, IColumnRequestParams>({
       query: ({ boardId, title, order }) => ({
@@ -56,6 +59,13 @@ export const columnApi = createApi({
         url: `columnsSet?userId=${id}`,
       }),
     }),
+    columnsSet: build.mutation<IColumn[], IColumnPatch[]>({
+      query: (body) => ({
+        url: '/columnsSet',
+        method: 'PATCH',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -66,4 +76,5 @@ export const {
   useUpdateColumnMutation,
   useDeleteColumnMutation,
   useGetAllColumnsByUserIDQuery,
+  useColumnsSetMutation,
 } = columnApi;
