@@ -1,13 +1,19 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useGetAllColumnsByUserIDQuery } from 'api/column.api';
 import { useGetAllTasksByUserIDQuery } from 'api/task.api';
+import { LINKS } from 'constants/constants';
+import { logout } from 'features/authSlice';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAuth } from 'hooks/useAuth';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ITaskConfig } from 'types/types';
+import { useNavigate } from 'react-router-dom';
+import { ErrorObject, ITaskConfig } from 'types/types';
 import { SearchForm } from './SearchForm';
 
 const SearchFormContainer = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { data: statuses = [], isSuccess } = useGetAllColumnsByUserIDQuery(user?._id || '');
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState({
@@ -15,9 +21,11 @@ const SearchFormContainer = () => {
     selected: ['All'],
     columns: statuses,
   });
-  const { data: tasksData = [], isSuccess: getTasksSuccess } = useGetAllTasksByUserIDQuery(
-    user?._id || ''
-  );
+  const {
+    data: tasksData = [],
+    isSuccess: getTasksSuccess,
+    error,
+  } = useGetAllTasksByUserIDQuery(user?._id || '');
   const [tasks, setTasks] = useState(tasksData);
 
   const handleChangeSearchField = (
@@ -31,6 +39,13 @@ const SearchFormContainer = () => {
       setStatus((state) => ({ ...state, all: statuses.map((el) => el.title), columns: statuses }));
     }
   }, [statuses, isSuccess, tasks]);
+
+  useEffect(() => {
+    if ((error as ErrorObject)?.data?.message === 'Invalid token') {
+      navigate(LINKS.welcome);
+      dispatch(logout());
+    }
+  }, [dispatch, navigate, error]);
 
   const filterTasks = useCallback(
     (tasks: ITaskConfig[]): ITaskConfig[] => {

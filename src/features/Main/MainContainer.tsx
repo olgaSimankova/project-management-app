@@ -4,6 +4,8 @@ import {
   useGetBoardsQuery,
   useUpdateBoardMutation,
 } from 'api/main.api';
+import { LINKS } from 'constants/constants';
+import { logout } from 'features/authSlice';
 import {
   setBoardID,
   setModalOption,
@@ -15,15 +17,22 @@ import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BoardConfig, BoardFormOptions, ErrorObject } from 'types/types';
 import { Main } from './Main';
 
 const MainContainer = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
   const { user } = useAuth();
-  const { data: boards = [], isLoading: isGetting, isFetching } = useGetBoardsQuery();
+  const {
+    data: boards = [],
+    isLoading: isGetting,
+    isFetching,
+    error: getBoardsError,
+  } = useGetBoardsQuery();
   const [
     createBoard,
     {
@@ -54,10 +63,16 @@ const MainContainer = () => {
       reset: deleteBordReset,
     },
   ] = useDeleteBoardMutation();
-
   const toastErrorDisplay = (error: ErrorObject) => {
     toast.error(error?.data?.message || 'Something went wrong');
   };
+
+  useEffect(() => {
+    if ((getBoardsError as ErrorObject)?.data?.message === 'Invalid token') {
+      navigate(LINKS.welcome);
+      dispatch(logout());
+    }
+  }, [dispatch, navigate, getBoardsError]);
 
   if (isUpdatingFailed) {
     toastErrorDisplay(updatingError as ErrorObject);
