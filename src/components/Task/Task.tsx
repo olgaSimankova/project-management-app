@@ -52,9 +52,10 @@ interface ITaskProps {
   title: string;
   description: string;
   order: number;
+  _id?: string;
 }
 
-const Task = ({ id, order, boardId, columnId, title, description }: ITaskProps) => {
+const Task = ({ id, order, boardId, columnId, title, description, _id }: ITaskProps) => {
   const [deleteTask, { isError, error }] = useDeleteTaskMutation();
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -62,7 +63,8 @@ const Task = ({ id, order, boardId, columnId, title, description }: ITaskProps) 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleDelete = () => {
-    deleteTask({ boardId, columnId, taskId: id });
+    deleteTask({ boardId, columnId, taskId: id || _id });
+    setConfirmOpen(false);
   };
 
   if (isError) {

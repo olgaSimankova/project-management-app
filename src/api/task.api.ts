@@ -5,7 +5,7 @@ import { RootState } from '../App/state/store';
 
 export const taskApi = createApi({
   reducerPath: 'taskApi',
-  tagTypes: ['task'],
+  tagTypes: ['task', 'tasks'],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers, { getState }) => {
@@ -32,7 +32,7 @@ export const taskApi = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['task'],
+      invalidatesTags: ['task', 'tasks'],
     }),
     getTask: build.query<ITaskConfig, IGetParams>({
       query: ({ boardId, columnId, taskId }) => ({
@@ -45,14 +45,24 @@ export const taskApi = createApi({
         method: 'PUT',
         body: { ...body, columnId },
       }),
-      invalidatesTags: (result) => [{ type: 'task', id: result?.taskId }],
+      invalidatesTags: (result) => [
+        { type: 'task', id: result?.taskId },
+        { type: 'tasks', id: result?.taskId },
+      ],
     }),
     deleteTask: build.mutation<ITaskConfig, IGetParams>({
       query: ({ boardId, columnId, taskId }) => ({
         url: `boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['task'],
+      invalidatesTags: ['task', 'tasks'],
+    }),
+    getAllTasksByUserID: build.query<ITaskConfig[], string>({
+      query: (id?: string) => ({
+        url: `tasksSet?userId=${id}`,
+        method: 'GET',
+      }),
+      providesTags: ['tasks'],
     }),
     tasksSet: build.mutation<ITaskConfig[], ITasksPatch[]>({
       query: (body) => ({
@@ -71,4 +81,5 @@ export const {
   useUpdateTaskMutation,
   useDeleteTaskMutation,
   useTasksSetMutation,
+  useGetAllTasksByUserIDQuery,
 } = taskApi;

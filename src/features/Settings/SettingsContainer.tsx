@@ -14,9 +14,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema } from 'schema/userSchema';
 import { UserFields } from 'types/types';
-import { SettingsContainer } from 'components/SettingsContainer/SettingsContainer';
+import Settings from './Settings';
 
-export const Settings = () => {
+const SettingsContainer = () => {
   const [checkUserPassword, { isLoading, isSuccess, isError, reset: signInReset }] =
     useCheckUserPasswordMutation();
   const [
@@ -145,16 +145,16 @@ export const Settings = () => {
     updateReset();
   }
   return (
-    <SettingsContainer
+    <Settings
       {...{
-        handleChange,
+        onInputChange: handleChange,
         register,
-        handleClick,
-        handleClickConfirmChanges,
-        handleCloseConfirmWindow,
-        handleDelete,
-        handleDeleteClick,
-        handleSubmit,
+        onClick: handleClick,
+        onClickConfirmChanges: handleClickConfirmChanges,
+        onCloseConfirmWindow: handleCloseConfirmWindow,
+        onDelete: handleDelete,
+        onDeleteClick: handleDeleteClick,
+        onSubmit: handleSubmit,
         isError,
         isLoading,
         credits,
@@ -167,3 +167,5 @@ export const Settings = () => {
     />
   );
 };
+
+export default SettingsContainer;
