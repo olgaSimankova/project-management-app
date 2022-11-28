@@ -9,19 +9,19 @@ import { useAuth } from 'hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { LINKS } from 'constants/constants';
+import { INVALID_TOKEN, LINKS } from 'constants/constants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema } from 'schema/userSchema';
-import { UserFields } from 'types/types';
-import { SettingsContainer } from 'components/SettingsContainer/SettingsContainer';
+import { ErrorObject, UserFields } from 'types/types';
+import Settings from './Settings';
 
-export const Settings = () => {
+const SettingsContainer = () => {
   const [checkUserPassword, { isLoading, isSuccess, isError, reset: signInReset }] =
     useCheckUserPasswordMutation();
   const [
     updateUser,
-    { isSuccess: isSuccessfullyUpdated, reset: updateReset, isError: updateFailed },
+    { isSuccess: isSuccessfullyUpdated, reset: updateReset, isError: updateFailed, error },
   ] = useUpdateUserMutation();
   const navigate = useNavigate();
   const [deleteUser, { isSuccess: userDeleted, reset: deleteReset, isLoading: deleteLoading }] =
@@ -139,22 +139,30 @@ export const Settings = () => {
     }
   }, [isSuccessfullyUpdated, dispatch, updateReset, user?._id, credits.login, credits.name]);
 
-  if (updateFailed) {
-    toast.error('This login already exists');
-    setFlags((flags) => ({ ...flags, isDisabled: true }));
-    updateReset();
-  }
+  useEffect(() => {
+    if (updateFailed) {
+      if ((error as ErrorObject)?.data?.message === INVALID_TOKEN) {
+        navigate(LINKS.welcome);
+        dispatch(logout());
+      } else {
+        toast.error('This login already exists');
+        setFlags((flags) => ({ ...flags, isDisabled: true }));
+      }
+      updateReset();
+    }
+  }, [dispatch, navigate, error, updateFailed, updateReset]);
+
   return (
-    <SettingsContainer
+    <Settings
       {...{
-        handleChange,
+        onInputChange: handleChange,
         register,
-        handleClick,
-        handleClickConfirmChanges,
-        handleCloseConfirmWindow,
-        handleDelete,
-        handleDeleteClick,
-        handleSubmit,
+        onClick: handleClick,
+        onClickConfirmChanges: handleClickConfirmChanges,
+        onCloseConfirmWindow: handleCloseConfirmWindow,
+        onDelete: handleDelete,
+        onDeleteClick: handleDeleteClick,
+        onSubmit: handleSubmit,
         isError,
         isLoading,
         credits,
@@ -167,3 +175,5 @@ export const Settings = () => {
     />
   );
 };
+
+export default SettingsContainer;

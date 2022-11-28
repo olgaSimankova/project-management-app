@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Avatar,
   Box,
@@ -13,100 +13,46 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useSignInMutation, useSignUpMutation } from '../api/auth.api';
-import { IError, IAuthFormFields } from '../types/types';
-import { useAuth } from '../hooks/useAuth';
-import { LINKS } from '../constants/constants';
-import { signUpSchema } from '../schema/signUpSchema';
-import { signInSchema } from '../schema/signInSchema';
-import { setUserInfo } from '../features/authSlice';
-import { toast } from 'react-toastify';
-import { useAppDispatch } from '../hooks/useAppDispatch';
+import { LINKS } from 'constants/constants';
+import {
+  FieldErrorsImpl,
+  FieldValues,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from 'react-hook-form';
+import { IAuthFormFields } from 'types/types';
 import { useTranslation } from 'react-i18next';
 
-const Authentication = () => {
+interface AuthenticationProps {
+  isSignIn: boolean;
+  handleSubmit: UseFormHandleSubmit<IAuthFormFields>;
+  onSubmit: (data: FieldValues) => void;
+  register: UseFormRegister<IAuthFormFields>;
+  errors: Partial<
+    FieldErrorsImpl<{
+      name: string;
+      agree: boolean;
+      login: string;
+      password: string;
+    }>
+  >;
+  isLoading: boolean;
+  isAuthLoading: boolean;
+  handleResetForm: () => void;
+}
+
+const Authentication = ({
+  isSignIn,
+  handleSubmit,
+  onSubmit,
+  register,
+  errors,
+  isLoading,
+  isAuthLoading,
+  handleResetForm,
+}: AuthenticationProps) => {
   const { t } = useTranslation();
-  const location = useLocation();
-  const isSignIn = location.pathname === LINKS.signIn;
-  const authSchema = isSignIn ? signInSchema : signUpSchema;
-  const dispatch = useAppDispatch();
-
-  const [signIn, { data, isLoading, isSuccess, error: signInError, isError, reset: signInReset }] =
-    useSignInMutation();
-
-  const [
-    signUp,
-    {
-      isLoading: isAuthLoading,
-      isSuccess: isAuthSuccess,
-      error: authError,
-      isError: isAuthError,
-      reset: signUpReset,
-    },
-  ] = useSignUpMutation();
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<IAuthFormFields>({
-    resolver: yupResolver(authSchema),
-  });
-
-  const navigate = useNavigate();
-  const { token } = useAuth();
-
-  useEffect(() => {
-    if (token) {
-      navigate(LINKS.welcome);
-    }
-  }, [token, navigate]);
-
-  useEffect(() => {
-    if (isSuccess && isSignIn && data) {
-      toast.success('You successfully logged in');
-      dispatch(setUserInfo(data));
-    }
-
-    if (isAuthSuccess && !isSignIn) {
-      toast.success(t('successCreateAccount'));
-      navigate(LINKS.signIn);
-    }
-  }, [isSuccess, isSignIn, isAuthSuccess, navigate, dispatch, data]);
-
-  useEffect(() => {
-    if (isError) {
-      toast.error((signInError as IError)?.data?.message || t('loginError'));
-    }
-
-    if (isAuthError) {
-      toast.error((authError as IError).data.message);
-    }
-  }, [isError, isAuthError, authError, signInError]);
-
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (!isLoading && isSignIn) {
-      const { login, password } = data;
-      signIn({ login, password });
-    }
-
-    if (!isAuthLoading && !isSignIn) {
-      const { name, login, password } = data;
-      signUp({ name, login, password });
-    }
-  };
-
-  const handleResetForm = () => {
-    reset();
-    signUpReset();
-    signInReset();
-  };
-
   return (
     <Container component="main" maxWidth="xs" sx={{ margin: '0 auto' }}>
       <Box

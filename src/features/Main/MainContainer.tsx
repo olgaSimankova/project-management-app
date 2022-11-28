@@ -1,14 +1,11 @@
-import { LoadingButton } from '@mui/lab';
-import { Box, Typography } from '@mui/material';
 import {
   useCreateBoardMutation,
   useDeleteBoardMutation,
   useGetBoardsQuery,
   useUpdateBoardMutation,
 } from 'api/main.api';
-import { BoardForm } from 'components/BoardForm/BoardForm';
-import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
-import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
+import { INVALID_TOKEN, LINKS } from 'constants/constants';
+import { logout } from 'features/authSlice';
 import {
   setBoardID,
   setModalOption,
@@ -20,16 +17,22 @@ import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BoardConfig, BoardFormOptions, ErrorObject } from 'types/types';
+import { Main } from './Main';
 
-export const Main = () => {
-  const { t } = useTranslation();
+const MainContainer = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { isModalOpen, modalOption, boardID, isConfirmationOpen } = useMain();
   const { user } = useAuth();
-  const { data: boards = [], isLoading: isGetting, isFetching } = useGetBoardsQuery();
+  const {
+    data: boards = [],
+    isLoading: isGetting,
+    isFetching,
+    error: getBoardsError,
+  } = useGetBoardsQuery();
   const [
     createBoard,
     {
@@ -60,10 +63,16 @@ export const Main = () => {
       reset: deleteBordReset,
     },
   ] = useDeleteBoardMutation();
-
   const toastErrorDisplay = (error: ErrorObject) => {
     toast.error(error?.data?.message || 'Something went wrong');
   };
+
+  useEffect(() => {
+    if ((getBoardsError as ErrorObject)?.data?.message === INVALID_TOKEN) {
+      navigate(LINKS.welcome);
+      dispatch(logout());
+    }
+  }, [dispatch, navigate, getBoardsError]);
 
   if (isUpdatingFailed) {
     toastErrorDisplay(updatingError as ErrorObject);
@@ -146,66 +155,28 @@ export const Main = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        gap: '1rem',
-        width: '80vw',
-        height: 'calc(100vh - 114px)',
-        margin: '0 auto',
-        overflowY: 'auto',
-        '&::-webkit-scrollbar': {
-          width: 7,
-        },
-        '&::-webkit-scrollbar-track': {
-          boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
-          borderRadius: 2,
-        },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: '#1976d2',
-          outline: `1px solid slategrey`,
-          borderRadius: 2,
-        },
+    <Main
+      {...{
+        isConfirmationOpen,
+        isCreating,
+        isDeleting,
+        isFetching,
+        isGetting,
+        isModalOpen,
+        isUpdating,
+        onButtonClick: handleButtonClick,
+        onClickModal: handleClickModal,
+        onSubmit: handleSubmit,
+        onDeleteBoard,
+        modalOption,
+        onExitConfirmationModal,
+        userBoards,
+        updateBoard,
+        title,
+        description,
       }}
-    >
-      <Typography variant="h4">{t('Boards')}</Typography>
-      <LoadingButton
-        loading={isCreating}
-        color="success"
-        sx={{ width: 'fit-content', padding: '10px 10px' }}
-        onClick={handleButtonClick}
-      >
-        {t('addBoard')}
-      </LoadingButton>
-      <BoardsContainer
-        boards={userBoards}
-        isLoading={isFetching && isGetting}
-        isDeleting={isDeleting}
-        isEditing={isUpdating}
-        update={updateBoard}
-      />
-
-      {isModalOpen && (
-        <BoardForm
-          {...{
-            option: modalOption,
-            onClick: handleClickModal,
-            onSubmit: handleSubmit,
-            defaultValue: { title, description },
-          }}
-        />
-      )}
-      {isConfirmationOpen && (
-        <ConfirmModal
-          {...{
-            question: t('questuionDelete'),
-            onYesClick: onDeleteBoard,
-            onNoClick: onExitConfirmationModal,
-          }}
-        />
-      )}
-    </Box>
+    />
   );
 };
+
+export default MainContainer;
