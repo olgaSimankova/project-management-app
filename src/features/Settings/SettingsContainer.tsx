@@ -9,11 +9,11 @@ import { useAuth } from 'hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { LINKS } from 'constants/constants';
+import { INVALID_TOKEN, LINKS } from 'constants/constants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema } from 'schema/userSchema';
-import { UserFields } from 'types/types';
+import { ErrorObject, UserFields } from 'types/types';
 import Settings from './Settings';
 
 const SettingsContainer = () => {
@@ -21,7 +21,7 @@ const SettingsContainer = () => {
     useCheckUserPasswordMutation();
   const [
     updateUser,
-    { isSuccess: isSuccessfullyUpdated, reset: updateReset, isError: updateFailed },
+    { isSuccess: isSuccessfullyUpdated, reset: updateReset, isError: updateFailed, error },
   ] = useUpdateUserMutation();
   const navigate = useNavigate();
   const [deleteUser, { isSuccess: userDeleted, reset: deleteReset, isLoading: deleteLoading }] =
@@ -139,11 +139,19 @@ const SettingsContainer = () => {
     }
   }, [isSuccessfullyUpdated, dispatch, updateReset, user?._id, credits.login, credits.name]);
 
-  if (updateFailed) {
-    toast.error('This login already exists');
-    setFlags((flags) => ({ ...flags, isDisabled: true }));
-    updateReset();
-  }
+  useEffect(() => {
+    if (updateFailed) {
+      if ((error as ErrorObject)?.data?.message === INVALID_TOKEN) {
+        navigate(LINKS.welcome);
+        dispatch(logout());
+      } else {
+        toast.error('This login already exists');
+        setFlags((flags) => ({ ...flags, isDisabled: true }));
+      }
+      updateReset();
+    }
+  }, [dispatch, navigate, error, updateFailed, updateReset]);
+
   return (
     <Settings
       {...{
