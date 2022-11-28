@@ -20,3 +20,5 @@ export const GITHUB_BASE = 'https://github.com';
 export const OUR_GITHUB_NICKNAMES = ['olgasimankova', 'freshman10', 'nester-dev', 'alehharnizonau'];
 export const initBoardData = { title: '', owner: '', users: [] };
 export const QUESTION_ON_DELETE = 'Do you really want to delete?';
+export const INVALID_TOKEN = 'Invalid token';
+export const ALL_STATUSES = 'All';

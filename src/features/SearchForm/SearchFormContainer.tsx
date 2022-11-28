@@ -1,23 +1,31 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useGetAllColumnsByUserIDQuery } from 'api/column.api';
 import { useGetAllTasksByUserIDQuery } from 'api/task.api';
+import { ALL_STATUSES, INVALID_TOKEN, LINKS } from 'constants/constants';
+import { logout } from 'features/authSlice';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAuth } from 'hooks/useAuth';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ITaskConfig } from 'types/types';
+import { useNavigate } from 'react-router-dom';
+import { ErrorObject, ITaskConfig } from 'types/types';
 import { SearchForm } from './SearchForm';
 
 const SearchFormContainer = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { data: statuses = [], isSuccess } = useGetAllColumnsByUserIDQuery(user?._id || '');
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState({
     all: [] as string[],
-    selected: ['All'],
+    selected: [ALL_STATUSES],
     columns: statuses,
   });
-  const { data: tasksData = [], isSuccess: getTasksSuccess } = useGetAllTasksByUserIDQuery(
-    user?._id || ''
-  );
+  const {
+    data: tasksData = [],
+    isSuccess: getTasksSuccess,
+    error,
+  } = useGetAllTasksByUserIDQuery(user?._id || '');
   const [tasks, setTasks] = useState(tasksData);
 
   const handleChangeSearchField = (
@@ -32,10 +40,17 @@ const SearchFormContainer = () => {
     }
   }, [statuses, isSuccess, tasks]);
 
+  useEffect(() => {
+    if ((error as ErrorObject)?.data?.message === INVALID_TOKEN) {
+      navigate(LINKS.welcome);
+      dispatch(logout());
+    }
+  }, [dispatch, navigate, error]);
+
   const filterTasks = useCallback(
     (tasks: ITaskConfig[]): ITaskConfig[] => {
       let filteredTasks = [...tasks];
-      if (!status.selected.includes('All')) {
+      if (!status.selected.includes(ALL_STATUSES)) {
         const columnsId = status.columns
           .filter((column) => status.selected.includes(column.title))
           .map((column) => column._id);
@@ -61,7 +76,7 @@ const SearchFormContainer = () => {
     const values = typeof value === 'string' ? value.split(',') : value;
     setStatus((state) => ({
       ...state,
-      selected: values.length ? values.filter((el) => el !== 'All') : ['All'],
+      selected: values.length ? values.filter((el) => el !== ALL_STATUSES) : [ALL_STATUSES],
     }));
   };
 
