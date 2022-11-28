@@ -114,6 +114,7 @@ const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
                           title={task.title}
                           order={idx}
                           description={task.description}
+                          users={task.users}
                         />
                       ))}
                   {provided.placeholder}

@@ -25,6 +25,7 @@ export const taskApi = createApi({
         return response.sort((a, b) => a.order - b.order);
       },
       providesTags: ['task'],
+      keepUnusedDataFor: 0,
     }),
     createTask: build.mutation<ITaskConfig, ITaskConfig>({
       query: ({ boardId, columnId, ...body }) => ({

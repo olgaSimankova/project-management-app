@@ -1,9 +1,10 @@
-import { BoardState, IColumn, ITaskConfig } from '../types/types';
+import { BoardState, IColumn, ITaskConfig, IUser } from '../types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: BoardState = {
   columns: [],
   tasks: {},
+  users: [],
 };
 
 export const boardSlice = createSlice({
@@ -16,8 +17,11 @@ export const boardSlice = createSlice({
     addTasks: (state, action: PayloadAction<{ id: string; data: ITaskConfig[] }>) => {
       state.tasks[action.payload.id] = action.payload.data;
     },
+    addUsers: (state, action: PayloadAction<IUser[]>) => {
+      state.users = action.payload;
+    },
   },
 });
 
 export default boardSlice.reducer;
-export const { addBoards, addTasks } = boardSlice.actions;
+export const { addBoards, addTasks, addUsers } = boardSlice.actions;

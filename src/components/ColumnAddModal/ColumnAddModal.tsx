@@ -10,6 +10,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useCreateColumnMutation } from '../../api/column.api';
 import { useCreateTaskMutation } from '../../api/task.api';
 import { useAppSelector } from '../../hooks/useAppSelector';
+import { Assignees } from '../Assignees/Assignees';
+import { useAssignees } from '../../hooks/useAssignees';
 
 const modalStyle = {
   position: 'absolute',
@@ -50,7 +52,8 @@ const ColumnAddModal = ({
   const [createColumn, { isSuccess, isLoading, reset: fetchReset }] = useCreateColumnMutation();
   const [createTask, { isSuccess: taskSuccess, isLoading: isTaskLoading, reset: taskReset }] =
     useCreateTaskMutation();
-  const { columns, tasks } = useAppSelector((state) => state.boardState);
+  const { columns, tasks, users } = useAppSelector((state) => state.boardState);
+  const { assignees, clearAssigneeInput, handleChangeAssignee } = useAssignees();
 
   const {
     register,
@@ -62,6 +65,7 @@ const ColumnAddModal = ({
   const handleClose = () => {
     reset();
     onClose();
+    clearAssigneeInput();
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -74,7 +78,7 @@ const ColumnAddModal = ({
         description,
         order: tasks[columnId].length,
         userId: user?._id || '',
-        users: [''],
+        users: assignees,
       });
     } else {
       createColumn({ title, order: columns.length, boardId });
@@ -116,21 +120,30 @@ const ColumnAddModal = ({
           helperText={errors.title?.message}
         />
         {isAddTask && (
-          <TextField
-            {...register('description')}
-            margin="normal"
-            label="Description"
-            type="text"
-            fullWidth={true}
-            multiline={true}
-            minRows={3}
-            maxRows={3}
-            focused
-            error={!!errors.description}
-            helperText={errors.description?.message}
-          />
+          <>
+            <TextField
+              sx={{ marginBottom: '20px' }}
+              {...register('description')}
+              margin="normal"
+              label="Description"
+              type="text"
+              fullWidth={true}
+              multiline={true}
+              minRows={3}
+              maxRows={3}
+              focused
+              error={!!errors.description}
+              helperText={errors.description?.message}
+            />
+            <Assignees
+              all={users}
+              selected={assignees}
+              handleChange={(e) => handleChangeAssignee(e)}
+              id={columnId}
+            />
+          </>
         )}
-        <Stack mt={1} justifyContent="center" direction="row" spacing={5}>
+        <Stack mt={1.5} justifyContent="center" direction="row" spacing={5}>
           <Button
             type={'submit'}
             variant="contained"

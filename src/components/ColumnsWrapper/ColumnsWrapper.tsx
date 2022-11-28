@@ -9,9 +9,10 @@ import { Spinner } from '../Spinner/Spinner';
 import ColumnAddModal from '../ColumnAddModal/ColumnAddModal';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { addBoards } from '../../features/columnSlice';
+import { addBoards, addUsers } from '../../features/columnSlice';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useOnDragEnd } from '../../hooks/useOnDragEnd';
+import { useGetUsersQuery } from '../../api/user.api';
 
 const boxStyles = {
   display: 'flex',
@@ -25,6 +26,7 @@ const boxStyles = {
 const ColumnsWrapper = () => {
   const { boardId } = useParams();
   const { data, isLoading, isSuccess } = useGetColumnsQuery(boardId as string);
+  const { data: users } = useGetUsersQuery();
   const { columns } = useAppSelector((state) => state.boardState);
   const dispatch = useAppDispatch();
 
@@ -37,6 +39,12 @@ const ColumnsWrapper = () => {
       dispatch(addBoards(data));
     }
   }, [data, isSuccess]);
+
+  useEffect(() => {
+    if (users) {
+      dispatch(addUsers(users));
+    }
+  }, [users, dispatch]);
 
   const handleClose = () => setOpen(false);
   const handleOpen = (buttonId: string, columnId?: string) => {

@@ -25,6 +25,7 @@ export const columnApi = createApi({
       transformResponse: (response: IColumn[]) => {
         return response.sort((a, b) => a.order - b.order);
       },
+      keepUnusedDataFor: 0,
     }),
     createColumn: build.mutation<IColumn, IColumnRequestParams>({
       query: ({ boardId, title, order }) => ({

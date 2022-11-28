@@ -33,6 +33,16 @@ const respStyles = {
   background: 'linear-gradient(138.6789deg, #81d5ee 17%, #7ed492 83%)',
   p: '0px 3px',
   borderRadius: '3px',
+  mr: 1,
+  wordBreak: 'keep-all',
+};
+
+const userStyles = {
+  fontSize: '12px',
+  lineHeight: '14px',
+  p: '0.25em 0.4em',
+  backgroundColor: '#6c757d',
+  borderRadius: '0.25rem',
 };
 
 const addRespStyles = {
@@ -48,14 +58,15 @@ const addRespStyles = {
 interface ITaskProps {
   id: string;
   boardId?: string;
-  columnId: string;
+  columnId?: string;
   title: string;
   description: string;
   order: number;
   _id?: string;
+  users: string[];
 }
 
-const Task = ({ id, order, boardId, columnId, title, description, _id }: ITaskProps) => {
+const Task = ({ id, order, boardId, columnId, title, description, _id, users }: ITaskProps) => {
   const [deleteTask, { isError, error }] = useDeleteTaskMutation();
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -93,10 +104,13 @@ const Task = ({ id, order, boardId, columnId, title, description, _id }: ITaskPr
           <Typography color="#707090" fontSize="14px">
             {description}
           </Typography>
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box sx={respStyles}>
-              <Typography color="white" fontSize="13px">
+          <Box display="flex" justifyContent="space-between" alignItems="center" gap={1}>
+            <Box display="flex" alignItems="center" color="white">
+              <Typography sx={respStyles} fontSize="13px">
                 Responsible:
+              </Typography>
+              <Typography sx={userStyles}>
+                {users.length ? `${users.join(', ')}` : 'unassigned'}
               </Typography>
             </Box>
             <IconButton onClick={handleOpen} sx={addRespStyles} size="small">
