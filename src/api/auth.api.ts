@@ -41,7 +41,7 @@ export const authApi = createApi({
             dispatch(setUser(searchUser));
           }
         } catch (error) {
-          console.log('Наша ошибка', error);
+          throw new Error();
         }
       },
     }),

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { LINKS } from '../../constants/constants';
 import { useGetBoardQuery } from '../../api/main.api';
 import { toast } from 'react-toastify';
-import { Error } from '../../types/types';
+import { IError } from '../../types/types';
 
 const StyledBoardBox = styled(Box)(() => ({
   display: 'flex',
@@ -22,7 +22,7 @@ const BoardHeader = () => {
   const { title, description } = JSON.parse(data?.title || '{}');
 
   if (isError) {
-    toast.error((error as Error).data.message);
+    toast.error((error as IError).data.message);
   }
 
   return (

@@ -5,8 +5,11 @@ import ColumnHeader from '../ColumnHeader/ColumnHeader';
 import Task from '../Task/Task';
 import AddIcon from '@mui/icons-material/Add';
 import { useGetTasksQuery } from '../../api/task.api';
-import { Error, ITaskConfig } from '../../types/types';
+import { IError, ITaskConfig } from '../../types/types';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
+import { LINKS } from 'constants/constants';
 
 const dividerStyles = {
   '&.MuiDivider-root': {
@@ -62,10 +65,21 @@ interface IColumnProps {
 }
 
 const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnProps) => {
+  const { t } = useTranslation();
   const { data, isSuccess, isError, error } = useGetTasksQuery({
     boardId,
     columnId: id,
   });
+
+  const { pageAddressID } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (pageAddressID && id !== pageAddressID) {
+      navigate(LINKS.error);
+    }
+  }, [pageAddressID, id, navigate]);
+
   const handleButtonClick = (e: React.MouseEvent) => {
     const target = e.currentTarget as HTMLElement;
     onClick(target.id, id);
@@ -88,7 +102,7 @@ const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnPr
   }, [isSuccess, tasks?.length, onDataReceived]);
 
   if (isError) {
-    toast.error((error as Error).data.message);
+    toast.error((error as IError)?.data?.message || t('somethingWrong'));
   }
 
   return (

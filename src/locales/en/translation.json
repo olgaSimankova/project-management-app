@@ -33,9 +33,10 @@
   "firstName": "First Name",
   "login": "Login",
   "password": "Password",
-  "somethingWrong": "Check your Internet connection",
+  "somethingWrong": "Something went wrong",
   "tryAgain": "Try Again",
   "goMain": "Go to Main",
   "successCreateAccount": "You successfully created account",
-  "successLigin": "You successfully logged in"
+  "successLigin": "You successfully logged in",
+  "loginError": "Something terrible happened with your connection"
 }

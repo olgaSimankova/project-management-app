@@ -88,7 +88,7 @@ export interface IUserSavingData extends ISignInResponse {
   login: string;
 }
 
-export interface Error {
+export interface IError {
   data: {
     statusCode: number;
     message: string;

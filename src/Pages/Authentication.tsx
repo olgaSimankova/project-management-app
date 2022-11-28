@@ -18,7 +18,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSignInMutation, useSignUpMutation } from '../api/auth.api';
-import { Error, IAuthFormFields } from '../types/types';
+import { IError, IAuthFormFields } from '../types/types';
 import { useAuth } from '../hooks/useAuth';
 import { LINKS } from '../constants/constants';
 import { signUpSchema } from '../schema/signUpSchema';
@@ -27,7 +27,6 @@ import { setUserInfo } from '../features/authSlice';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useTranslation } from 'react-i18next';
-import { useErrorHandler } from 'react-error-boundary';
 
 const Authentication = () => {
   const { t } = useTranslation();
@@ -36,20 +35,8 @@ const Authentication = () => {
   const authSchema = isSignIn ? signInSchema : signUpSchema;
   const dispatch = useAppDispatch();
 
-  const [
-    signIn,
-    {
-      data,
-      isLoading,
-      isSuccess,
-      error: signInError,
-      // status: signInStatus,
-      isError,
-      reset: signInReset,
-    },
-  ] = useSignInMutation();
-
-  useErrorHandler(signInError); // Вот это срабатывает в случае возникновения ошибки
+  const [signIn, { data, isLoading, isSuccess, error: signInError, isError, reset: signInReset }] =
+    useSignInMutation();
 
   const [
     signUp,
@@ -57,13 +44,10 @@ const Authentication = () => {
       isLoading: isAuthLoading,
       isSuccess: isAuthSuccess,
       error: authError,
-      // status: signUpStatus,
       isError: isAuthError,
       reset: signUpReset,
     },
   ] = useSignUpMutation();
-
-  useErrorHandler(authError); // Это тоже
 
   const {
     register,
@@ -95,14 +79,13 @@ const Authentication = () => {
     }
   }, [isSuccess, isSignIn, isAuthSuccess, navigate, dispatch, data]);
 
-  // Этот useEffect вообще не сработает, когда выше ошибки отправляются в error boundary
   useEffect(() => {
     if (isError) {
-      toast.error((signInError as Error)?.data?.message || 'Что-то ужасное произошло');
+      toast.error((signInError as IError)?.data?.message || t('loginError'));
     }
 
     if (isAuthError) {
-      toast.error((authError as Error).data.message);
+      toast.error((authError as IError).data.message);
     }
   }, [isError, isAuthError, authError, signInError]);
 
