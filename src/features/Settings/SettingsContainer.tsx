@@ -9,7 +9,7 @@ import { useAuth } from 'hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { LINKS } from 'constants/constants';
+import { INVALID_TOKEN, LINKS } from 'constants/constants';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema } from 'schema/userSchema';
@@ -141,7 +141,7 @@ const SettingsContainer = () => {
 
   useEffect(() => {
     if (updateFailed) {
-      if ((error as ErrorObject)?.data?.message === 'Invalid token') {
+      if ((error as ErrorObject)?.data?.message === INVALID_TOKEN) {
         navigate(LINKS.welcome);
         dispatch(logout());
       } else {

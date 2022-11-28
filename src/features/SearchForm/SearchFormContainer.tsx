@@ -1,7 +1,7 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useGetAllColumnsByUserIDQuery } from 'api/column.api';
 import { useGetAllTasksByUserIDQuery } from 'api/task.api';
-import { LINKS } from 'constants/constants';
+import { ALL_STATUSES, INVALID_TOKEN, LINKS } from 'constants/constants';
 import { logout } from 'features/authSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAuth } from 'hooks/useAuth';
@@ -18,7 +18,7 @@ const SearchFormContainer = () => {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState({
     all: [] as string[],
-    selected: ['All'],
+    selected: [ALL_STATUSES],
     columns: statuses,
   });
   const {
@@ -41,7 +41,7 @@ const SearchFormContainer = () => {
   }, [statuses, isSuccess, tasks]);
 
   useEffect(() => {
-    if ((error as ErrorObject)?.data?.message === 'Invalid token') {
+    if ((error as ErrorObject)?.data?.message === INVALID_TOKEN) {
       navigate(LINKS.welcome);
       dispatch(logout());
     }
@@ -50,7 +50,7 @@ const SearchFormContainer = () => {
   const filterTasks = useCallback(
     (tasks: ITaskConfig[]): ITaskConfig[] => {
       let filteredTasks = [...tasks];
-      if (!status.selected.includes('All')) {
+      if (!status.selected.includes(ALL_STATUSES)) {
         const columnsId = status.columns
           .filter((column) => status.selected.includes(column.title))
           .map((column) => column._id);
@@ -76,7 +76,7 @@ const SearchFormContainer = () => {
     const values = typeof value === 'string' ? value.split(',') : value;
     setStatus((state) => ({
       ...state,
-      selected: values.length ? values.filter((el) => el !== 'All') : ['All'],
+      selected: values.length ? values.filter((el) => el !== ALL_STATUSES) : [ALL_STATUSES],
     }));
   };
 
