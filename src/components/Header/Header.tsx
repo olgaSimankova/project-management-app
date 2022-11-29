@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import NavLinks from '../NavLinks/NavLinks';
@@ -10,11 +10,21 @@ import LanguageButton from 'components/LanguageButton/LanguageButton';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 import { setTheme } from 'theme/themeSlice';
+import { useNavigate } from 'react-router-dom';
+import { LINKS } from 'constants/constants';
 
 export const Header = () => {
   const { theme } = useCustomTheme();
   const { token } = useAuth();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const tokenLS = localStorage.getItem('credentials');
+
+  useEffect(() => {
+    if (token === '' && !tokenLS) {
+      navigate(LINKS.welcome);
+    }
+  }, [navigate, token, tokenLS]);
 
   const handleThemeChange = () => {
     if (theme === 'light') {

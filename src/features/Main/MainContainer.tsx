@@ -4,7 +4,7 @@ import {
   useGetBoardsQuery,
   useUpdateBoardMutation,
 } from 'api/main.api';
-import { INVALID_TOKEN, LINKS } from 'constants/constants';
+import { INVALID_TOKEN } from 'constants/constants';
 import { logout } from 'features/authSlice';
 import {
   setBoardID,
@@ -69,7 +69,6 @@ const MainContainer = () => {
 
   useEffect(() => {
     if ((getBoardsError as ErrorObject)?.data?.message === INVALID_TOKEN) {
-      navigate(LINKS.welcome);
       dispatch(logout());
     }
   }, [dispatch, navigate, getBoardsError]);

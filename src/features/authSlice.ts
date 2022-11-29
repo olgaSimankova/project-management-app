@@ -13,9 +13,9 @@ export const userSlice = createSlice({
   initialState,
   name: 'userSlice',
   reducers: {
-    logout: () => {
+    logout: (state) => {
       localStorage.clear();
-      return initialState;
+      state.token = '';
     },
     setUserInfo: (state, action: PayloadAction<IUserSavingData>) => {
       localStorage.setItem(
