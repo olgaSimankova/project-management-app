@@ -22,9 +22,11 @@ export const BoardsContainer = ({
   const dispatch = useAppDispatch();
   const { data: users } = useGetUsersQuery();
   const [cards, setCards] = useState(boards);
+
   useEffect(() => {
     setCards(boards);
   }, [boards]);
+
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     const target = (e.target as HTMLElement).closest('.top-level') as HTMLElement;
     switch (target?.dataset.id) {
@@ -58,6 +60,7 @@ export const BoardsContainer = ({
       )
     );
   };
+
   const onCloseAssignee = (event: React.SyntheticEvent<Element, Event>, id: string) => {
     event.stopPropagation();
     const updatedBoard = cards.find((board) => board._id === id);
@@ -66,6 +69,7 @@ export const BoardsContainer = ({
       update(updatedBoard);
     }
   };
+
   return (
     <Box sx={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', width: '100%', height: '100%' }}>
       {isLoading ? (

@@ -2,7 +2,7 @@ import React from 'react';
 import { LINKS } from 'constants/constants';
 import { Search } from 'Pages/Search';
 import { Welcome } from 'Pages/Welcome';
-import { Routes, Route, Navigate, useRouteError, isRouteErrorResponse } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

@@ -71,15 +71,6 @@ const Column = ({ id, boardId, name, order, onClick, onDataReceived }: IColumnPr
     columnId: id,
   });
 
-  const { pageAddressID } = useParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (pageAddressID && id !== pageAddressID) {
-      navigate(LINKS.error);
-    }
-  }, [pageAddressID, id, navigate]);
-
   const handleButtonClick = (e: React.MouseEvent) => {
     const target = e.currentTarget as HTMLElement;
     onClick(target.id, id);
