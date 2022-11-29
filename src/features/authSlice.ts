@@ -1,10 +1,12 @@
 import { IUser, IUserSavingData, IUserState } from '../types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+const { token, login } = JSON.parse(localStorage.getItem('credentials') || '{}');
+
 const initialState: IUserState = {
-  user: null,
-  login: null,
-  token: null,
+  user: JSON.parse(localStorage.getItem('user') || 'null'),
+  login: login,
+  token: token,
 };
 
 export const userSlice = createSlice({
