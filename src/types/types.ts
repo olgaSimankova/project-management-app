@@ -1,4 +1,4 @@
-import { SelectChangeEvent } from '@mui/material';
+import { SelectChangeEvent, Theme } from '@mui/material';
 import {
   BaseQueryFn,
   FetchArgs,

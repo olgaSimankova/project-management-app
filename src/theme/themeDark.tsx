@@ -1,6 +1,15 @@
 import { createTheme } from '@mui/material';
 
 export const themeDark = createTheme({
+  breakpoints: {
+    values: {
+      xs: 320,
+      sm: 600,
+      md: 860,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   typography: {
     fontFamily: [
       '-apple-system',
