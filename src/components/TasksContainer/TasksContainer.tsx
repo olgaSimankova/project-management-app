@@ -11,7 +11,7 @@ export const TasksContainer = ({ tasks }: TasksProps) => {
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem' }}>
       {tasks.map((task) => (
-        <Task key={task._id} {...task} />
+        <Task id={task.taskId || ''} key={task._id} {...task} />
       ))}
     </Box>
   );

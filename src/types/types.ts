@@ -7,7 +7,7 @@ import {
   MutationDefinition,
 } from '@reduxjs/toolkit/dist/query';
 import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-import { FieldValues } from 'react-hook-form';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 export type Board = {
   title: string;
@@ -114,6 +114,12 @@ export interface MainState {
   assignees: string[];
 }
 
+export interface BoardState {
+  columns: IColumn[];
+  tasks: { [key: string]: ITaskConfig[] };
+  users: IUser[];
+}
+
 export enum BoardFormOptions {
   create = 'create',
   edit = 'edit',
@@ -136,6 +142,7 @@ export interface CardControlsButtonProps {
 export interface BoardFormFields {
   title: string;
   description: string;
+  assigners: string[];
 }
 
 export interface ConfirmModalProps {
@@ -170,7 +177,8 @@ export interface AssigneeProps {
   selected: string[];
   handleChange: ((event: SelectChangeEvent<string[]>, id: string) => void) | undefined;
   id: string;
-  onClose: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
+  onClose?: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
+  register?: UseFormRegister<BoardFormFields>;
 }
 
 export interface CheckPasswordModalProps {
@@ -193,8 +201,17 @@ export interface ITaskConfig extends IColumn {
   users: string[];
 }
 
+export interface IColumnPatch {
+  _id: string;
+  order: number;
+}
+
+export interface ITasksPatch extends IColumnPatch {
+  columnId: string;
+}
+
 export interface ThemeSlice {
-  theme?: string;
+  theme: string | null;
 }
 
 export interface UserFields {

@@ -11,7 +11,6 @@ import Board from '../features/Board/Board';
 import { init } from './app.config';
 import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
-import { useCustomTheme } from 'hooks/useCustomTheme';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from 'components/ErrorFallback/ErrorFallback';
@@ -21,9 +20,7 @@ import Main from 'features/Main';
 import Authentication from 'features/Authentication';
 
 export const App = () => {
-  const userTheme = useUserSystemTheme();
-  init(userTheme);
-  const { theme } = useCustomTheme();
+  const { theme, appTheme, userTheme } = useUserSystemTheme();
 
   return (
     <>
