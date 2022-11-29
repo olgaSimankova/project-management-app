@@ -7,7 +7,7 @@ import ReduxIcon from '../../assets/icons/redux.svg';
 import MUIIcon from '../../assets/icons/materialUI.svg';
 import i18nextIcon from '../../assets/icons/i18nextLogo.png';
 import ReactHookFormIcon from '../../assets/icons/ReactHookForm.png';
-import { flexbox } from '@mui/system';
+import dndIcon from '../../assets/icons/DND.png';
 
 interface iTechnology {
   name: string;
@@ -50,6 +50,11 @@ const technologiesData: iTechnology[] = [
     name: 'React Hook Form',
     link: 'https://react-hook-form.com/',
     icon: `${ReactHookFormIcon}`,
+  },
+  {
+    name: 'React Beautiful Dnd',
+    link: 'hhttps://github.com/atlassian/react-beautiful-dnd',
+    icon: `${dndIcon}`,
   },
 ];
 
