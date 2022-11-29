@@ -179,6 +179,7 @@ export interface AssigneeProps {
   id: string;
   onClose?: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
   register?: UseFormRegister<BoardFormFields>;
+  isDisabled?: boolean;
 }
 
 export interface CheckPasswordModalProps {
