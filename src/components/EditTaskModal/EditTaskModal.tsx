@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { Grid, IconButton, Stack, TextField } from '@mui/material';
+import { Grid, IconButton, SelectChangeEvent, Stack, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { LoadingButton } from '@mui/lab';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -16,6 +16,8 @@ import { useUpdateTaskMutation } from '../../api/task.api';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { Assignees } from '../Assignees/Assignees';
+import { useAssignees } from '../../hooks/useAssignees';
 
 const style = {
   position: 'absolute',
@@ -36,6 +38,7 @@ const inputStyle = {
 };
 
 const editStyles = {
+  mt: 2,
   backgroundColor: '#707090',
   color: 'white',
   '&:hover': {
@@ -65,16 +68,24 @@ const EditTaskModal = ({
   onClose,
 }: EditTaskModalProps) => {
   const { user } = useAppSelector((state) => state.userState);
+  const { users } = useAppSelector((state) => state.boardState);
   const [updateTask, { error, isError, isLoading, reset: updateReset, isSuccess }] =
     useUpdateTaskMutation();
   const {
     register,
     handleSubmit,
     reset,
+    setFocus,
     formState: { isDirty, errors },
   } = useForm<BoardFormFields>({
     resolver: yupResolver(addTaskSchema),
   });
+  const { assignees, handleChangeAssignee } = useAssignees(columnId, taskId);
+
+  const handleChange = (event: SelectChangeEvent<string[]>) => {
+    setFocus('description');
+    handleChangeAssignee(event);
+  };
 
   useEffect(() => {
     onClose();
@@ -92,7 +103,7 @@ const EditTaskModal = ({
       title,
       description,
       userId: user?._id || '',
-      users: [''],
+      users: assignees,
     });
   };
 
@@ -143,6 +154,7 @@ const EditTaskModal = ({
               helperText={errors.title?.message}
             />
             <TextField
+              sx={{ marginBottom: '20px' }}
               {...register('description', { value: description })}
               id="taskDescription"
               fullWidth
@@ -154,6 +166,13 @@ const EditTaskModal = ({
               maxRows={3}
               error={!!errors.description}
               helperText={errors.description?.message}
+            />
+            <Assignees
+              register={register}
+              all={users}
+              selected={assignees}
+              handleChange={handleChange}
+              id={taskId || ''}
             />
             <LoadingButton
               type="submit"

@@ -1,27 +1,32 @@
-import { Box, Chip, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import { Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import React from 'react';
 import { AssigneeProps } from 'types/types';
 
-export const Assignees = ({ all, selected, handleChange, id, onClose }: AssigneeProps) => {
+export const Assignees = ({
+  all,
+  selected,
+  handleChange,
+  id,
+  onClose,
+  register,
+}: AssigneeProps) => {
   return (
-    <Box>
-      <InputLabel variant="standard" htmlFor="chip">
-        Assignees
-      </InputLabel>
+    <FormControl fullWidth>
+      <InputLabel htmlFor="chip">Assignees</InputLabel>
       <Select
+        {...(register ? register('assigners') : null)}
         value={selected}
         labelId="demo-multiple-chip-label"
         id="chip"
-        label="Status"
         className="assignees"
         onChange={(e) => (handleChange ? handleChange(e, id) : '')}
         onClose={(e) => (onClose ? onClose(e, id) : '')}
         multiple
-        sx={{ width: '100%', backgroundColor: '#cccccc', border: '1px solid #cccccc' }}
+        sx={{ width: '100%' }}
         input={
           <OutlinedInput
             id="select-multiple-chip"
-            label="Chip"
+            label="Assignees"
             sx={{ border: '0px solid white' }}
           />
         }
@@ -37,6 +42,6 @@ export const Assignees = ({ all, selected, handleChange, id, onClose }: Assignee
           </MenuItem>
         ))}
       </Select>
-    </Box>
+    </FormControl>
   );
 };
