@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import Column from '../Column/Column';
 import AddColumnButton from '../AddColumnButton/AddColumnButton';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetColumnsQuery } from '../../api/column.api';
-import { IColumn } from '../../types/types';
+import { ErrorObject, IColumn } from '../../types/types';
 import { Spinner } from '../Spinner/Spinner';
 import ColumnAddModal from '../ColumnAddModal/ColumnAddModal';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -13,6 +13,8 @@ import { addBoards, addUsers } from '../../features/columnSlice';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useOnDragEnd } from '../../hooks/useOnDragEnd';
 import { useGetUsersQuery } from '../../api/user.api';
+import { INVALID_TOKEN, LINKS } from 'constants/constants';
+import { logout } from 'features/authSlice';
 
 const boxStyles = {
   display: 'flex',
@@ -25,7 +27,8 @@ const boxStyles = {
 
 const ColumnsWrapper = () => {
   const { boardId } = useParams();
-  const { data, isLoading, isSuccess } = useGetColumnsQuery(boardId as string);
+  const navigate = useNavigate();
+  const { data, isLoading, isSuccess, error } = useGetColumnsQuery(boardId as string);
   const { data: users } = useGetUsersQuery();
   const { columns } = useAppSelector((state) => state.boardState);
   const dispatch = useAppDispatch();
@@ -45,6 +48,13 @@ const ColumnsWrapper = () => {
       dispatch(addUsers(users));
     }
   }, [users, dispatch]);
+
+  useEffect(() => {
+    if ((error as ErrorObject)?.data?.message === INVALID_TOKEN) {
+      navigate(LINKS.welcome);
+      dispatch(logout());
+    }
+  }, [dispatch, navigate, error]);
 
   const handleClose = () => setOpen(false);
   const handleOpen = (buttonId: string, columnId?: string) => {

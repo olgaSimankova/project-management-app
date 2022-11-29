@@ -5,12 +5,15 @@ import ColumnHeader from '../ColumnHeader/ColumnHeader';
 import Task from '../Task/Task';
 import AddIcon from '@mui/icons-material/Add';
 import { useGetTasksQuery } from '../../api/task.api';
-import { Error, ITaskConfig } from '../../types/types';
+import { Error, ErrorObject, ITaskConfig } from '../../types/types';
 import { toast } from 'react-toastify';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { addTasks } from '../../features/columnSlice';
+import { INVALID_TOKEN, LINKS } from 'constants/constants';
+import { logout } from 'features/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const dividerStyles = {
   '&.MuiDivider-root': {
@@ -70,12 +73,20 @@ const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
   });
   const { tasks } = useAppSelector((state) => state.boardState);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
       dispatch(addTasks({ id, data }));
     }
   }, [isSuccess, data]);
+
+  useEffect(() => {
+    if ((error as ErrorObject)?.data?.message === INVALID_TOKEN) {
+      navigate(LINKS.welcome);
+      dispatch(logout());
+    }
+  }, [dispatch, navigate, error]);
 
   const handleButtonClick = (e: React.MouseEvent) => {
     const target = e.currentTarget as HTMLElement;
