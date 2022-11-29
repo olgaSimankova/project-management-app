@@ -211,7 +211,7 @@ export interface ITasksPatch extends IColumnPatch {
 }
 
 export interface ThemeSlice {
-  theme?: string;
+  theme: string | null;
 }
 
 export interface UserFields {

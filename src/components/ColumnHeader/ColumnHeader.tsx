@@ -8,12 +8,24 @@ import { QUESTION_ON_DELETE } from '../../constants/constants';
 import { useParams } from 'react-router-dom';
 import { useDeleteColumnMutation, useUpdateColumnMutation } from '../../api/column.api';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import Badge from '@mui/material/Badge';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 const StyledBoardItemHeader = styled(Box)(() => ({
   display: 'flex',
   gap: '5px',
   height: '35px',
 }));
+
+const styledBadge = {
+  '& .MuiBadge-badge': {
+    right: '-14px',
+    top: '-15px',
+    padding: '0 4px',
+    backgroundColor: '#707090',
+    color: 'white',
+  },
+};
 
 const sxStyles = {
   '& .MuiInputBase-input': {
@@ -41,6 +53,7 @@ const ColumnHeader = ({ order, name, columnId }: ColumnHeaderProps) => {
   const [columnName, setColumnName] = useState(name);
   const [deleteColumn] = useDeleteColumnMutation();
   const [updateColumn] = useUpdateColumnMutation();
+  const { tasks } = useAppSelector((state) => state.boardState);
 
   useEffect(() => {
     (inputRef.current?.firstElementChild as HTMLInputElement)?.focus();
@@ -61,6 +74,9 @@ const ColumnHeader = ({ order, name, columnId }: ColumnHeaderProps) => {
 
   return (
     <StyledBoardItemHeader>
+      {tasks[columnId]?.length > 0 && (
+        <Badge sx={styledBadge} badgeContent={tasks[columnId]?.length}></Badge>
+      )}
       <InputBase
         onChange={(e) => setColumnName(e.target.value)}
         color="secondary"

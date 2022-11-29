@@ -17,9 +17,9 @@ import { useGetUsersQuery } from '../../api/user.api';
 const boxStyles = {
   display: 'flex',
   flexWrap: 'nowrap',
-  gap: '15px',
+  gap: '1rem',
   overflow: 'auto',
-  padding: '10px',
+  padding: '1rem',
   height: 'calc(100vh - 216px)',
 };
 
@@ -65,7 +65,7 @@ const ColumnsWrapper = () => {
         <Droppable droppableId="all-columns" direction="horizontal" type="column">
           {(provided) => (
             <Box
-              sx={{ display: 'flex', gap: '15px' }}
+              sx={{ display: 'flex', gap: '1rem' }}
               {...provided.droppableProps}
               ref={provided.innerRef}
             >

@@ -122,7 +122,7 @@ const ColumnAddModal = ({
         {isAddTask && (
           <>
             <TextField
-              sx={{ marginBottom: '20px' }}
+              sx={{ marginBottom: '1.3rem' }}
               {...register('description')}
               margin="normal"
               label="Description"
@@ -138,7 +138,7 @@ const ColumnAddModal = ({
             <Assignees
               all={users}
               selected={assignees}
-              handleChange={(e) => handleChangeAssignee(e)}
+              handleChange={handleChangeAssignee}
               id={columnId}
             />
           </>

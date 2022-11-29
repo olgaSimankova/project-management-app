@@ -39,7 +39,6 @@ const StyledBoardItem = styled(Paper)(() => ({
   minWidth: '280px',
   maxHeight: '100%',
   padding: '15px 10px 10px',
-  overflow: 'hidden',
   borderRadius: '10px',
   backgroundColor: '#eef2f9',
 }));
@@ -123,7 +122,7 @@ const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
             </Droppable>
             <Button
               id="add-task"
-              onClick={(e) => handleButtonClick(e)}
+              onClick={handleButtonClick}
               sx={addButtonStyles}
               variant="text"
               startIcon={<AddIcon />}
