@@ -20,6 +20,7 @@ export const userApi = createApi({
       query: () => ({
         url: '/users',
       }),
+      keepUnusedDataFor: 0,
     }),
     updateUser: build.mutation<IUser, FullUserData>({
       query: ({ _id, name, login, password }: FullUserData) => ({

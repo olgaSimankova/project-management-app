@@ -64,6 +64,7 @@ export const taskApi = createApi({
         method: 'GET',
       }),
       providesTags: ['tasks'],
+      keepUnusedDataFor: 0,
     }),
     tasksSet: build.mutation<ITaskConfig[], ITasksPatch[]>({
       query: (body) => ({
