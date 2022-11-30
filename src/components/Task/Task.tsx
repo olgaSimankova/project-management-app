@@ -5,10 +5,23 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import EditTaskModal from '../EditTaskModal/EditTaskModal';
 import { ConfirmModal } from '../ConfirmModal/ConfirmModal';
 import { QUESTION_ON_DELETE } from '../../constants/constants';
-import { Error, ITaskProps } from '../../types/types';
+import { ITaskProps } from '../../types/types';
 import { useDeleteTaskMutation } from '../../api/task.api';
 import { toast } from 'react-toastify';
-import { boxStyles } from '../TaskDnd/TaskDnd';
+import { IError } from '../../types/types';
+
+const boxStyles = {
+  '&.MuiBox-root': {
+    boxShadow: '0 0 8px rgb(0 0 0 / 25%)',
+  },
+  width: '280px',
+  marginTop: '10px',
+  padding: '5px 5px 5px 10px',
+  borderRadius: '7px',
+  backgroundColor: 'white',
+  wordBreak: 'break-all',
+  cursor: 'pointer',
+};
 
 const titleStyles = {
   background: 'linear-gradient(90deg, #9ea7fc 17%, #6eb4f7 83%)',
@@ -55,7 +68,7 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, users }: 
   };
 
   if (isError) {
-    toast.error((error as Error).data.message);
+    toast.error((error as IError).data.message);
   }
 
   return (
