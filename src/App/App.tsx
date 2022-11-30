@@ -8,19 +8,18 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
 import Board from '../features/Board/Board';
-import { init } from './app.config';
 import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from 'components/ErrorFallback/ErrorFallback';
-import { ErrorPage } from 'Pages/Error';
 import Settings from 'features/Settings';
 import Main from 'features/Main';
 import Authentication from 'features/Authentication';
+import { ErrorPage } from 'Pages/Error';
 
 export const App = () => {
-  const { theme, appTheme, userTheme } = useUserSystemTheme();
+  const { theme } = useUserSystemTheme();
 
   return (
     <>
@@ -46,27 +45,3 @@ export const App = () => {
     </>
   );
 };
-
-// function RootBoundary() {
-//   const error = useRouteError();
-
-//   if (isRouteErrorResponse(error)) {
-//     if (error.status === 404) {
-//       return <div>This page doesn't exist!</div>;
-//     }
-
-//     if (error.status === 401) {
-//       return <div>You aren't authorized to see this</div>;
-//     }
-
-//     if (error.status === 503) {
-//       return <div>Looks like our API is down</div>;
-//     }
-
-//     if (error.status === 418) {
-//       return <div>🫖</div>;
-//     }
-//   }
-
-//   return <div>Something went wrong</div>;
-// }
