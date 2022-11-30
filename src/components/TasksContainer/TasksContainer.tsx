@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import Task from 'components/Task/Task';
 import React from 'react';
 import { ITaskConfig } from 'types/types';
+import Task from '../Task/Task';
 
 interface TasksProps {
   tasks: ITaskConfig[];

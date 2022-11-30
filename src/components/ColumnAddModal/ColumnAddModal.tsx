@@ -106,7 +106,7 @@ const ColumnAddModal = ({
     >
       <Box onSubmit={handleSubmit(onSubmit)} component="form" sx={modalStyle}>
         <Typography color="#707090" variant="h6" component="h2" align="center">
-          {isAddTask ? 'Add Task' : 'Create Column'}
+          {isAddTask ? 'Add TaskDnd' : 'Create Column'}
         </Typography>
         <TextField
           {...register('title')}
