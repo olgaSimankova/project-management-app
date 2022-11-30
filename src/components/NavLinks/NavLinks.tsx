@@ -1,32 +1,27 @@
 import React from 'react';
-import { Box, Button } from '@mui/material';
-import { LINKS, PAGES } from '../../constants/constants';
+import { Box } from '@mui/material';
+import { PAGES } from '../../constants/constants';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const NavLinks = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const value = (e.target as HTMLElement).dataset.id;
-    if (value && PAGES.includes(value)) {
-      navigate(LINKS[(value.slice(0, 1).toLowerCase() + value.slice(1)) as keyof typeof LINKS]);
-    }
-  };
-
-  const buttonStyles = {
-    background: 'transparent',
-    padding: 0,
-    boxShadow: 'none',
-  };
 
   return (
-    <Box m="0 auto" onClick={handleClick}>
+    <Box display="flex" gap="1rem" m="0 auto">
       {PAGES.map((page) => (
-        <Button key={page} sx={buttonStyles} data-id={page}>
+        <NavLink
+          to={`/${page.toLowerCase()}`}
+          style={({ isActive }) => ({
+            color: 'white',
+            textDecoration: isActive ? 'underline' : 'none',
+            fontWeight: isActive ? '900' : '500',
+          })}
+          key={page}
+          data-id={page}
+        >
           {t(page)}
-        </Button>
+        </NavLink>
       ))}
     </Box>
   );
