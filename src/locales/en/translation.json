@@ -32,5 +32,12 @@
   "processingPersonalData": "I agree to the processing of personal data.",
   "firstName": "First Name",
   "login": "Login",
-  "password": "Password"
+  "password": "Password",
+  "somethingWrong": "Something went wrong",
+  "tryAgain": "Try Again",
+  "goMain": "Go to Main",
+  "successCreateAccount": "You successfully created account",
+  "successLigin": "You successfully logged in",
+  "loginError": "Something terrible happened with your connection",
+  "back": "back"
 }

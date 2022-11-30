@@ -1,14 +1,14 @@
-import { Button, Typography } from '@mui/material';
-import { Container } from '@mui/system';
-import { LINKS } from 'constants/constants';
-import React, { useEffect } from 'react';
+import { Button, Container, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import React from 'react';
+import bgError from '../../assets/img/bgError-2.jpg';
+import { FallbackProps } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
-import bgError from '../assets/img/bgError-2.jpg';
+import { LINKS } from 'constants/constants';
 
 const styles = {
   pageContainer: {
-    height: 'calc(100vh - 114px)',
+    height: '100vh',
     backgroundColor: '#627296',
   },
   imageContainer: {
@@ -27,17 +27,14 @@ const styles = {
   },
 };
 
-export const ErrorPage = () => {
+export const ErrorFallback = ({ resetErrorBoundary }: FallbackProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const resetClickHandler = () => {
+    resetErrorBoundary();
     navigate(LINKS.welcome);
   };
-
-  useEffect(() => {
-    navigate(LINKS.error);
-  }, [navigate]);
 
   return (
     <Container sx={styles.pageContainer} maxWidth={false}>

@@ -21,7 +21,6 @@ export const mainApi = createApi({
       query: (boardId: string) => ({
         url: `/boards/${boardId}`,
       }),
-      keepUnusedDataFor: 1,
     }),
     getBoards: build.query<BoardConfig[], void>({
       query: () => ({

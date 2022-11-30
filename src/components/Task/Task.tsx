@@ -7,7 +7,7 @@ import { useDeleteTaskMutation } from '../../api/task.api';
 import { ConfirmModal } from '../ConfirmModal/ConfirmModal';
 import { QUESTION_ON_DELETE } from '../../constants/constants';
 import { toast } from 'react-toastify';
-import { Error } from '../../types/types';
+import { IError } from '../../types/types';
 import { Draggable } from 'react-beautiful-dnd';
 
 const boxStyles = {
@@ -79,7 +79,7 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, users }: 
   };
 
   if (isError) {
-    toast.error((error as Error).data.message);
+    toast.error((error as IError).data.message);
   }
 
   return (

@@ -5,7 +5,7 @@ import ColumnHeader from '../ColumnHeader/ColumnHeader';
 import Task from '../Task/Task';
 import AddIcon from '@mui/icons-material/Add';
 import { useGetTasksQuery } from '../../api/task.api';
-import { Error, ErrorObject, ITaskConfig } from '../../types/types';
+import { IError, ErrorObject, ITaskConfig } from '../../types/types';
 import { toast } from 'react-toastify';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -14,6 +14,7 @@ import { addTasks } from '../../features/columnSlice';
 import { INVALID_TOKEN, LINKS } from 'constants/constants';
 import { logout } from 'features/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const dividerStyles = {
   '&.MuiDivider-root': {
@@ -67,6 +68,7 @@ interface IColumnProps {
 }
 
 const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
+  const { t } = useTranslation();
   const { data, isSuccess, isError, error } = useGetTasksQuery({
     boardId,
     columnId: id,
@@ -94,7 +96,7 @@ const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
   };
 
   if (isError) {
-    toast.error((error as Error).data.message);
+    toast.error((error as IError)?.data?.message || t('somethingWrong'));
   }
 
   return (
