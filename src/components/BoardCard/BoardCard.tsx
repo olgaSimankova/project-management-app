@@ -4,9 +4,11 @@ import { CardControlButtons } from 'components/CardControlButtons/CardControlBut
 import React from 'react';
 import { BoardConfig } from 'types/types';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from 'hooks/useAuth';
 
 export const BoardCard = ({
   title,
+  owner,
   _id = '',
   onClick,
   isEditing = false,
@@ -20,6 +22,7 @@ export const BoardCard = ({
 }) => {
   const navigate = useNavigate();
   const { title: newTitle, description } = JSON.parse(title);
+  const { user } = useAuth();
 
   const handleClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -28,6 +31,7 @@ export const BoardCard = ({
     }
   };
 
+  const ownerAcc = allUsers.filter((user) => user._id === owner)[0];
   const selectedUsers = users.map((id) => allUsers.find((user) => id === user._id)?.login || '');
 
   return (
@@ -85,7 +89,11 @@ export const BoardCard = ({
         selected={selectedUsers}
         handleChange={onChangeAssignee}
         onClose={onClose}
+        isDisabled={ownerAcc._id !== user?._id}
       />
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', margin: '0.3rem' }}>
+        <Typography>Created by {ownerAcc?.login}</Typography>
+      </Box>
     </Box>
   );
 };

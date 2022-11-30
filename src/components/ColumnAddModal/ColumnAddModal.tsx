@@ -1,5 +1,13 @@
-import React, { useEffect } from 'react';
-import { Box, Button, CircularProgress, Modal, Stack, TextField, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Modal,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+} from '@mui/material';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { BOARD_BUTTONS, BoardFormFields } from '../../types/types';
@@ -11,7 +19,6 @@ import { useCreateColumnMutation } from '../../api/column.api';
 import { useCreateTaskMutation } from '../../api/task.api';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { Assignees } from '../Assignees/Assignees';
-import { useAssignees } from '../../hooks/useAssignees';
 import { editStyles } from '../EditTaskModal/EditTaskModal';
 
 const modalStyle = {
@@ -54,7 +61,7 @@ const ColumnAddModal = ({
   const [createTask, { isSuccess: taskSuccess, isLoading: isTaskLoading, reset: taskReset }] =
     useCreateTaskMutation();
   const { columns, tasks, users } = useAppSelector((state) => state.boardState);
-  const { assignees, clearAssigneeInput, handleChangeAssignee } = useAssignees();
+  const [selectedAssignees, setSelectedAssignees] = useState<string[]>([]);
 
   const {
     register,
@@ -63,10 +70,17 @@ const ColumnAddModal = ({
     formState: { errors },
   } = useForm<BoardFormFields>({ resolver: yupResolver(addModalSchema) });
 
+  const handleChange = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedAssignees(typeof value === 'string' ? value.split(',') : value);
+  };
+
   const handleClose = () => {
     reset();
     onClose();
-    clearAssigneeInput();
+    setSelectedAssignees([]);
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -79,7 +93,7 @@ const ColumnAddModal = ({
         description,
         order: tasks[columnId].length,
         userId: user?._id || '',
-        users: assignees,
+        users: selectedAssignees,
       });
     } else {
       createColumn({ title, order: columns.length, boardId });
@@ -106,7 +120,7 @@ const ColumnAddModal = ({
     >
       <Box onSubmit={handleSubmit(onSubmit)} component="form" sx={modalStyle}>
         <Typography color="#707090" variant="h6" component="h2" align="center">
-          {isAddTask ? 'Add TaskDnd' : 'Create Column'}
+          {isAddTask ? 'Add Task' : 'Create Column'}
         </Typography>
         <TextField
           {...register('title')}
@@ -138,8 +152,8 @@ const ColumnAddModal = ({
             />
             <Assignees
               all={users}
-              selected={assignees}
-              handleChange={handleChangeAssignee}
+              selected={selectedAssignees}
+              handleChange={handleChange}
               id={columnId}
             />
           </>

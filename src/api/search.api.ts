@@ -20,6 +20,7 @@ export const searchApi = createApi({
       query: (id) => ({
         url: `/columnsSet?userId=${id}`,
       }),
+      keepUnusedDataFor: 1,
     }),
   }),
 });

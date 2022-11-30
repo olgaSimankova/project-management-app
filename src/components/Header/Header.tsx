@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import NavLinks from '../NavLinks/NavLinks';
@@ -10,11 +10,22 @@ import LanguageButton from 'components/LanguageButton/LanguageButton';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 import { setTheme } from 'theme/themeSlice';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { LINKS } from 'constants/constants';
 
 export const Header = () => {
   const { theme } = useCustomTheme();
   const { token } = useAuth();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const tokenLS = localStorage.getItem('credentials');
+
+  useEffect(() => {
+    if (!token && !tokenLS) {
+      navigate(LINKS.welcome);
+    }
+  }, [navigate, token, tokenLS]);
 
   const handleThemeChange = () => {
     if (theme === 'light') {
@@ -29,10 +40,12 @@ export const Header = () => {
   return (
     <AppBar position="sticky" sx={{ zIndex: '1', background: '#063970' }}>
       <Toolbar sx={{ alignItems: 'center' }}>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <AssignmentIcon />
-          <Typography>Project Management App</Typography>
-        </Box>
+        <Link to={LINKS.welcome} style={{ textDecoration: 'none', color: 'white' }}>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <AssignmentIcon />
+            <Typography>Project Management App</Typography>
+          </Box>
+        </Link>
         {token ? (
           <>
             <NavLinks /> <User />

@@ -9,6 +9,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ErrorObject, ITaskConfig } from 'types/types';
 import { SearchForm } from './SearchForm';
+import { useGetUsersQuery } from '../../api/user.api';
+import { addUsers } from '../columnSlice';
 
 const SearchFormContainer = () => {
   const { user } = useAuth();
@@ -26,6 +28,7 @@ const SearchFormContainer = () => {
     isSuccess: getTasksSuccess,
     error,
   } = useGetAllTasksByUserIDQuery(user?._id || '');
+  const { data: users } = useGetUsersQuery();
   const [tasks, setTasks] = useState(tasksData);
 
   const handleChangeSearchField = (
@@ -46,6 +49,12 @@ const SearchFormContainer = () => {
       dispatch(logout());
     }
   }, [dispatch, navigate, error]);
+
+  useEffect(() => {
+    if (users) {
+      dispatch(addUsers(users));
+    }
+  }, [users, dispatch]);
 
   const filterTasks = useCallback(
     (tasks: ITaskConfig[]): ITaskConfig[] => {

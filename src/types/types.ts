@@ -179,6 +179,7 @@ export interface AssigneeProps {
   id: string;
   onClose?: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
   register?: UseFormRegister<BoardFormFields>;
+  isDisabled?: boolean;
 }
 
 export interface CheckPasswordModalProps {
@@ -222,11 +223,11 @@ export interface UserFields {
 
 export interface ITaskProps {
   id: string;
-  boardId?: string;
+  boardId: string;
   columnId?: string;
   title: string;
   description: string;
   order: number;
   _id?: string;
-  users: string[];
+  assignees: string[];
 }
