@@ -9,7 +9,7 @@ import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 
 const AboutUs = () => {
   const { t } = useTranslation();
-  const { appTheme } = useUserSystemTheme();
+  const { userTheme } = useUserSystemTheme();
 
   const createStyles = (theme: Theme) => ({
     teamContainer: {
@@ -48,7 +48,7 @@ const AboutUs = () => {
     },
   });
 
-  const styles = createStyles(appTheme as Theme);
+  const styles = createStyles(userTheme as Theme);
   return (
     <Container sx={styles.teamContainer}>
       <Box sx={styles.teamItem}>

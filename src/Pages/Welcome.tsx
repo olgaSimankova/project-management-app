@@ -9,7 +9,7 @@ import { Theme } from '@mui/system';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 
 export const Welcome = () => {
-  const { theme, appTheme } = useUserSystemTheme();
+  const { theme, appTheme, userTheme } = useUserSystemTheme();
 
   const createStyles = (currentTheme: Theme) => ({
     heroBG: {
@@ -35,7 +35,7 @@ export const Welcome = () => {
     sectionHeading: {
       [currentTheme.breakpoints.between('xs', 'sm')]: {
         fontSize: '2rem',
-        mb: 2,
+        marginBottom: '10px',
       },
     },
     teamAndTechnologiesWrapper: {
@@ -63,7 +63,8 @@ export const Welcome = () => {
   });
 
   const { t } = useTranslation();
-  const styles = createStyles(appTheme as Theme);
+  const styles = createStyles(userTheme as Theme);
+
   return (
     <main>
       <Container sx={styles.heroBG} maxWidth={false}>
