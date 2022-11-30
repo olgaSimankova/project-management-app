@@ -6,6 +6,7 @@ const initialState: MainState = {
   boardID: '',
   modalOption: BoardFormOptions.create,
   isConfirmationOpen: false,
+  assignees: [],
 };
 
 export const mainSlice = createSlice({
@@ -24,10 +25,17 @@ export const mainSlice = createSlice({
     setBoardID: (state, action: PayloadAction<string>) => {
       state.boardID = action.payload;
     },
+    setAssignees: (state, action: PayloadAction<string[]>) => {
+      state.assignees = action.payload;
+    },
   },
 });
 
 export default mainSlice.reducer;
-
-export const { toggleModalWindow, setModalOption, setBoardID, toggleConfirmationWindow } =
-  mainSlice.actions;
+export const {
+  toggleModalWindow,
+  setModalOption,
+  setBoardID,
+  toggleConfirmationWindow,
+  setAssignees,
+} = mainSlice.actions;

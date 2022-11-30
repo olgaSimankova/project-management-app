@@ -7,13 +7,15 @@ import { GithubPanel } from 'components/GithubPanel/GithubPanel';
 export const Footer = () => {
   return (
     <Box
+      position="sticky"
       sx={{
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'space-around',
         columnGap: '3rem',
         flexWrap: 'wrap',
-        height: '10vh',
+        height: '50px',
+        zIndex: '1',
       }}
     >
       <Link href={REACT_COURSE_LINK}>

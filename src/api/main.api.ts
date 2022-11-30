@@ -17,6 +17,11 @@ export const mainApi = createApi({
     },
   }),
   endpoints: (build) => ({
+    getBoard: build.query<BoardConfig, string>({
+      query: (boardId: string) => ({
+        url: `/boards/${boardId}`,
+      }),
+    }),
     getBoards: build.query<BoardConfig[], void>({
       query: () => ({
         url: '/boards',
@@ -48,13 +53,14 @@ export const mainApi = createApi({
           body: data,
         };
       },
-      invalidatesTags: ['boards'],
+      invalidatesTags: (result) => [{ type: 'boards', _id: result?._id }],
     }),
   }),
 });
 
 export const {
   useGetBoardsQuery,
+  useGetBoardQuery,
   useCreateBoardMutation,
   useDeleteBoardMutation,
   useUpdateBoardMutation,

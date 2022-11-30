@@ -20,6 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build-localhost": "PUBLIC_URL=/build/ react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
@@ -49,8 +50,10 @@
     "@emotion/styled": "^11.10.5",
     "@hookform/resolvers": "^2.9.10",
     "@mui/icons-material": "^5.10.9",
+    "@mui/lab": "^5.0.0-alpha.108",
     "@mui/material": "^5.10.13",
     "@reduxjs/toolkit": "^1.9.0",
+    "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-redux": "^7.1.24",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",
@@ -67,6 +70,7 @@
     "file-loader": "^6.2.0",
     "i18next": "^22.0.5",
     "prettier": "^2.7.1",
+    "react-beautiful-dnd": "^13.1.1",
     "react-hook-form": "^7.39.3",
     "react-i18next": "^12.0.0",
     "react-redux": "^8.0.5",
@@ -74,5 +78,5 @@
     "typescript": "^4.8.4",
     "yup": "^0.32.11"
   },
-  "homepage": "."
+  "homepage": "/"
 }

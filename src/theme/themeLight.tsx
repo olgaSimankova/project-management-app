@@ -18,23 +18,30 @@ export const themeLight = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      light: '#81d4fa[200]',
-      main: '#2196f3[500]',
-      dark: '#0277bd[800]',
+      light: '#81d4fa',
+      main: '#2196f3',
+      dark: '#0277bd',
       contrastText: '#fff',
     },
     secondary: {
-      light: '#ffe082[200]',
-      main: '#ffc107[500]',
-      dark: '#ff8f00[800]',
+      light: '#ffe082',
+      main: '#FF6753',
+      dark: '#ff8f00',
       contrastText: '#fff',
+    },
+    info: {
+      light: '#ff897a',
+      main: '#4ebef0',
+      dark: '#ff2408',
+      contrastText: '#063d55',
     },
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: '#f5f5f5',
+          background:
+            'linear-gradient(153deg, rgba(234,246,251,1) 0%, rgba(212,237,249,1) 60%, rgba(78,190,240,1) 100%)',
         },
       },
     },
@@ -49,6 +56,7 @@ export const themeLight = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          variant: 'contained',
           background: 'linear-gradient(45deg, #FF6753 30%, #FF8F50 90%)',
           borderRadius: 10,
           border: 0,
@@ -72,10 +80,11 @@ export const themeLight = createTheme({
           color: '#577DB8',
           fontWeight: 600,
           lineHeight: 1.27,
+          textAlign: 'center',
         },
         h5: {
           fontWeight: 300,
-          color: 'white',
+          color: '#4F4F4F',
         },
         h6: {
           color: '#4F4F4F',

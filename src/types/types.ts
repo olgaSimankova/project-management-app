@@ -1,4 +1,13 @@
-import { FieldValues } from 'react-hook-form';
+import { SelectChangeEvent } from '@mui/material';
+import {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+  MutationDefinition,
+} from '@reduxjs/toolkit/dist/query';
+import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 export type Board = {
   title: string;
@@ -8,6 +17,23 @@ export type Board = {
 export type BoardsContainerProps = {
   boards: BoardConfig[];
   isLoading: boolean;
+  isDeleting?: boolean;
+  isEditing?: boolean;
+  update: MutationTrigger<
+    MutationDefinition<
+      BoardConfig,
+      BaseQueryFn<
+        string | FetchArgs,
+        unknown,
+        FetchBaseQueryError,
+        Record<string, unknown>,
+        FetchBaseQueryMeta
+      >,
+      'boards',
+      BoardConfig,
+      'mainApi'
+    >
+  >;
 };
 
 export type BoardConfig = {
@@ -15,6 +41,12 @@ export type BoardConfig = {
   title: string;
   owner: string;
   users: string[];
+  isDeleting?: boolean;
+  isEditing?: boolean;
+  onChangeAssignee?: (event: SelectChangeEvent<string[]>, id: string) => void;
+  assignees?: string[];
+  onClose?: (event: React.SyntheticEvent<Element, Event>, id: string) => void;
+  allUsers?: IUser[] | undefined;
 };
 
 export interface IAuthFormFields extends ISignInFormFields {
@@ -32,9 +64,9 @@ export interface IUserAuthInfo extends ISignInFormFields {
 }
 
 export interface IUser {
-  _id: 'string';
-  name: 'string';
-  login: 'string';
+  _id: string;
+  name: string;
+  login: string;
 }
 
 export interface ISignInResponse {
@@ -58,9 +90,20 @@ export interface Error {
   };
 }
 
-export interface IErrorResponse {
-  error: Error;
-  isUnhandledError: boolean;
+export interface IColumnRequestParams extends IGetParams {
+  title: string;
+  order: number;
+}
+
+export interface IColumn extends IColumnRequestParams {
+  _id?: string;
+  boardId: string;
+}
+
+export interface IGetParams {
+  boardId?: string;
+  columnId?: string;
+  taskId?: string;
 }
 
 export interface MainState {
@@ -68,6 +111,13 @@ export interface MainState {
   boardID: string;
   modalOption: BoardFormOptions;
   isConfirmationOpen: boolean;
+  assignees: string[];
+}
+
+export interface BoardState {
+  columns: IColumn[];
+  tasks: { [key: string]: ITaskConfig[] };
+  users: IUser[];
 }
 
 export enum BoardFormOptions {
@@ -85,11 +135,14 @@ export interface BoardFormProps {
 export interface CardControlsButtonProps {
   id: string;
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
+  isDeleting: boolean;
+  isEditing: boolean;
 }
 
 export interface BoardFormFields {
   title: string;
   description: string;
+  assigners: string[];
 }
 
 export interface ConfirmModalProps {
@@ -105,4 +158,64 @@ export interface ConfirmModalProps {
 export interface ErrorObject {
   status: number;
   data: { message: string };
+}
+
+export enum BOARD_BUTTONS {
+  ADD_TASK = 'add-task',
+  ADD_COLUMN = 'add-column',
+}
+
+export interface ColumnConfig {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+}
+
+export interface AssigneeProps {
+  all: IUser[];
+  selected: string[];
+  handleChange: ((event: SelectChangeEvent<string[]>, id: string) => void) | undefined;
+  id: string;
+  onClose?: ((event: React.SyntheticEvent<Element, Event>, id: string) => void) | undefined;
+  register?: UseFormRegister<BoardFormFields>;
+}
+
+export interface CheckPasswordModalProps {
+  onClickYes: (password: string) => void;
+  onClickNo: () => void;
+  isWrongPassword: boolean;
+  isLoading: boolean;
+}
+
+export interface FullUserData {
+  _id: string;
+  name: string;
+  login: string;
+  password: string;
+}
+
+export interface ITaskConfig extends IColumn {
+  description: string;
+  userId: string;
+  users: string[];
+}
+
+export interface IColumnPatch {
+  _id: string;
+  order: number;
+}
+
+export interface ITasksPatch extends IColumnPatch {
+  columnId: string;
+}
+
+export interface ThemeSlice {
+  theme: string | null;
+}
+
+export interface UserFields {
+  name: string;
+  login: string;
+  password: string;
 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Menu, MenuItem, Typography } from '@mui/material';
-import { LOGOUT, USER_SETTINGS } from '../../constants/constants';
+import { LINKS, LOGOUT, SETTINGS, USER_SETTINGS } from '../../constants/constants';
 import { logout } from '../../features/authSlice';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 interface IUserMenu {
   anchorEl: null | HTMLElement;
@@ -13,12 +14,17 @@ interface IUserMenu {
 const UserMenu = ({ anchorEl, onClose }: IUserMenu) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const handleClose = (event: React.MouseEvent) => {
     const target = event.currentTarget as HTMLElement;
 
     if (target.id === LOGOUT) {
       dispatch(logout());
+    }
+
+    if (target.id === SETTINGS) {
+      navigate(LINKS.settings);
     }
 
     onClose();

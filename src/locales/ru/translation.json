@@ -24,5 +24,13 @@
   "toastBordDeleted": "Удалено!",
   "questuionDelete": "Вы уверены, что хотите удалить доску?",
   "Edit Profile": "Редактировать",
-  "Logout": "Выйти"
+  "Logout": "Выйти",
+  "dontHaveAccount": "Еще не зарегистрированы? Создать аккаунт",
+  "haveAccount": "Уже есть аккаунт? Войти",
+  "edit": "EDIT",
+  "delete": "DELETE",
+  "processingPersonalData": "Мне вообще без разницы, что вы делаете с моими персональными данными.",
+  "firstName": "Ваше имя",
+  "login": "Логин",
+  "password": "Пароль"
 }
