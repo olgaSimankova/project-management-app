@@ -125,12 +125,12 @@ const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
                     <TaskDnd
                       key={task._id}
                       id={task._id || ''}
-                      boardId={boardId}
+                      boardId={task.boardId}
                       columnId={id}
                       title={task.title}
                       order={idx}
                       description={task.description}
-                      users={task.users}
+                      assignees={task.users}
                     />
                   ))
                 )}

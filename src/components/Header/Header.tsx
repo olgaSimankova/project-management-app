@@ -10,6 +10,7 @@ import LanguageButton from 'components/LanguageButton/LanguageButton';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 import { setTheme } from 'theme/themeSlice';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { LINKS } from 'constants/constants';
 
@@ -39,10 +40,12 @@ export const Header = () => {
   return (
     <AppBar position="sticky" sx={{ zIndex: '1', background: '#063970' }}>
       <Toolbar sx={{ alignItems: 'center' }}>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <AssignmentIcon />
-          <Typography>Project Management App</Typography>
-        </Box>
+        <Link to={LINKS.welcome} style={{ textDecoration: 'none', color: 'white' }}>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <AssignmentIcon />
+            <Typography>Project Management App</Typography>
+          </Box>
+        </Link>
         {token ? (
           <>
             <NavLinks /> <User />

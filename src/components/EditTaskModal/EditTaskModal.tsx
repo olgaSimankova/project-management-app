@@ -14,10 +14,9 @@ import { addTaskSchema } from '../../schema/addTaskSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUpdateTaskMutation } from '../../api/task.api';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Assignees } from '../Assignees/Assignees';
-import { useAssignees } from '../../hooks/useAssignees';
 
 const style = {
   position: 'absolute',
@@ -49,7 +48,7 @@ export const editStyles = {
 };
 
 interface EditTaskModalProps {
-  boardId?: string;
+  boardId: string;
   columnId?: string;
   taskId?: string;
   title: string;
@@ -57,18 +56,21 @@ interface EditTaskModalProps {
   order: number;
   open: boolean;
   onClose: () => void;
+  assignees: string[];
 }
 
 const EditTaskModal = ({
   columnId,
-  boardId = '',
+  boardId,
   taskId,
   title,
   description,
   order,
   open,
   onClose,
+  assignees,
 }: EditTaskModalProps) => {
+  const [selectedAssignees, setSelectedAssignees] = useState<string[]>(assignees);
   const { user } = useAppSelector((state) => state.userState);
   const { users } = useAppSelector((state) => state.boardState);
   const [updateTask, { error, isError, isLoading, reset: updateReset, isSuccess }] =
@@ -82,11 +84,13 @@ const EditTaskModal = ({
   } = useForm<BoardFormFields>({
     resolver: yupResolver(addTaskSchema),
   });
-  const { assignees, handleChangeAssignee } = useAssignees(columnId, taskId);
 
   const handleChange = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedAssignees(typeof value === 'string' ? value.split(',') : value);
     setFocus('description');
-    handleChangeAssignee(event);
   };
 
   useEffect(() => {
@@ -105,7 +109,7 @@ const EditTaskModal = ({
       title,
       description,
       userId: user?._id || '',
-      users: assignees,
+      users: selectedAssignees,
     });
   };
 
@@ -172,7 +176,7 @@ const EditTaskModal = ({
             <Assignees
               register={register}
               all={users}
-              selected={assignees}
+              selected={selectedAssignees}
               handleChange={handleChange}
               id={taskId || ''}
             />
