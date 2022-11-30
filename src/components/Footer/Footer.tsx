@@ -15,8 +15,10 @@ const createStyles = (theme: Theme) => ({
     flexWrap: 'wrap',
     height: '50px',
     zIndex: '1',
-    [theme.breakpoints.between('xs', 'md')]: {
+    [theme.breakpoints.between('xs', 725)]: {
       height: '120px',
+      maxWidth: '360px',
+      margin: '0 auto',
       mt: 1.5,
     },
   },
