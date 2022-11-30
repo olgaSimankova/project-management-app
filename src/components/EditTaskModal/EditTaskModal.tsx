@@ -37,8 +37,10 @@ const inputStyle = {
   },
 };
 
-const editStyles = {
+export const editStyles = {
   mt: 2,
+  background: 'unset',
+  boxShadow: 'unset',
   backgroundColor: '#707090',
   color: 'white',
   '&:hover': {
@@ -154,7 +156,7 @@ const EditTaskModal = ({
               helperText={errors.title?.message}
             />
             <TextField
-              sx={{ marginBottom: '20px' }}
+              sx={{ mb: 3 }}
               {...register('description', { value: description })}
               id="taskDescription"
               fullWidth

@@ -9,7 +9,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout';
 import Board from '../features/Board/Board';
-import { init } from './app.config';
 import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
@@ -18,7 +17,7 @@ import Main from 'features/Main';
 import Authentication from 'features/Authentication';
 
 export const App = () => {
-  const { theme, appTheme, userTheme } = useUserSystemTheme();
+  const { theme } = useUserSystemTheme();
 
   return (
     <>

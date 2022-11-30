@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
-import { Box, Button, Divider, List, Paper } from '@mui/material';
+import { Button, Divider, List, Paper } from '@mui/material';
 import ColumnHeader from '../ColumnHeader/ColumnHeader';
 import Task from '../Task/Task';
 import AddIcon from '@mui/icons-material/Add';
@@ -11,6 +11,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { addTasks } from '../../features/columnSlice';
+import { Spinner } from '../Spinner/Spinner';
 
 const dividerStyles = {
   '&.MuiDivider-root': {
@@ -21,8 +22,10 @@ const dividerStyles = {
 
 const addButtonStyles = {
   '&.MuiButtonBase-root': {
+    background: 'unset',
+    boxShadow: 'unset',
     color: 'grey.500',
-    border: '1px solid transparent',
+    border: '1px dashed #b3bac3',
     '&:hover': {
       color: 'grey.700',
       border: '1px solid #b3bac3',
@@ -30,7 +33,7 @@ const addButtonStyles = {
   },
   marginTop: '5px',
   width: '290px',
-  minHeight: '39px',
+  minHeight: '48px',
 };
 
 const StyledBoardItem = styled(Paper)(() => ({
@@ -45,6 +48,7 @@ const StyledBoardItem = styled(Paper)(() => ({
 
 const taskListStyle = {
   position: 'unset',
+  flex: '1 1 auto',
   minHeight: '1px',
   mb: '10px',
   p: '2px',
@@ -64,7 +68,7 @@ interface IColumnProps {
 }
 
 const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
-  const { data, isSuccess, isError, error } = useGetTasksQuery({
+  const { data, isSuccess, isLoading, isError, error } = useGetTasksQuery({
     boardId,
     columnId: id,
   });
@@ -87,52 +91,52 @@ const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
   }
 
   return (
-    <Box>
-      <Draggable draggableId={id} index={order}>
-        {(provided) => (
-          <StyledBoardItem
-            id={`${order}`}
-            elevation={5}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
+    <Draggable draggableId={id} index={order}>
+      {(provided) => (
+        <StyledBoardItem
+          id={`${order}`}
+          elevation={5}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          <ColumnHeader order={order} name={name} columnId={id} />
+          <Divider sx={dividerStyles} />
+          <Droppable droppableId={id} type="task">
+            {(provided) => (
+              <List {...provided.droppableProps} ref={provided.innerRef} sx={taskListStyle}>
+                {!tasks[id] || isLoading ? (
+                  <Spinner />
+                ) : (
+                  tasks[id].map((task: ITaskConfig, idx) => (
+                    <Task
+                      key={task._id}
+                      id={task._id || ''}
+                      boardId={boardId}
+                      columnId={id}
+                      title={task.title}
+                      order={idx}
+                      description={task.description}
+                      users={task.users}
+                    />
+                  ))
+                )}
+                {provided.placeholder}
+              </List>
+            )}
+          </Droppable>
+          <Button
+            id="add-task"
+            onClick={handleButtonClick}
+            sx={addButtonStyles}
+            variant="text"
+            startIcon={<AddIcon />}
           >
-            <ColumnHeader order={order} name={name} columnId={id} />
-            <Divider sx={dividerStyles} />
-            <Droppable droppableId={id} type="task">
-              {(provided) => (
-                <List {...provided.droppableProps} ref={provided.innerRef} sx={taskListStyle}>
-                  {!tasks[id]
-                    ? null
-                    : tasks[id].map((task: ITaskConfig, idx) => (
-                        <Task
-                          key={task._id}
-                          id={task._id || ''}
-                          boardId={boardId}
-                          columnId={id}
-                          title={task.title}
-                          order={idx}
-                          description={task.description}
-                          users={task.users}
-                        />
-                      ))}
-                  {provided.placeholder}
-                </List>
-              )}
-            </Droppable>
-            <Button
-              id="add-task"
-              onClick={handleButtonClick}
-              sx={addButtonStyles}
-              variant="text"
-              startIcon={<AddIcon />}
-            >
-              Add task
-            </Button>
-          </StyledBoardItem>
-        )}
-      </Draggable>
-    </Box>
+            Add task
+          </Button>
+        </StyledBoardItem>
+      )}
+    </Draggable>
   );
 };
 

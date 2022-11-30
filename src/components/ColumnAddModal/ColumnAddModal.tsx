@@ -12,6 +12,7 @@ import { useCreateTaskMutation } from '../../api/task.api';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { Assignees } from '../Assignees/Assignees';
 import { useAssignees } from '../../hooks/useAssignees';
+import { editStyles } from '../EditTaskModal/EditTaskModal';
 
 const modalStyle = {
   position: 'absolute',
@@ -19,7 +20,7 @@ const modalStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 310,
-  bgcolor: 'background.paper',
+  bgcolor: '#eef2f9',
   boxShadow: 24,
   p: 3,
   borderRadius: '15px',
@@ -104,7 +105,7 @@ const ColumnAddModal = ({
       aria-describedby="modal-modal-description"
     >
       <Box onSubmit={handleSubmit(onSubmit)} component="form" sx={modalStyle}>
-        <Typography variant="h6" component="h2" align="center">
+        <Typography color="#707090" variant="h6" component="h2" align="center">
           {isAddTask ? 'Add Task' : 'Create Column'}
         </Typography>
         <TextField
@@ -143,8 +144,9 @@ const ColumnAddModal = ({
             />
           </>
         )}
-        <Stack mt={1.5} justifyContent="center" direction="row" spacing={5}>
+        <Box display="flex" justifyContent="center" gap="1rem">
           <Button
+            sx={editStyles}
             type={'submit'}
             variant="contained"
             endIcon={
@@ -157,10 +159,15 @@ const ColumnAddModal = ({
           >
             Confirm
           </Button>
-          <Button onClick={handleClose} variant="contained" endIcon={<CloseOutlinedIcon />}>
+          <Button
+            sx={editStyles}
+            onClick={handleClose}
+            variant="contained"
+            endIcon={<CloseOutlinedIcon />}
+          >
             Cancel
           </Button>
-        </Stack>
+        </Box>
       </Box>
     </Modal>
   );

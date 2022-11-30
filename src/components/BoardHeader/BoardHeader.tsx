@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Skeleton, Typography } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { styled } from '@mui/material/styles';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -35,10 +35,10 @@ const BoardHeader = () => {
         >
           back
         </Button>
-        <Typography>{isSuccess ? description : ''}</Typography>
+        <Typography>{isSuccess ? description : <Skeleton variant="text" width={100} />}</Typography>
       </StyledBoardBox>
       <Typography textAlign="center" fontSize={20}>
-        {isSuccess ? title : ''}
+        {isSuccess ? title : <Skeleton sx={{ m: '0 auto' }} width={100} variant="text" />}
       </Typography>
     </Box>
   );

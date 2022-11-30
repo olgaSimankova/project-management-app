@@ -55,42 +55,44 @@ const ColumnsWrapper = () => {
 
   const onDragEnd = useOnDragEnd();
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Box sx={boxStyles}>
-        <Droppable droppableId="all-columns" direction="horizontal" type="column">
-          {(provided) => (
-            <Box
-              sx={{ display: 'flex', gap: '1rem' }}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {columns?.map((column: IColumn, idx) => (
-                <Column
-                  key={column._id}
-                  boardId={boardId}
-                  id={column._id || ''}
-                  order={idx}
-                  name={column.title}
-                  onClick={handleOpen}
-                />
-              ))}
-              {provided.placeholder}
-            </Box>
-          )}
-        </Droppable>
-        <AddColumnButton onClick={handleOpen} />
-        <ColumnAddModal
-          boardId={boardId}
-          columnId={columnId}
-          pressedButtonId={buttonId}
-          open={open}
-          onClose={handleClose}
-        />
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Droppable droppableId="all-columns" direction="horizontal" type="column">
+              {(provided) => (
+                <Box
+                  sx={{ display: 'flex', gap: '1rem' }}
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {columns?.map((column: IColumn, idx) => (
+                    <Column
+                      key={column._id}
+                      boardId={boardId}
+                      id={column._id || ''}
+                      order={idx}
+                      name={column.title}
+                      onClick={handleOpen}
+                    />
+                  ))}
+                  {provided.placeholder}
+                </Box>
+              )}
+            </Droppable>
+            <AddColumnButton onClick={handleOpen} />
+            <ColumnAddModal
+              boardId={boardId}
+              columnId={columnId}
+              pressedButtonId={buttonId}
+              open={open}
+              onClose={handleClose}
+            />
+          </>
+        )}
       </Box>
     </DragDropContext>
   );
