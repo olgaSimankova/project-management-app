@@ -223,11 +223,11 @@ export interface UserFields {
 
 export interface ITaskProps {
   id: string;
-  boardId?: string;
+  boardId: string;
   columnId?: string;
   title: string;
   description: string;
   order: number;
   _id?: string;
-  users: string[];
+  assignees: string[];
 }

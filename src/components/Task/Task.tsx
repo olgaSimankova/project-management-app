@@ -55,7 +55,7 @@ const userStyles = {
   borderRadius: '0.25rem',
 };
 
-const Task = ({ id, order, boardId, columnId, title, description, _id, users }: ITaskProps) => {
+const Task = ({ id, order, boardId, columnId, title, description, _id, assignees }: ITaskProps) => {
   const [deleteTask, { isError, error }] = useDeleteTaskMutation();
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -92,7 +92,7 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, users }: 
             Responsible:
           </Typography>
           <Typography sx={userStyles}>
-            {users.length ? `${users.join(', ')}` : 'unassigned'}
+            {assignees.length ? `${assignees.join(', ')}` : 'unassigned'}
           </Typography>
         </Box>
         <IconButton onClick={handleOpen} sx={addRespStyles} size="small">
@@ -108,6 +108,7 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, users }: 
         columnId={columnId}
         taskId={id}
         onClose={handleClose}
+        assignees={assignees}
       />
       {confirmOpen && (
         <ConfirmModal

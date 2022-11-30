@@ -28,7 +28,7 @@ const boxStyles = {
 const ColumnsWrapper = () => {
   const { boardId } = useParams();
   const navigate = useNavigate();
-  const { data, isLoading, isSuccess, error } = useGetColumnsQuery(boardId as string);
+  const { data, isLoading, error } = useGetColumnsQuery(boardId as string);
   const { data: users } = useGetUsersQuery();
   const { columns } = useAppSelector((state) => state.boardState);
   const dispatch = useAppDispatch();
@@ -41,7 +41,7 @@ const ColumnsWrapper = () => {
     if (data) {
       dispatch(addBoards(data));
     }
-  }, [data, isSuccess]);
+  }, [data, dispatch]);
 
   useEffect(() => {
     if (users) {
