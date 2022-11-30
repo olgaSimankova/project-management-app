@@ -1,6 +1,6 @@
 import React from 'react';
 import { LINKS } from 'constants/constants';
-import { ErrorPage } from 'Pages/Error';
+import { Error } from 'Pages/Error';
 import { Search } from 'Pages/Search';
 import { Welcome } from 'Pages/Welcome';
 import { Routes, Route } from 'react-router-dom';
@@ -34,7 +34,7 @@ export const App = () => {
             </Route>
             <Route path={LINKS.signIn} element={<Authentication />} />
             <Route path={LINKS.signUp} element={<Authentication />} />
-            <Route path={LINKS.error} element={<ErrorPage />} />
+            <Route path={LINKS.error} element={<Error />} />
           </Routes>
         </CssBaseline>
       </ThemeProvider>

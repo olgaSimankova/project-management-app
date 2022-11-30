@@ -32,6 +32,12 @@ export const Welcome = () => {
         },
       },
     },
+    sectionHeading: {
+      [currentTheme.breakpoints.between('xs', 'sm')]: {
+        fontSize: '2rem',
+        mb: 2,
+      },
+    },
     teamAndTechnologiesWrapper: {
       maxWidth: 1400,
       margin: '0 auto',
@@ -53,9 +59,6 @@ export const Welcome = () => {
       maxWidth: 1150,
       m: 0,
       paddingTop: '2rem',
-      [currentTheme.breakpoints.down('md')]: {
-        backgroundColor: 'red',
-      },
     },
   });
 
@@ -82,11 +85,15 @@ export const Welcome = () => {
       </Container>
       <Box sx={styles.teamAndTechnologiesWrapper}>
         <Container sx={styles.aboutUsCintainer} maxWidth={false}>
-          <Typography variant="h2">{t('teamHeading')}</Typography>
+          <Typography variant="h2" sx={styles.sectionHeading}>
+            {t('teamHeading')}
+          </Typography>
           <AboutUs />
         </Container>
         <Container>
-          <Typography variant="h2">{t('usedTechnologies')}</Typography>
+          <Typography variant="h2" sx={styles.sectionHeading}>
+            {t('usedTechnologies')}
+          </Typography>
           <UsedTechnologies />
         </Container>
       </Box>
