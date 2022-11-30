@@ -33,7 +33,7 @@ export const Welcome = () => {
       },
     },
     sectionHeading: {
-      [currentTheme.breakpoints.between('xs', 'sm')]: {
+      [currentTheme.breakpoints.between('xs', 'md')]: {
         fontSize: '2rem',
         marginBottom: '10px',
       },
