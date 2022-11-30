@@ -44,6 +44,7 @@ const AboutUs = () => {
     text: {
       [theme.breakpoints.down('md')]: {
         fontSize: '1rem',
+        textAlign: 'justify',
       },
     },
   });

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import NavLinks from '../NavLinks/NavLinks';
 import { User } from '../User/User';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -13,6 +12,7 @@ import { setTheme } from 'theme/themeSlice';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { LINKS } from 'constants/constants';
+import { ReactComponent as Logo } from '../../assets/icons/PMALogo.svg';
 
 export const Header = () => {
   const { theme } = useCustomTheme();
@@ -42,7 +42,7 @@ export const Header = () => {
       <Toolbar sx={{ alignItems: 'center' }}>
         <Link to={LINKS.welcome} style={{ textDecoration: 'none', color: 'white' }}>
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <AssignmentIcon />
+            <Logo />
             <Typography>Project Management App</Typography>
           </Box>
         </Link>

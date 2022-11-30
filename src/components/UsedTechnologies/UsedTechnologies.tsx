@@ -81,9 +81,11 @@ const createStyles = (theme: Theme) => ({
     width: '12rem',
     height: '12rem',
     paddingTop: 2,
+    backgroundColor: 'inherit',
+    borderColor: 'rgba(4, 38, 66, 0.1)',
     [theme.breakpoints.between('xs', 'sm')]: {
-      width: '9rem',
-      height: '9rem',
+      width: '5rem',
+      height: '5rem',
     },
   },
   image: {
@@ -92,19 +94,19 @@ const createStyles = (theme: Theme) => ({
     height: '8rem',
 
     [theme.breakpoints.between('xs', 'sm')]: {
-      height: '6rem',
+      height: '3rem',
     },
   },
   text: {
     textAlign: 'center',
+    color: theme.palette.primary.contrastText,
     [theme.breakpoints.between('xs', 'sm')]: {
-      fontSize: '0.8rem',
+      display: 'none',
     },
   },
 });
-
 const UsedTechnologies = () => {
-  const { userTheme } = useUserSystemTheme();
+  const { theme, userTheme } = useUserSystemTheme();
   const styles = createStyles(userTheme);
   return (
     <Container sx={styles.container}>

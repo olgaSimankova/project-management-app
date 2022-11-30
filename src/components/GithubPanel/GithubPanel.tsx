@@ -1,34 +1,52 @@
-import { Box, Link, SvgIcon, Typography } from '@mui/material';
+import { Box, Link, SvgIcon, Theme, Typography } from '@mui/material';
 import { GITHUB_BASE } from 'constants/constants';
+import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 import React from 'react';
-import { ReactComponent as Github } from '../../assets/icons/github.svg';
+import GitHubIcon from '@mui/icons-material/GitHub';
+
+const createStyles = (theme: Theme) => ({
+  githubsWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    padding: '0 5px',
+    justifyContent: 'center',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      width: '280px',
+    },
+  },
+  textWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '0.1rem',
+    flexWrap: 'wrap',
+    p: '3px',
+  },
+  text: {
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '0.8rem',
+    },
+  },
+});
 
 const GithubLine = ({ nickname }: { nickname: string }) => {
+  const { userTheme } = useUserSystemTheme();
+  const styles = createStyles(userTheme);
   return (
-    <Link
-      underline="hover"
-      href={`${GITHUB_BASE}/${nickname}`}
-      sx={{ display: 'flex', justifyContent: 'center', gap: '0.1rem', flexWrap: 'wrap' }}
-    >
+    <Link underline="hover" href={`${GITHUB_BASE}/${nickname}`} sx={styles.textWrapper}>
       <SvgIcon>
-        <Github />
+        <GitHubIcon />
       </SvgIcon>
-      <Typography>{nickname}</Typography>
+      <Typography sx={styles.text}>{nickname}</Typography>
     </Link>
   );
 };
 
 export const GithubPanel = ({ nicknames }: { nicknames: string[] }) => {
+  const { userTheme } = useUserSystemTheme();
+  const styles = createStyles(userTheme);
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        gap: '1.5rem',
-        flexWrap: 'wrap',
-        padding: '5px',
-        justifyContent: 'center',
-      }}
-    >
+    <Box sx={styles.githubsWrapper}>
       {nicknames.map((nickname) => (
         <GithubLine key={`github-${nickname}`} nickname={nickname} />
       ))}

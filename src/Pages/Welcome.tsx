@@ -41,6 +41,11 @@ export const Welcome = () => {
     teamAndTechnologiesWrapper: {
       maxWidth: 1400,
       margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      [currentTheme.breakpoints.down('md')]: {
+        gap: 3,
+      },
     },
     heroContainer: {
       width: 800,
