@@ -6,7 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { LINKS } from '../../constants/constants';
 import { useGetBoardQuery } from '../../api/main.api';
 import { toast } from 'react-toastify';
-import { Error } from '../../types/types';
+import { IError } from '../../types/types';
+import { useTranslation } from 'react-i18next';
 
 const StyledBoardBox = styled(Box)(() => ({
   display: 'flex',
@@ -16,13 +17,17 @@ const StyledBoardBox = styled(Box)(() => ({
 
 const BoardHeader = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { boardId } = useParams();
   const { data, isSuccess, isError, error } = useGetBoardQuery(boardId as string);
 
   const { title, description } = JSON.parse(data?.title || '{}');
 
   if (isError) {
-    toast.error((error as Error).data.message);
+    if ((error as IError)?.data?.statusCode === 404) {
+      navigate(LINKS.error);
+    }
+    toast.error((error as IError).data.message);
   }
 
   return (
@@ -33,7 +38,7 @@ const BoardHeader = () => {
           variant="outlined"
           startIcon={<ChevronLeftIcon />}
         >
-          back
+          {t('back')}
         </Button>
         <Typography>{isSuccess ? description : ''}</Typography>
       </StyledBoardBox>

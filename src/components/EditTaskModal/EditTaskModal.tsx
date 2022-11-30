@@ -9,7 +9,7 @@ import { Grid, IconButton, SelectChangeEvent, Stack, TextField } from '@mui/mate
 import CloseIcon from '@mui/icons-material/Close';
 import { LoadingButton } from '@mui/lab';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { BoardFormFields, Error } from '../../types/types';
+import { BoardFormFields, IError } from '../../types/types';
 import { addTaskSchema } from '../../schema/addTaskSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUpdateTaskMutation } from '../../api/task.api';
@@ -113,7 +113,7 @@ const EditTaskModal = ({
   };
 
   if (isError) {
-    toast.error((error as Error).data.message);
+    toast.error((error as IError).data.message);
   }
 
   return (
