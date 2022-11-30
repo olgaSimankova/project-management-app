@@ -220,3 +220,14 @@ export interface UserFields {
   login: string;
   password: string;
 }
+
+export interface ITaskProps {
+  id: string;
+  boardId?: string;
+  columnId?: string;
+  title: string;
+  description: string;
+  order: number;
+  _id?: string;
+  users: string[];
+}
