@@ -27,7 +27,7 @@ const styles = {
   },
 };
 
-export const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
+export const ErrorFallback = ({ resetErrorBoundary }: FallbackProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
