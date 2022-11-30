@@ -4,6 +4,8 @@ import AddIcon from '@mui/icons-material/Add';
 
 const AddTasksButtonStyles = {
   '&.MuiButtonBase-root': {
+    background: 'unset',
+    boxShadow: 'unset',
     color: 'grey.500',
     border: '1px dashed #b3bac3',
     '&:hover': {
