@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSignInMutation, useSignUpMutation } from '../../api/auth.api';
-import { Error, IAuthFormFields } from '../../types/types';
+import { IError, IAuthFormFields } from '../../types/types';
 import { toast } from 'react-toastify';
 import Authentication from './Authentication';
 import { useAppDispatch } from 'hooks/useAppDispatch';
@@ -61,11 +61,11 @@ const AuthenticationContainer = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error((error as Error).data.message);
+      toast.error((error as IError).data.message);
     }
 
     if (isAuthError) {
-      toast.error((authError as Error).data.message);
+      toast.error((authError as IError).data.message);
     }
   }, [isError, isAuthError, authError, error]);
 
