@@ -28,6 +28,7 @@ export const mainApi = createApi({
         url: '/boards',
       }),
       providesTags: ['boards'],
+      keepUnusedDataFor: 1,
     }),
     createBoard: build.mutation<BoardConfig, BoardConfig>({
       query: (body) => ({

@@ -67,12 +67,6 @@ const MainContainer = () => {
     toast.error(error?.data?.message || 'Something went wrong');
   };
 
-  useEffect(() => {
-    if ((getBoardsError as ErrorObject)?.data?.message === INVALID_TOKEN) {
-      dispatch(logout());
-    }
-  }, [dispatch, navigate, getBoardsError]);
-
   if (isUpdatingFailed) {
     toastErrorDisplay(updatingError as ErrorObject);
     updateBordReset();
@@ -152,6 +146,12 @@ const MainContainer = () => {
       dispatch(setBoardID(''));
     }
   };
+
+  useEffect(() => {
+    if ((getBoardsError as ErrorObject)?.data?.message === INVALID_TOKEN) {
+      dispatch(logout());
+    }
+  }, [dispatch, navigate, getBoardsError]);
 
   return (
     <Main

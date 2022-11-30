@@ -21,7 +21,7 @@ export const Header = () => {
   const tokenLS = localStorage.getItem('credentials');
 
   useEffect(() => {
-    if (token === '' && !tokenLS) {
+    if (!token && !tokenLS) {
       navigate(LINKS.welcome);
     }
   }, [navigate, token, tokenLS]);
