@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Button, Divider, List, Paper } from '@mui/material';
 import ColumnHeader from '../ColumnHeader/ColumnHeader';
-import Task from '../Task/Task';
+import TaskDnd from '../TaskDnd/TaskDnd';
 import AddIcon from '@mui/icons-material/Add';
 import { useGetTasksQuery } from '../../api/task.api';
 import { Error, ITaskConfig } from '../../types/types';
@@ -109,7 +109,7 @@ const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
                   <Spinner />
                 ) : (
                   tasks[id].map((task: ITaskConfig, idx) => (
-                    <Task
+                    <TaskDnd
                       key={task._id}
                       id={task._id || ''}
                       boardId={boardId}
