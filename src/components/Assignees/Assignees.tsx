@@ -9,9 +9,10 @@ export const Assignees = ({
   id,
   onClose,
   register,
+  isDisabled = false,
 }: AssigneeProps) => {
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth disabled={isDisabled}>
       <InputLabel htmlFor="chip">Assignees</InputLabel>
       <Select
         {...(register ? register('assigners') : null)}

@@ -4,7 +4,7 @@ import {
   useGetBoardsQuery,
   useUpdateBoardMutation,
 } from 'api/main.api';
-import { INVALID_TOKEN, LINKS } from 'constants/constants';
+import { INVALID_TOKEN } from 'constants/constants';
 import { logout } from 'features/authSlice';
 import {
   setBoardID,
@@ -66,13 +66,6 @@ const MainContainer = () => {
   const toastErrorDisplay = (error: ErrorObject) => {
     toast.error(error?.data?.message || 'Something went wrong');
   };
-
-  useEffect(() => {
-    if ((getBoardsError as ErrorObject)?.data?.message === INVALID_TOKEN) {
-      navigate(LINKS.welcome);
-      dispatch(logout());
-    }
-  }, [dispatch, navigate, getBoardsError]);
 
   if (isUpdatingFailed) {
     toastErrorDisplay(updatingError as ErrorObject);
@@ -153,6 +146,12 @@ const MainContainer = () => {
       dispatch(setBoardID(''));
     }
   };
+
+  useEffect(() => {
+    if ((getBoardsError as ErrorObject)?.data?.message === INVALID_TOKEN) {
+      dispatch(logout());
+    }
+  }, [dispatch, navigate, getBoardsError]);
 
   return (
     <Main
