@@ -37,7 +37,6 @@ export const Welcome = () => {
   };
 
   const { t } = useTranslation();
-
   return (
     <main>
       <Container sx={styles.heroBG} maxWidth={false}>
