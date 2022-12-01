@@ -50,52 +50,39 @@ const AboutUs = () => {
   });
 
   const styles = createStyles(userTheme as Theme);
+
+  const theBestDevelopersEver = ['Sasha', 'Dima', 'Olya', 'Aleh'];
+  const avatars = [sasha, dima, olya, aleh];
+
   return (
     <Container sx={styles.teamContainer}>
-      <Box sx={styles.teamItem}>
-        <Box>
-          <Avatar src={sasha} sx={styles.avatar}></Avatar>
-          <Typography variant="h4" sx={styles.textName}>
-            {t('nameSasha')}
-          </Typography>
-        </Box>
-        <Typography variant="h6" sx={styles.text}>
-          {t('aboutSasha')}
-        </Typography>
-      </Box>
-      <Box sx={styles.teamItem}>
-        <Typography variant="h6" sx={styles.text}>
-          {t('aboutDima')}
-        </Typography>
-        <Box>
-          <Avatar src={dima} sx={styles.avatar}></Avatar>
-          <Typography variant="h4" sx={styles.textName}>
-            {t('nameDima')}
-          </Typography>
-        </Box>
-      </Box>
-      <Box sx={styles.teamItem}>
-        <Box>
-          <Avatar src={olya} sx={styles.avatar}></Avatar>
-          <Typography variant="h4" sx={styles.textName}>
-            {t('nameOlya')}
-          </Typography>
-        </Box>
-        <Typography variant="h6" sx={styles.text}>
-          {t('aboutOlya')}
-        </Typography>
-      </Box>
-      <Box sx={styles.teamItem}>
-        <Typography variant="h6" sx={styles.text}>
-          {t('aboutAleh')}
-        </Typography>
-        <Box>
-          <Avatar src={aleh} sx={styles.avatar}></Avatar>
-          <Typography variant="h4" sx={styles.textName}>
-            {t('nameAleh')}
-          </Typography>
-        </Box>
-      </Box>
+      {theBestDevelopersEver.map((name, idx) =>
+        idx % 2 ? (
+          <Box sx={styles.teamItem} key={name}>
+            <Box>
+              <Avatar src={avatars[idx]} sx={styles.avatar}></Avatar>
+              <Typography variant="h4" sx={styles.textName}>
+                {t(`name${name}`)}
+              </Typography>
+            </Box>
+            <Typography variant="h6" sx={styles.text}>
+              {t(`about${name}`)}
+            </Typography>
+          </Box>
+        ) : (
+          <Box sx={styles.teamItem} key={name}>
+            <Typography variant="h6" sx={styles.text}>
+              {t(`about${name}`)}
+            </Typography>
+            <Box>
+              <Avatar src={avatars[idx]} sx={styles.avatar}></Avatar>
+              <Typography variant="h4" sx={styles.textName}>
+                {t(`name${name}`)}
+              </Typography>
+            </Box>
+          </Box>
+        )
+      )}
     </Container>
   );
 };

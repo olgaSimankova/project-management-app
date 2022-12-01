@@ -6,7 +6,6 @@ import {
   Container,
   Link,
   Theme,
-  ThemeCssVar,
   Typography,
 } from '@mui/material';
 import React from 'react';
