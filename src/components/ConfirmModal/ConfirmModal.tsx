@@ -1,53 +1,62 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Modal, Typography } from '@mui/material';
+import Fade from '@mui/material/Fade';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ConfirmModalProps } from 'types/types';
+import Backdrop from '@mui/material/Backdrop';
+import { editStyles } from '../EditTaskModal/EditTaskModal';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
-export const ConfirmModal = ({ question, onYesClick, onNoClick }: ConfirmModalProps) => {
+const modalStyles = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 330,
+  bgcolor: '#eef2f9',
+  boxShadow: 24,
+  p: 3,
+  borderRadius: '15px',
+};
+
+export const ConfirmModal = ({ open, question, onYesClick, onNoClick }: ConfirmModalProps) => {
   const { t } = useTranslation();
   return (
-    <Box>
-      <Box
-        data-id="close"
-        className="top-level"
-        sx={{
-          position: 'fixed',
-          zIndex: 1,
-          top: '0',
-          left: '0',
-          width: '100vw',
-          height: '100vh',
-          background: '#333333',
-          opacity: '0.5',
-        }}
-      />
-      <Box
-        sx={{
-          display: 'flex',
-          position: 'absolute',
-          top: '30vh',
-          left: '36vw',
-          zIndex: '2',
-          flexDirection: 'column',
-          gap: '3rem',
-          alignItems: 'center',
-          minWidth: '300px',
-          width: '30vw',
-          padding: '1rem',
-          background: 'white',
-          borderRadius: '1rem',
+    <div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={onNoClick}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
         }}
       >
-        <Typography variant="h5">{question}</Typography>
-        <Box sx={{ display: 'flex', gap: '20px' }}>
-          <Button color="success" variant="contained" onClick={onYesClick}>
-            {t('yes')}
-          </Button>
-          <Button color="error" variant="contained" onClick={onNoClick}>
-            {t('no')}
-          </Button>
-        </Box>
-      </Box>
-    </Box>
+        <Fade in={open}>
+          <Box sx={modalStyles}>
+            <Typography
+              mb={1}
+              id="transition-modal-title"
+              variant="h6"
+              component="h2"
+              textAlign="center"
+            >
+              {question}
+            </Typography>
+            <Box display="flex" justifyContent="center" gap="1rem">
+              <Button sx={editStyles} onClick={onYesClick} endIcon={<CheckOutlinedIcon />}>
+                {t('yes')}
+              </Button>
+              <Button sx={editStyles} onClick={onNoClick} endIcon={<CloseOutlinedIcon />}>
+                {t('no')}
+              </Button>
+            </Box>
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
   );
 };

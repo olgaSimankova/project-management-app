@@ -28,8 +28,8 @@ const addButtonStyles = {
   '&.MuiButtonBase-root': {
     background: 'unset',
     boxShadow: 'unset',
-    color: 'grey.500',
-    border: '1px dashed #b3bac3',
+    color: '#707090',
+    border: '1px dashed #707090',
     '&:hover': {
       color: 'grey.700',
       border: '1px solid #b3bac3',
@@ -47,7 +47,7 @@ const StyledBoardItem = styled(Paper)(() => ({
   maxHeight: '100%',
   padding: '15px 10px 10px',
   borderRadius: '10px',
-  backgroundColor: '#eef2f9',
+  backgroundColor: 'transparent',
 }));
 
 const taskListStyle = {
@@ -61,6 +61,17 @@ const taskListStyle = {
   gap: '7px',
   flexDirection: 'column',
   overflow: 'hidden auto',
+  '&::-webkit-scrollbar': {
+    width: 7,
+  },
+  '&::-webkit-scrollbar-track': {
+    boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
+    borderRadius: 2,
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#707090',
+    borderRadius: 2,
+  },
 };
 
 interface IColumnProps {

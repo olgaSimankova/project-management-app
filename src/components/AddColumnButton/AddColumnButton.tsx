@@ -6,8 +6,8 @@ const AddTasksButtonStyles = {
   '&.MuiButtonBase-root': {
     background: 'unset',
     boxShadow: 'unset',
-    color: 'grey.500',
-    border: '1px dashed #b3bac3',
+    color: '#707090',
+    border: '1px dashed #707090',
     '&:hover': {
       color: 'grey.700',
       border: '1px solid #b3bac3',
