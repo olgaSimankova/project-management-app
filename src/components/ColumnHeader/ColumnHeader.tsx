@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, IconButton, InputBase } from '@mui/material';
+import { Box, CircularProgress, IconButton, InputBase } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from '@mui/material/styles';
@@ -51,7 +51,7 @@ const ColumnHeader = ({ order, name, columnId }: ColumnHeaderProps) => {
   const [open, setOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [columnName, setColumnName] = useState(name);
-  const [deleteColumn] = useDeleteColumnMutation();
+  const [deleteColumn, { isLoading }] = useDeleteColumnMutation();
   const [updateColumn] = useUpdateColumnMutation();
   const { tasks } = useAppSelector((state) => state.boardState);
 
@@ -68,6 +68,7 @@ const ColumnHeader = ({ order, name, columnId }: ColumnHeaderProps) => {
 
   const handleDelete = () => {
     if (boardId) {
+      setOpen(false);
       deleteColumn({ boardId, columnId });
     }
   };
@@ -93,15 +94,18 @@ const ColumnHeader = ({ order, name, columnId }: ColumnHeaderProps) => {
         )}
       </IconButton>
       <IconButton onClick={() => setOpen(true)} size="medium" aria-label="delete">
-        <DeleteIcon fontSize="small" color="error" />
+        {isLoading ? (
+          <CircularProgress size={16} color={'inherit'} />
+        ) : (
+          <DeleteIcon fontSize="small" color="error" />
+        )}
       </IconButton>
-      {open && (
-        <ConfirmModal
-          question={QUESTION_ON_DELETE}
-          onYesClick={handleDelete}
-          onNoClick={() => setOpen(false)}
-        />
-      )}
+      <ConfirmModal
+        open={open}
+        question={QUESTION_ON_DELETE}
+        onYesClick={handleDelete}
+        onNoClick={() => setOpen(false)}
+      />
     </StyledBoardItemHeader>
   );
 };

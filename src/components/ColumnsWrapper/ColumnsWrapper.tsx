@@ -22,7 +22,18 @@ const boxStyles = {
   gap: '1rem',
   overflow: 'auto',
   padding: '1rem',
-  height: 'calc(100vh - 216px)',
+  height: 'calc(100vh - 207px)',
+  '&::-webkit-scrollbar': {
+    height: 10,
+  },
+  '&::-webkit-scrollbar-track': {
+    boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
+    borderRadius: 2,
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#707090',
+    borderRadius: 2,
+  },
 };
 
 const ColumnsWrapper = () => {

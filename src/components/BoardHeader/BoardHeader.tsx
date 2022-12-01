@@ -18,6 +18,22 @@ const StyledBoardBox = styled(Box)(() => ({
   gap: '10px',
 }));
 
+const goBackStyles = {
+  '&.MuiButtonBase-root': {
+    background: 'unset',
+    boxShadow: 'unset',
+    color: '#707090',
+    border: '1px dashed #707090',
+    '&:hover': {
+      color: 'grey.700',
+      border: '1px solid #b3bac3',
+    },
+  },
+  ml: '1rem',
+  minWidth: '100px',
+  height: '39px',
+};
+
 const BoardHeader = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,6 +61,7 @@ const BoardHeader = () => {
     <Box color="#707090">
       <StyledBoardBox pt={3}>
         <Button
+          sx={goBackStyles}
           onClick={() => navigate(LINKS.main)}
           variant="outlined"
           startIcon={<ChevronLeftIcon />}

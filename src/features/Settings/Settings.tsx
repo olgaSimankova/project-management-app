@@ -137,13 +137,12 @@ const Settings = ({
         isLoading={isLoading}
       />
     ) : null}
-    {flags.isConfirmOpen ? (
-      <ConfirmModal
-        question="Do you want to delete user?"
-        onYesClick={onDelete}
-        onNoClick={onCloseConfirmWindow}
-      />
-    ) : null}
+    <ConfirmModal
+      open={flags.isConfirmOpen}
+      question="Do you want to delete user?"
+      onYesClick={onDelete}
+      onNoClick={onCloseConfirmWindow}
+    />
   </Box>
 );
 
