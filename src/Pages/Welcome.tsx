@@ -5,38 +5,71 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import bgLight from '../assets/img/bgLight.png';
 import bgDark from '../assets/img/bgDark.png';
-import { useCustomTheme } from 'hooks/useCustomTheme';
+import { Theme } from '@mui/system';
+import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 
 export const Welcome = () => {
-  const { theme } = useCustomTheme();
+  const { theme, userTheme } = useUserSystemTheme();
 
-  const styles = {
-    heroWrapper: {
-      maxWidth: 1400,
-      margin: '0 auto',
-    },
+  const createStyles = (currentTheme: Theme) => ({
     heroBG: {
       height: 680,
       backgroundImage: theme === 'light' ? `url(${bgLight})` : `url(${bgDark})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
     },
+    heroWrapper: {
+      maxWidth: 1400,
+      margin: '0 auto',
+      [currentTheme.breakpoints.down('md')]: {
+        h1: {
+          fontSize: '4rem',
+        },
+      },
+      [currentTheme.breakpoints.between('xs', 'sm')]: {
+        h1: {
+          fontSize: '2.5rem',
+        },
+      },
+    },
+    sectionHeading: {
+      [currentTheme.breakpoints.between('xs', 'md')]: {
+        fontSize: '2rem',
+        marginBottom: '0.6rem',
+      },
+    },
     teamAndTechnologiesWrapper: {
       maxWidth: 1400,
       margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      [currentTheme.breakpoints.down('md')]: {
+        gap: 3,
+      },
     },
     heroContainer: {
       width: 800,
       minHeight: 150,
+      [currentTheme.breakpoints.down('md')]: {
+        width: '100%',
+        marginBottom: 5,
+      },
+      [currentTheme.breakpoints.between('xs', 'sm')]: {
+        h5: {
+          fontSize: '1.3rem',
+        },
+      },
     },
     aboutUsCintainer: {
       maxWidth: 1150,
       m: 0,
       paddingTop: '2rem',
     },
-  };
+  });
 
   const { t } = useTranslation();
+  const styles = createStyles(userTheme as Theme);
+
   return (
     <main>
       <Container sx={styles.heroBG} maxWidth={false}>
@@ -58,11 +91,15 @@ export const Welcome = () => {
       </Container>
       <Box sx={styles.teamAndTechnologiesWrapper}>
         <Container sx={styles.aboutUsCintainer} maxWidth={false}>
-          <Typography variant="h2">{t('teamHeading')}</Typography>
+          <Typography variant="h2" sx={styles.sectionHeading}>
+            {t('teamHeading')}
+          </Typography>
           <AboutUs />
         </Container>
         <Container>
-          <Typography variant="h2">{t('usedTechnologies')}</Typography>
+          <Typography variant="h2" sx={styles.sectionHeading}>
+            {t('usedTechnologies')}
+          </Typography>
           <UsedTechnologies />
         </Container>
       </Box>

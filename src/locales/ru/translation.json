@@ -33,7 +33,7 @@
   "firstName": "Ваше имя",
   "login": "Логин",
   "password": "Пароль",
-  "somethingWrong": "Что-то пошло не так",
+  "pageNotFound": "Такой страницы не существует",
   "tryAgain": "Попробовать снова",
   "goMain": "на главную",
   "successCreateAccount": "Добро пожаловать! Новый аккаунт создан",

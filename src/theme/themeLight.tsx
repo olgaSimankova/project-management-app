@@ -1,6 +1,15 @@
 import { createTheme } from '@mui/material';
 
 export const themeLight = createTheme({
+  breakpoints: {
+    values: {
+      xs: 320,
+      sm: 600,
+      md: 860,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   typography: {
     fontFamily: [
       '-apple-system',
@@ -19,12 +28,12 @@ export const themeLight = createTheme({
     mode: 'light',
     primary: {
       light: '#81d4fa',
-      main: '#2196f3',
+      main: '#014771',
       dark: '#0277bd',
       contrastText: '#fff',
     },
     secondary: {
-      light: '#ffe082',
+      light: '#042642',
       main: '#FF6753',
       dark: '#ff8f00',
       contrastText: '#fff',
@@ -64,6 +73,13 @@ export const themeLight = createTheme({
           height: 48,
           padding: '0 30px',
           boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        },
+      },
+    },
+    MuiIcon: {
+      styleOverrides: {
+        root: {
+          color: 'red',
         },
       },
     },
