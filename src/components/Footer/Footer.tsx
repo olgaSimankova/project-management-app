@@ -19,7 +19,7 @@ const createStyles = (theme: Theme) => ({
       height: '120px',
       maxWidth: '360px',
       margin: '0 auto',
-      mt: 1.5,
+      pt: 1.5,
     },
   },
   text: {

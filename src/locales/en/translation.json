@@ -33,7 +33,7 @@
   "firstName": "First Name",
   "login": "Login",
   "password": "Password",
-  "somethingWrong": "Something went wrong",
+  "pageNotFound": "Page not found",
   "tryAgain": "Try Again",
   "goMain": "Go to Main",
   "successCreateAccount": "You successfully created account",
