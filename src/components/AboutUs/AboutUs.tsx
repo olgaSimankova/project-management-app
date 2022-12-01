@@ -1,18 +1,13 @@
-import { Avatar, Box, Container, Theme, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import sasha from '../../assets/img/sasha.jpg';
 import dima from '../../assets/img/dima.jpg';
 import aleh from '../../assets/img/aleh.jpg';
 import olya from '../../assets/img/olya.jpg';
-import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 import { AboutUsElement } from 'components/AboutUsElement/AboutUsElement';
 
 const AboutUs = () => {
-  const { t } = useTranslation();
-  const { userTheme } = useUserSystemTheme();
-
-  const createStyles = (theme: Theme) => ({
+  const createStyles = () => ({
     teamContainer: {
       padding: 0,
       display: 'flex',
@@ -21,7 +16,7 @@ const AboutUs = () => {
     },
   });
 
-  const styles = createStyles(userTheme as Theme);
+  const styles = createStyles();
 
   const theBestDevelopersEver = ['Sasha', 'Dima', 'Olya', 'Aleh'];
   const avatars = [sasha, dima, olya, aleh];
