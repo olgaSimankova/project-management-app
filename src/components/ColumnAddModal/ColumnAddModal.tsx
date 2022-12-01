@@ -77,11 +77,21 @@ const ColumnAddModal = ({
     setSelectedAssignees(typeof value === 'string' ? value.split(',') : value);
   };
 
-  const handleClose = () => {
-    reset();
-    onClose();
-    setSelectedAssignees([]);
-  };
+  useEffect(() => {
+    if (isSuccess) {
+      fetchReset();
+    }
+
+    if (taskSuccess) {
+      taskReset();
+    }
+
+    if (isSuccess || taskSuccess) {
+      onClose();
+      reset();
+      setSelectedAssignees([]);
+    }
+  }, [fetchReset, isSuccess, onClose, reset, taskReset, taskSuccess]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const { title, description } = data;
@@ -100,21 +110,10 @@ const ColumnAddModal = ({
     }
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      fetchReset();
-    }
-
-    if (taskSuccess) {
-      taskReset();
-    }
-    handleClose();
-  }, [isSuccess, taskSuccess]);
-
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -175,7 +174,7 @@ const ColumnAddModal = ({
           </Button>
           <Button
             sx={editStyles}
-            onClick={handleClose}
+            onClick={onClose}
             variant="contained"
             endIcon={<CloseOutlinedIcon />}
           >

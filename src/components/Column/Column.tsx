@@ -84,7 +84,7 @@ interface IColumnProps {
 
 const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
   const { t } = useTranslation();
-  const { data, isSuccess, isLoading, isError, error } = useGetTasksQuery({
+  const { data, isLoading, isError, error } = useGetTasksQuery({
     boardId,
     columnId: id,
   });
@@ -96,7 +96,7 @@ const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
     if (data) {
       dispatch(addTasks({ id, data }));
     }
-  }, [isSuccess, data]);
+  }, [data, id, dispatch]);
 
   useEffect(() => {
     if ((error as ErrorObject)?.data?.message === INVALID_TOKEN) {
