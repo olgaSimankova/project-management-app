@@ -21,8 +21,8 @@ export const Footer = () => {
       <Link href={REACT_COURSE_LINK}>
         <Logo />
       </Link>
-      <Typography variant="h6">2022</Typography>
       <GithubPanel nicknames={OUR_GITHUB_NICKNAMES} />
+      <Typography variant="h6">2022</Typography>
     </Box>
   );
 };

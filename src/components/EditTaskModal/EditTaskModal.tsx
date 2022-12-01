@@ -94,9 +94,11 @@ const EditTaskModal = ({
   };
 
   useEffect(() => {
-    onClose();
-    updateReset();
-  }, [isSuccess]);
+    if (isSuccess) {
+      onClose();
+      updateReset();
+    }
+  }, [isSuccess, onClose, updateReset]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const { title, description } = data;

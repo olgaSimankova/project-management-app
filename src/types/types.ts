@@ -150,6 +150,7 @@ export interface ConfirmModalProps {
 }
 
 export interface ConfirmModalProps {
+  open: boolean;
   question: string;
   onYesClick: () => void;
   onNoClick: () => void;

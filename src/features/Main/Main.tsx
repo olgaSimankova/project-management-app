@@ -123,15 +123,12 @@ export const Main = ({
           }}
         />
       )}
-      {isConfirmationOpen && (
-        <ConfirmModal
-          {...{
-            question: t('questuionDelete'),
-            onYesClick: onDeleteBoard,
-            onNoClick: onExitConfirmationModal,
-          }}
-        />
-      )}
+      <ConfirmModal
+        open={isConfirmationOpen}
+        question={t('questuionDelete')}
+        onYesClick={onDeleteBoard}
+        onNoClick={onExitConfirmationModal}
+      />
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, CircularProgress, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import EditTaskModal from '../EditTaskModal/EditTaskModal';
@@ -18,9 +18,8 @@ const boxStyles = {
   marginTop: '10px',
   padding: '5px 5px 5px 10px',
   borderRadius: '7px',
-  backgroundColor: 'white',
+  backgroundColor: 'transparent',
   wordBreak: 'break-all',
-  cursor: 'pointer',
 };
 
 const titleStyles = {
@@ -56,7 +55,7 @@ const userStyles = {
 };
 
 const Task = ({ id, order, boardId, columnId, title, description, _id, assignees }: ITaskProps) => {
-  const [deleteTask, { isError, error }] = useDeleteTaskMutation();
+  const [deleteTask, { isLoading, isError, error }] = useDeleteTaskMutation();
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -80,7 +79,11 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, assignees
           </Typography>
         </Box>
         <IconButton onClick={() => setConfirmOpen(true)} size="small">
-          <CloseIcon fontSize="small" />
+          {isLoading ? (
+            <CircularProgress size={16} color={'inherit'} />
+          ) : (
+            <CloseIcon fontSize="small" />
+          )}
         </IconButton>
       </Box>
       <Typography color="#707090" fontSize="14px">
@@ -110,13 +113,12 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, assignees
         onClose={handleClose}
         assignees={assignees}
       />
-      {confirmOpen && (
-        <ConfirmModal
-          question={QUESTION_ON_DELETE}
-          onYesClick={handleDelete}
-          onNoClick={() => setConfirmOpen(false)}
-        />
-      )}
+      <ConfirmModal
+        open={confirmOpen}
+        question={QUESTION_ON_DELETE}
+        onYesClick={handleDelete}
+        onNoClick={() => setConfirmOpen(false)}
+      />
     </Box>
   );
 };
