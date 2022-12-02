@@ -25,6 +25,7 @@ export const Assignees = ({
         onChange={(e) => (handleChange ? handleChange(e, id) : '')}
         onClose={(e) => (onClose ? onClose(e, id) : '')}
         multiple
+        MenuProps={{ PaperProps: { sx: { maxHeight: '12rem' } } }}
         sx={{ width: '100%' }}
         input={
           <OutlinedInput
