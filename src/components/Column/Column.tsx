@@ -156,7 +156,7 @@ const Column = ({ id, boardId, name, order, onClick }: IColumnProps) => {
             variant="text"
             startIcon={<AddIcon />}
           >
-            Add task
+            {t('addTask')}
           </Button>
         </StyledBoardItem>
       )}

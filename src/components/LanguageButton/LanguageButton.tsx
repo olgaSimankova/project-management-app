@@ -16,8 +16,8 @@ export const LanguageButton = () => {
 
   return (
     <>
-      <IconButton onClick={handleOpenLangMenu}>
-        <LanguageIcon sx={{ fontSize: 35, color: '#f5f5f5' }} />
+      <IconButton sx={{ p: 0 }} onClick={handleOpenLangMenu}>
+        <LanguageIcon sx={{ fontSize: 30, color: '#f5f5f5' }} />
       </IconButton>
       <LanguageMenu onClose={handleCloseLangMenu} anchorEl={anchorElLang} />
     </>

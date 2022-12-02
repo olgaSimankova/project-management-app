@@ -24,7 +24,7 @@ export const CardControlButtons = ({
   return (
     <Box
       onClick={(e) => onClick(e, id)}
-      sx={{ position: 'absolute', top: '0rem', right: '0.5rem', display: 'flex', gap: 1 }}
+      sx={{ position: 'absolute', top: '-7px', right: '0.5rem', display: 'flex', gap: 1 }}
     >
       <LoadingButton
         sx={styles}

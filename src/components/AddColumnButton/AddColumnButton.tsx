@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { useTranslation } from 'react-i18next';
 
 const AddTasksButtonStyles = {
   '&.MuiButtonBase-root': {
@@ -22,6 +23,7 @@ interface AddColumnButtonProps {
 }
 
 const AddColumnButton = ({ onClick }: AddColumnButtonProps) => {
+  const { t } = useTranslation();
   const handleButtonClick = (e: React.MouseEvent) => {
     const target = e.currentTarget as HTMLElement;
     onClick(target.id);
@@ -35,7 +37,7 @@ const AddColumnButton = ({ onClick }: AddColumnButtonProps) => {
       variant="text"
       startIcon={<AddIcon />}
     >
-      Add column
+      {t('addColumn')}
     </Button>
   );
 };

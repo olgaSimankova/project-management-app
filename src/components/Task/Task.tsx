@@ -4,11 +4,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import EditTaskModal from '../EditTaskModal/EditTaskModal';
 import { ConfirmModal } from '../ConfirmModal/ConfirmModal';
-import { QUESTION_ON_DELETE } from '../../constants/constants';
 import { ITaskProps } from '../../types/types';
 import { useDeleteTaskMutation } from '../../api/task.api';
 import { toast } from 'react-toastify';
 import { IError } from '../../types/types';
+import { useTranslation } from 'react-i18next';
 
 const boxStyles = {
   '&.MuiBox-root': {
@@ -58,6 +58,7 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, assignees
   const [deleteTask, { isLoading, isError, error }] = useDeleteTaskMutation();
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const { t } = useTranslation();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -86,13 +87,13 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, assignees
           )}
         </IconButton>
       </Box>
-      <Typography color="#707090" fontSize="14px">
+      <Typography color={'#707090'} fontSize="14px">
         {description}
       </Typography>
       <Box display="flex" justifyContent="space-between" alignItems="center" gap={1}>
         <Box display="flex" alignItems="center" color="white">
           <Typography sx={respStyles} fontSize="13px">
-            Responsible:
+            {t('Responsible')}
           </Typography>
           <Typography sx={userStyles}>
             {assignees.length ? `${assignees.join(', ')}` : 'unassigned'}
@@ -115,7 +116,7 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, assignees
       />
       <ConfirmModal
         open={confirmOpen}
-        question={QUESTION_ON_DELETE}
+        question={t('questuionDelete')}
         onYesClick={handleDelete}
         onNoClick={() => setConfirmOpen(false)}
       />

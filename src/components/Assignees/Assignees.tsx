@@ -1,5 +1,6 @@
 import { Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { AssigneeProps } from 'types/types';
 
 export const Assignees = ({
@@ -11,9 +12,10 @@ export const Assignees = ({
   register,
   isDisabled = false,
 }: AssigneeProps) => {
+  const { t } = useTranslation();
   return (
     <FormControl fullWidth disabled={isDisabled}>
-      <InputLabel htmlFor="chip">Assignees</InputLabel>
+      <InputLabel htmlFor="chip">{t('assignees')}</InputLabel>
       <Select
         {...(register ? register('assigners') : null)}
         value={selected}
@@ -27,7 +29,7 @@ export const Assignees = ({
         input={
           <OutlinedInput
             id="select-multiple-chip"
-            label="Assignees"
+            label={t('assignees')}
             sx={{ border: '0px solid white' }}
           />
         }

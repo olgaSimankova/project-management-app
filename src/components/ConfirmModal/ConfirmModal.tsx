@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Typography } from '@mui/material';
+import { Box, Button, Modal, Theme, Typography } from '@mui/material';
 import Fade from '@mui/material/Fade';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,8 +7,9 @@ import Backdrop from '@mui/material/Backdrop';
 import { editStyles } from '../EditTaskModal/EditTaskModal';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 
-const modalStyles = {
+const createModalStyles = (theme: Theme) => ({
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -18,10 +19,16 @@ const modalStyles = {
   boxShadow: 24,
   p: 3,
   borderRadius: '15px',
-};
+  [theme.breakpoints.down('sm')]: {
+    width: 300,
+    p: 2,
+  },
+});
 
 export const ConfirmModal = ({ open, question, onYesClick, onNoClick }: ConfirmModalProps) => {
   const { t } = useTranslation();
+  const { userTheme } = useUserSystemTheme();
+  const modalStyles = createModalStyles(userTheme);
   return (
     <div>
       <Modal
