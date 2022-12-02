@@ -42,5 +42,8 @@
   "successLigin": "You successfully logged in",
   "loginError": "Something terrible happened with your connection",
   "back": "back",
-  "createdBy": "Created by"
+  "createdBy": "Created by",
+  "noBoardsYet": "You have no boards yet",
+  "Responsible": "Responsible:",
+  "editTask": "Edit Tack"
 }

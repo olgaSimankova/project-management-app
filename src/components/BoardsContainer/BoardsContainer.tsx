@@ -10,6 +10,7 @@ import {
 } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BoardFormOptions, BoardsContainerProps } from 'types/types';
 
 export const BoardsContainer = ({
@@ -22,7 +23,7 @@ export const BoardsContainer = ({
   const dispatch = useAppDispatch();
   const { data: users } = useGetUsersQuery();
   const [cards, setCards] = useState(boards);
-
+  const { t } = useTranslation();
   useEffect(() => {
     setCards(boards);
   }, [boards]);
@@ -88,7 +89,7 @@ export const BoardsContainer = ({
           />
         ))
       ) : (
-        'You have no boards'
+        t('noBoardsYet')
       )}
     </Box>
   );
