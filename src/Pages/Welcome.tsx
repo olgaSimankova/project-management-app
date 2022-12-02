@@ -19,7 +19,6 @@ export const Welcome = () => {
       backgroundSize: 'cover',
     },
     heroWrapper: {
-      maxWidth: 1400,
       margin: '0 auto',
       h1: {
         pl: 3,
@@ -43,10 +42,9 @@ export const Welcome = () => {
       },
     },
     teamAndTechnologiesWrapper: {
-      maxWidth: 1400,
-      margin: '0 auto',
       display: 'flex',
       flexDirection: 'column',
+      gap: 10,
       [currentTheme.breakpoints.down('md')]: {
         gap: 5,
       },
@@ -75,6 +73,7 @@ export const Welcome = () => {
       maxWidth: 1150,
       m: 0,
       paddingTop: '2rem',
+      margin: '0 auto',
     },
   });
 
@@ -91,7 +90,7 @@ export const Welcome = () => {
       <Container sx={styles.heroBG} maxWidth={false}>
         <Box sx={styles.heroWrapper}>
           <Typography variant="h1" gutterBottom>
-            Project Management App
+            Task Manager
           </Typography>
           <Container sx={styles.heroContainer} maxWidth={false}>
             <Typography variant="h5" sx={{ fontWeight: 600 }}>
@@ -111,7 +110,7 @@ export const Welcome = () => {
           </Typography>
           <AboutUs />
         </Container>
-        <Container>
+        <Container sx={{ margin: '0 auto' }}>
           <Typography variant="h2" sx={styles.sectionHeading}>
             {t('usedTechnologies')}
           </Typography>

@@ -54,7 +54,7 @@ export const Header = () => {
         <Link to={LINKS.welcome} style={{ textDecoration: 'none', color: 'white' }}>
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Logo />
-            <Typography sx={styles.logoText}>Project Management App</Typography>
+            <Typography sx={styles.logoText}>Task Manager</Typography>
           </Box>
         </Link>
         {token ? (
