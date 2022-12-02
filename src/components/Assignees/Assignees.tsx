@@ -29,7 +29,7 @@ export const Assignees = ({
         input={
           <OutlinedInput
             id="select-multiple-chip"
-            label="Assignees"
+            label={t('assignees')}
             sx={{ border: '0px solid white' }}
           />
         }

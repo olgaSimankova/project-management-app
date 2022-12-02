@@ -1,4 +1,5 @@
 import { Box, SelectChangeEvent } from '@mui/material';
+import { Theme } from '@mui/system';
 import { useGetUsersQuery } from 'api/user.api';
 import { BoardCard } from 'components/BoardCard/BoardCard';
 import { Spinner } from 'components/Spinner/Spinner';
@@ -9,6 +10,7 @@ import {
   toggleModalWindow,
 } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BoardFormOptions, BoardsContainerProps } from 'types/types';
@@ -28,6 +30,8 @@ export const BoardsContainer = ({
     setCards(boards);
   }, [boards]);
 
+  const { userTheme } = useUserSystemTheme();
+
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     const target = (e.target as HTMLElement).closest('.top-level') as HTMLElement;
     switch (target?.dataset.id) {
@@ -43,6 +47,19 @@ export const BoardsContainer = ({
       default:
     }
   };
+
+  const createStyles = (theme: Theme) => ({
+    boardsContainer: {
+      display: 'flex',
+      gap: '1rem',
+      flexWrap: 'wrap',
+      width: '80%',
+      height: '100%',
+      [theme.breakpoints.down('sm')]: {
+        gap: 1,
+      },
+    },
+  });
 
   const onChangeAssignee = (event: SelectChangeEvent<string[]>, id: string) => {
     event.stopPropagation();
@@ -70,9 +87,9 @@ export const BoardsContainer = ({
       update(updatedBoard);
     }
   };
-
+  const styles = createStyles(userTheme);
   return (
-    <Box sx={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', width: '100%', height: '100%' }}>
+    <Box sx={styles.boardsContainer}>
       {isLoading ? (
         <Spinner />
       ) : cards.length ? (

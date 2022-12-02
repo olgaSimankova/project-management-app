@@ -20,6 +20,7 @@ import { useCreateTaskMutation } from '../../api/task.api';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { Assignees } from '../Assignees/Assignees';
 import { editStyles } from '../EditTaskModal/EditTaskModal';
+import { useTranslation } from 'react-i18next';
 
 const modalStyle = {
   position: 'absolute',
@@ -70,6 +71,8 @@ const ColumnAddModal = ({
     formState: { errors },
   } = useForm<BoardFormFields>({ resolver: yupResolver(addModalSchema) });
 
+  const { t } = useTranslation();
+
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     const {
       target: { value },
@@ -119,7 +122,7 @@ const ColumnAddModal = ({
     >
       <Box onSubmit={handleSubmit(onSubmit)} component="form" sx={modalStyle}>
         <Typography color="#707090" variant="h6" component="h2" align="center">
-          {isAddTask ? 'Add Task' : 'Create Column'}
+          {isAddTask ? t('addTask') : t('addColumn')}
         </Typography>
         <TextField
           {...register('title')}

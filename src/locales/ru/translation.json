@@ -41,9 +41,15 @@
   "successCreateAccount": "Добро пожаловать! Новый аккаунт создан",
   "successLigin": "Добро пожаловать! Вы вошли в свой аккаунт",
   "loginError": "Какая-то проблема с интернетом",
+  "somethingWentWrong": "Что-то пошло не так. С кем не бывает :)",
   "back": "назад",
   "createdBy": "Создано",
   "noBoardsYet": "У вас пока нет досок",
   "Responsible": "Ответственные:",
-  "editTask": "Редактировать"
+  "editTask": "Редактировать",
+  "addColumn": "Новый список",
+  "addTask": "Новая карточка",
+  "successBoardCreated": "Board has been created!",
+  "successBoardUpdated": "Board has been updated!",
+  "successBoardDeleted": "Board has been deleted!"
 }
