@@ -12,7 +12,6 @@ import { themeLight } from 'theme/themeLight';
 import { themeDark } from 'theme/themeDark';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallback } from 'components/ErrorFallback/ErrorFallback';
 import Settings from 'features/Settings';
 import Main from 'features/Main';
 import Authentication from 'features/Authentication';
@@ -25,8 +24,8 @@ export const App = () => {
     <>
       <ThemeProvider theme={theme === 'light' ? themeLight : themeDark}>
         <CssBaseline>
-          <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <ToastContainer autoClose={2000} />
+          <ErrorBoundary FallbackComponent={ErrorPage}>
+            <ToastContainer autoClose={1500} />
             <Routes>
               <Route path={LINKS.welcome} element={<Layout />}>
                 <Route index path={LINKS.welcome} element={<Welcome />} />

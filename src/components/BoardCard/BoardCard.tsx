@@ -5,6 +5,7 @@ import React from 'react';
 import { BoardConfig } from 'types/types';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 export const BoardCard = ({
   title,
@@ -23,6 +24,7 @@ export const BoardCard = ({
   const navigate = useNavigate();
   const { title: newTitle, description } = JSON.parse(title);
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const handleClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -92,7 +94,9 @@ export const BoardCard = ({
         isDisabled={ownerAcc._id !== user?._id}
       />
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', margin: '0.3rem' }}>
-        <Typography>Created by {ownerAcc?.login}</Typography>
+        <Typography>
+          {t('createdBy')} {ownerAcc?.login}
+        </Typography>
       </Box>
     </Box>
   );

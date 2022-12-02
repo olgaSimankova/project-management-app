@@ -1,7 +1,7 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import AboutUs from '../components/AboutUs/AboutUs';
 import UsedTechnologies from 'components/UsedTechnologies/UsedTechnologies';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import bgLight from '../assets/img/bgLight.png';
 import bgDark from '../assets/img/bgDark.png';
@@ -19,8 +19,10 @@ export const Welcome = () => {
       backgroundSize: 'cover',
     },
     heroWrapper: {
-      maxWidth: 1400,
       margin: '0 auto',
+      h1: {
+        pl: 3,
+      },
       [currentTheme.breakpoints.down('md')]: {
         h1: {
           fontSize: '4rem',
@@ -28,6 +30,7 @@ export const Welcome = () => {
       },
       [currentTheme.breakpoints.between('xs', 'sm')]: {
         h1: {
+          pl: 0,
           fontSize: '2.5rem',
         },
       },
@@ -39,17 +42,20 @@ export const Welcome = () => {
       },
     },
     teamAndTechnologiesWrapper: {
-      maxWidth: 1400,
-      margin: '0 auto',
       display: 'flex',
       flexDirection: 'column',
+      gap: 10,
       [currentTheme.breakpoints.down('md')]: {
-        gap: 3,
+        gap: 5,
       },
     },
     heroContainer: {
       width: 800,
       minHeight: 150,
+      padding: '0px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '2rem',
       [currentTheme.breakpoints.down('md')]: {
         width: '100%',
         marginBottom: 5,
@@ -60,35 +66,43 @@ export const Welcome = () => {
         },
       },
     },
+    heroBtn: {
+      width: '150px',
+    },
     aboutUsCintainer: {
       maxWidth: 1150,
       m: 0,
       paddingTop: '2rem',
+      margin: '0 auto',
     },
   });
 
   const { t } = useTranslation();
   const styles = createStyles(userTheme as Theme);
 
+  const aboutUsRef = useRef<HTMLDivElement | null>(null);
+  const aboutUsClickHandler = () => {
+    aboutUsRef?.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <main>
       <Container sx={styles.heroBG} maxWidth={false}>
         <Box sx={styles.heroWrapper}>
           <Typography variant="h1" gutterBottom>
-            Project Management App
+            Task Manager
           </Typography>
           <Container sx={styles.heroContainer} maxWidth={false}>
-            <Box sx={styles.heroContainer}>
-              <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                {t('welcomeHero')}
-              </Typography>
-            </Box>
-            <Button variant="contained" onClick={() => localStorage.clear()}>
+            <Typography variant="h5" sx={{ fontWeight: 600 }}>
+              {t('welcomeHero')}
+            </Typography>
+            <Button variant="contained" sx={styles.heroBtn} onClick={aboutUsClickHandler}>
               {t('heroAboutBtn')}
             </Button>
           </Container>
         </Box>
       </Container>
+      <div ref={aboutUsRef} style={{ height: '2rem' }}></div>
       <Box sx={styles.teamAndTechnologiesWrapper}>
         <Container sx={styles.aboutUsCintainer} maxWidth={false}>
           <Typography variant="h2" sx={styles.sectionHeading}>
@@ -96,7 +110,7 @@ export const Welcome = () => {
           </Typography>
           <AboutUs />
         </Container>
-        <Container>
+        <Container sx={{ margin: '0 auto' }}>
           <Typography variant="h2" sx={styles.sectionHeading}>
             {t('usedTechnologies')}
           </Typography>

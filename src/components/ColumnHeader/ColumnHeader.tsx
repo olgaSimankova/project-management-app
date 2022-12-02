@@ -4,12 +4,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from '@mui/material/styles';
 import { ConfirmModal } from '../ConfirmModal/ConfirmModal';
-import { QUESTION_ON_DELETE } from '../../constants/constants';
 import { useParams } from 'react-router-dom';
 import { useDeleteColumnMutation, useUpdateColumnMutation } from '../../api/column.api';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import Badge from '@mui/material/Badge';
 import { useAppSelector } from '../../hooks/useAppSelector';
+import { useTranslation } from 'react-i18next';
 
 const StyledBoardItemHeader = styled(Box)(() => ({
   display: 'flex',
@@ -54,6 +54,7 @@ const ColumnHeader = ({ order, name, columnId }: ColumnHeaderProps) => {
   const [deleteColumn, { isLoading }] = useDeleteColumnMutation();
   const [updateColumn] = useUpdateColumnMutation();
   const { tasks } = useAppSelector((state) => state.boardState);
+  const { t } = useTranslation();
 
   useEffect(() => {
     (inputRef.current?.firstElementChild as HTMLInputElement)?.focus();
@@ -102,7 +103,7 @@ const ColumnHeader = ({ order, name, columnId }: ColumnHeaderProps) => {
       </IconButton>
       <ConfirmModal
         open={open}
-        question={QUESTION_ON_DELETE}
+        question={t('questuionDelete')}
         onYesClick={handleDelete}
         onNoClick={() => setOpen(false)}
       />

@@ -15,6 +15,7 @@ const createStyles = (theme: Theme) => ({
     flexWrap: 'wrap',
     height: '50px',
     zIndex: '1',
+    pt: 2,
     [theme.breakpoints.between('xs', 725)]: {
       height: '120px',
       maxWidth: '360px',
