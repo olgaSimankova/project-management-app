@@ -105,7 +105,7 @@ const createStyles = (theme: Theme) => ({
   },
 });
 const UsedTechnologies = () => {
-  const { theme, userTheme } = useUserSystemTheme();
+  const { userTheme } = useUserSystemTheme();
   const styles = createStyles(userTheme);
   return (
     <Container sx={styles.container}>
