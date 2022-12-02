@@ -39,6 +39,7 @@ export const EditableTextField = ({
         {...register(tag)}
         label={tag}
         name={tag}
+        type={tag}
         value={defaultValue}
         placeholder="******"
         disabled={isDisabled}
