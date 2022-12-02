@@ -87,13 +87,13 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, assignees
           )}
         </IconButton>
       </Box>
-      <Typography color="#707090" fontSize="14px">
+      <Typography color={'#707090'} fontSize="14px">
         {description}
       </Typography>
       <Box display="flex" justifyContent="space-between" alignItems="center" gap={1}>
         <Box display="flex" alignItems="center" color="white">
           <Typography sx={respStyles} fontSize="13px">
-            Responsible:
+            {t('Responsible')}
           </Typography>
           <Typography sx={userStyles}>
             {assignees.length ? `${assignees.join(', ')}` : 'unassigned'}

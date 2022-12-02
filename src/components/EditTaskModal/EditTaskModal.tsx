@@ -17,6 +17,7 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Assignees } from '../Assignees/Assignees';
+import { useTranslation } from 'react-i18next';
 
 const style = {
   position: 'absolute',
@@ -84,6 +85,7 @@ const EditTaskModal = ({
   } = useForm<BoardFormFields>({
     resolver: yupResolver(addTaskSchema),
   });
+  const { t } = useTranslation();
 
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     const {
@@ -143,7 +145,7 @@ const EditTaskModal = ({
               <Stack direction="row" spacing={2} alignItems="center">
                 <AssignmentIcon sx={{ color: '#707090', mr: 1 }} />
                 <Typography color="#707090" variant="h6" component="h2">
-                  Edit task
+                  {t('editTask')}
                 </Typography>
               </Stack>
               <IconButton onClick={handleClose} size="small">

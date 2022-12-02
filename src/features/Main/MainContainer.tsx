@@ -17,6 +17,7 @@ import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
 import React, { useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BoardConfig, BoardFormOptions, ErrorObject } from 'types/types';
@@ -63,8 +64,10 @@ const MainContainer = () => {
       reset: deleteBordReset,
     },
   ] = useDeleteBoardMutation();
+  const { t } = useTranslation();
+
   const toastErrorDisplay = (error: ErrorObject) => {
-    toast.error(error?.data?.message || 'Something went wrong');
+    toast.error(error?.data?.message || t('somethingWentWrong'));
   };
 
   if (isUpdatingFailed) {
@@ -81,17 +84,17 @@ const MainContainer = () => {
   }
 
   if (createSuccess) {
-    toast.success('Board has been created!');
+    toast.success(t('successBoardCreated'));
     createBordReset();
   }
 
   if (updateSuccess) {
-    toast.success('Board has been updated!');
+    toast.success(t('successBoardUpdated'));
     updateBordReset();
   }
 
   if (deleteSuccess) {
-    toast.success('Board has been deleted!');
+    toast.success(t('successBoardDeleted'));
     deleteBordReset();
   }
 
