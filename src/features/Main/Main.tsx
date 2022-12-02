@@ -73,6 +73,7 @@ export const Main = ({
   const { t } = useTranslation();
   return (
     <Box
+      component="main"
       sx={{
         display: 'flex',
         flexDirection: 'column',
