@@ -41,6 +41,15 @@
   "successCreateAccount": "You successfully created account",
   "successLigin": "You successfully logged in",
   "loginError": "Something terrible happened with your connection",
+  "somethingWentWrong": "Something went wrong",
   "back": "back",
-  "createdBy": "Created by"
+  "createdBy": "Created by",
+  "noBoardsYet": "You have no boards yet",
+  "Responsible": "Responsible:",
+  "editTask": "Edit Tack",
+  "addColumn": "add Column",
+  "addTask": "add Task",
+  "successBoardCreated": "Новая доска создана!",
+  "successBoardUpdated": "Доска отредактирована!",
+  "successBoardDeleted": "Доска удалена!"
 }

@@ -52,7 +52,7 @@ export const Welcome = () => {
     heroContainer: {
       width: 800,
       minHeight: 150,
-      padding: '0px',
+      padding: 0,
       display: 'flex',
       flexDirection: 'column',
       gap: '2rem',
