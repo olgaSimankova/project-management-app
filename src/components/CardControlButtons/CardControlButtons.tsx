@@ -12,6 +12,7 @@ export const CardControlButtons = ({
   onClick,
   isDeleting,
   isEditing,
+  isDisabled,
 }: CardControlsButtonProps) => {
   const { t } = useTranslation();
   const { boardID } = useMain();
@@ -45,6 +46,7 @@ export const CardControlButtons = ({
         variant="text"
         className="top-level"
         data-id="delete"
+        disabled={isDisabled}
       >
         {t('delete')}
       </LoadingButton>

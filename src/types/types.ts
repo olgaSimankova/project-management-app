@@ -137,6 +137,7 @@ export interface CardControlsButtonProps {
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
   isDeleting: boolean;
   isEditing: boolean;
+  isDisabled: boolean;
 }
 
 export interface BoardFormFields {

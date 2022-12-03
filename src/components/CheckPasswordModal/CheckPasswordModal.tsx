@@ -21,7 +21,7 @@ export const CheckPasswordModal = ({
         className="top-level"
         sx={{
           position: 'fixed',
-          zIndex: 1,
+          zIndex: 2,
           top: '0',
           left: '0',
           width: '100vw',
@@ -36,7 +36,7 @@ export const CheckPasswordModal = ({
           position: 'absolute',
           top: '30vh',
           left: '36vw',
-          zIndex: '2',
+          zIndex: '3',
           flexDirection: 'column',
           gap: '1rem',
           alignItems: 'center',
@@ -48,7 +48,7 @@ export const CheckPasswordModal = ({
         }}
       >
         <Typography variant="h5">Enter your password:</Typography>
-        <TextField onChange={handleChange} />
+        <TextField onChange={handleChange} type="password" />
         {isWrongPassword ? <Typography color="error">Wrong password!</Typography> : <></>}
         <Box>
           <LoadingButton loading={isLoading} onClick={() => onClickYes(password)}>

@@ -90,6 +90,7 @@ export const BoardCard = ({
         onClick={(e) => onClick(e, _id)}
         isDeleting={isDeleting}
         isEditing={isEditing}
+        isDisabled={ownerAcc?._id !== user?._id}
       />
       <Typography variant="h5" sx={styles.boardTitle}>
         {newTitle}
@@ -101,7 +102,7 @@ export const BoardCard = ({
         selected={selectedUsers}
         handleChange={onChangeAssignee}
         onClose={onClose}
-        isDisabled={ownerAcc._id !== user?._id}
+        isDisabled={ownerAcc?._id !== user?._id}
       />
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', margin: '0.3rem' }}>
         <Typography>
