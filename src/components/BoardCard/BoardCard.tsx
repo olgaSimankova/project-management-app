@@ -90,6 +90,7 @@ export const BoardCard = ({
         onClick={(e) => onClick(e, _id)}
         isDeleting={isDeleting}
         isEditing={isEditing}
+        isDisabled={ownerAcc?._id !== user?._id}
       />
       <Typography variant="h5" sx={styles.boardTitle}>
         {newTitle}
