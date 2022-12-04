@@ -28,10 +28,10 @@ const addButtonStyles = {
   '&.MuiButtonBase-root': {
     background: 'unset',
     boxShadow: 'unset',
-    color: '#707090',
-    border: '1px dashed #707090',
+    color: 'secondary.light',
+    border: '1px dashed',
+    borderColor: 'secondary.light',
     '&:hover': {
-      color: 'grey.700',
       border: '1px solid #b3bac3',
     },
   },

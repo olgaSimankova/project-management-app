@@ -47,8 +47,8 @@
   "noBoardsYet": "You have no boards yet",
   "Responsible": "Responsible:",
   "editTask": "Edit Task",
-  "addColumn": "add Column",
-  "addTask": "add Task",
+  "addColumn": "Add Column",
+  "addTask": "Add Task",
   "successBoardCreated": "Новая доска создана!",
   "successBoardUpdated": "Доска отредактирована!",
   "successBoardDeleted": "Доска удалена!"

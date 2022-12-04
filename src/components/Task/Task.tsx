@@ -30,7 +30,7 @@ const titleStyles = {
 
 const addRespStyles = {
   '&.MuiButtonBase-root': {
-    color: '#b7bec7',
+    color: 'palette.secondary.main',
     width: '25px',
     height: '25px',
     border: '1px dashed #b7bec7',
@@ -87,7 +87,7 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, assignees
           )}
         </IconButton>
       </Box>
-      <Typography color={'#707090'} fontSize="14px">
+      <Typography color="palette.secondary.light" fontSize="14px">
         {description}
       </Typography>
       <Box display="flex" justifyContent="space-between" alignItems="center" gap={1}>

@@ -22,8 +22,9 @@ const goBackStyles = {
   '&.MuiButtonBase-root': {
     background: 'unset',
     boxShadow: 'unset',
-    color: '#707090',
-    border: '1px dashed #707090',
+    color: 'secondary.light',
+    border: '1px dashed',
+    borderColor: 'secondary.light',
     '&:hover': {
       color: 'grey.700',
       border: '1px solid #b3bac3',
@@ -58,7 +59,7 @@ const BoardHeader = () => {
   }, [dispatch, navigate, error]);
 
   return (
-    <Box color="#707090">
+    <Box color="palette.secondary.light">
       <StyledBoardBox pt={3}>
         <Button
           sx={goBackStyles}

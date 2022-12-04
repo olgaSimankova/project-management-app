@@ -28,7 +28,7 @@ const modalStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 310,
-  bgcolor: '#eef2f9',
+  bgcolor: 'secondary.dark',
   boxShadow: 24,
   p: 3,
   borderRadius: '15px',
@@ -121,7 +121,7 @@ const ColumnAddModal = ({
       aria-describedby="modal-modal-description"
     >
       <Box onSubmit={handleSubmit(onSubmit)} component="form" sx={modalStyle}>
-        <Typography color="#707090" variant="h6" component="h2" align="center">
+        <Typography color="palette.secondary.light" variant="h6" component="h2" align="center">
           {isAddTask ? t('addTask') : t('addColumn')}
         </Typography>
         <TextField
