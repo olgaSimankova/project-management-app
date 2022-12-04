@@ -15,7 +15,16 @@ export const CheckPasswordModal = ({
     setPassword(e.target.value);
   };
   return (
-    <Box>
+    <Box
+      sx={{
+        position: 'absolute',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100vw',
+        height: '100vh',
+      }}
+    >
       <Box
         data-id="close"
         className="top-level"
@@ -34,8 +43,6 @@ export const CheckPasswordModal = ({
         sx={{
           display: 'flex',
           position: 'absolute',
-          top: '30vh',
-          left: '36vw',
           zIndex: '3',
           flexDirection: 'column',
           gap: '1rem',
@@ -47,10 +54,20 @@ export const CheckPasswordModal = ({
           borderRadius: '1rem',
         }}
       >
-        <Typography variant="h5">Enter your password:</Typography>
-        <TextField onChange={handleChange} type="password" />
+        <Typography variant="h5" color="primary.main">
+          Enter your password:
+        </Typography>
+        <TextField
+          onChange={handleChange}
+          type="password"
+          sx={{
+            input: { color: 'primary.main' },
+            border: '1px solid black',
+            borderRadius: '0.2rem',
+          }}
+        />
         {isWrongPassword ? <Typography color="error">Wrong password!</Typography> : <></>}
-        <Box>
+        <Box sx={{ display: 'flex', gap: '1rem' }}>
           <LoadingButton loading={isLoading} onClick={() => onClickYes(password)}>
             Apply
           </LoadingButton>

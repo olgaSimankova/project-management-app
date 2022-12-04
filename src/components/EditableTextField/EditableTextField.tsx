@@ -33,8 +33,17 @@ export const EditableTextField = ({
   register,
   errors,
 }: EditableTextFieldProps) => {
+  const createStyles = () => ({
+    main: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1rem',
+    },
+  });
+  const styles = createStyles();
+
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }} onClick={(e) => onClick(e, tag)}>
+    <Box sx={styles.main} onClick={(e) => onClick(e, tag)}>
       <TextField
         {...register(tag)}
         label={tag}
@@ -46,16 +55,28 @@ export const EditableTextField = ({
         onChange={(e) => onInputChange(e, tag)}
         error={!!errors[tag]}
         helperText={errors[tag]?.message}
+        InputProps={{
+          sx: {
+            '.css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
+              border: '0.5px solid black !important',
+            },
+            '&:hover': {
+              '.css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
+                border: '0.5px solid black !important',
+              },
+            },
+          },
+        }}
       />
       <Button
-        variant="text"
         className="top-level"
         data-id={`${isDisabled ? 'edit' : 'done'}-${tag}`}
+        sx={{ width: '2rem' }}
         startIcon={
           isDisabled ? (
-            <EditIcon color="info" sx={{ marginLeft: '0.5rem' }} />
+            <EditIcon color="info" sx={{ marginLeft: '0.8rem' }} />
           ) : (
-            <DoneOutlineIcon color="success" sx={{ marginLeft: '0.5rem' }} />
+            <DoneOutlineIcon color="success" sx={{ marginLeft: '0.8rem' }} />
           )
         }
       />
