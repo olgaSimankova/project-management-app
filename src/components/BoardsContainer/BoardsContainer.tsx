@@ -55,7 +55,6 @@ export const BoardsContainer = ({
       flexWrap: 'wrap',
       width: '80%',
       height: '100%',
-      justifyContent: 'space-around',
       [theme.breakpoints.down('sm')]: {
         gap: 1,
         justifyContent: 'space-between',
