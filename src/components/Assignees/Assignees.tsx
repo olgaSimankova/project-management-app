@@ -29,17 +29,17 @@ export const Assignees = ({
   const handleClickShowMoreButton = () => {
     setIsFullHeight((state) => !state);
   };
-
   return (
     <FormControl
       fullWidth
       disabled={isDisabled}
       sx={{
-        height: isFullHeight ? 'auto' : '5.5rem',
+        height: isFullHeight ? 'auto' : '5.55rem',
         transition: 'all 1s ease-in-out',
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'flex-start',
       }}
     >
       <InputLabel htmlFor="chip">{t('assignees')}</InputLabel>
@@ -53,7 +53,12 @@ export const Assignees = ({
         onClose={(e) => (onClose ? onClose(e, id) : '')}
         multiple
         MenuProps={{ PaperProps: { sx: { maxHeight: '12rem' } } }}
-        sx={{ width: '95%', overflow: 'hidden', padding: '0.4rem' }}
+        sx={{
+          width: '100%',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'flex-start',
+        }}
         input={
           <OutlinedInput
             id="select-multiple-chip"
@@ -62,7 +67,14 @@ export const Assignees = ({
           />
         }
         renderValue={(selected: string[]) => (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '0.5rem',
+              position: 'relative',
+            }}
+          >
             {selected.map((value) => (value ? <Chip key={value} label={value} /> : null))}
           </Box>
         )}
@@ -74,7 +86,7 @@ export const Assignees = ({
         ))}
       </Select>
       <IconButton
-        sx={{ width: '2rem', height: '2rem', alignSelf: 'flex-end', margin: '0.2rem' }}
+        sx={{ width: '2rem', height: '2rem', alignSelf: 'flex-end' }}
         onClick={handleClickShowMoreButton}
       >
         {!isFullHeight ? <ExpandMoreIcon /> : <ExpandLessIcon />}
