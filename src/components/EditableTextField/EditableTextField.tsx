@@ -34,9 +34,9 @@ export const EditableTextField = ({
   register,
   errors,
 }: EditableTextFieldProps) => {
-  const { theme, userTheme } = useUserSystemTheme();
+  const { userTheme } = useUserSystemTheme();
 
-  const createStyles = (currentTheme: Theme) => ({
+  const createStyles = () => ({
     main: {
       display: 'flex',
       alignItems: 'center',

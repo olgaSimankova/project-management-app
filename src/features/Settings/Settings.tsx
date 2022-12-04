@@ -64,9 +64,9 @@ const Settings = ({
   checkPassword,
   closeModal,
 }: SettingsProps) => {
-  const { theme, userTheme } = useUserSystemTheme();
+  const { userTheme } = useUserSystemTheme();
 
-  const createStyles = (currentTheme: Theme) => ({
+  const createStyles = () => ({
     section: {
       display: 'flex',
       width: '100%',
