@@ -28,10 +28,10 @@ const addButtonStyles = {
   '&.MuiButtonBase-root': {
     background: 'unset',
     boxShadow: 'unset',
-    color: '#707090',
-    border: '1px dashed #707090',
+    color: 'secondary.light',
+    border: '1px dashed',
+    borderColor: 'secondary.light',
     '&:hover': {
-      color: 'grey.700',
       border: '1px solid #b3bac3',
     },
   },
@@ -45,7 +45,7 @@ const StyledBoardItem = styled(Paper)(() => ({
   flexDirection: 'column',
   minWidth: '280px',
   maxHeight: '100%',
-  padding: '15px 10px 10px',
+  padding: '15px 5px 10px',
   borderRadius: '10px',
   backgroundColor: 'transparent',
 }));

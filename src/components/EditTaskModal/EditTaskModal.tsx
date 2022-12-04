@@ -28,8 +28,9 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: '#eef2f9',
+  minWidth: '300px',
+  maxWidth: '400px',
+  bgcolor: 'secondary.dark',
   boxShadow: 24,
   p: '20px 25px',
   borderRadius: '10px',
@@ -179,8 +180,8 @@ const EditTaskModal = ({
           <Grid sx={style}>
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <Stack direction="row" spacing={2} alignItems="center">
-                <AssignmentIcon sx={{ color: '#707090', mr: 1 }} />
-                <Typography color="#707090" variant="h6" component="h2">
+                <AssignmentIcon sx={{ color: 'secondary.light', mr: 1 }} />
+                <Typography color="palette.secondary.light" variant="h6" component="h2">
                   {isEdit ? t('editTask') : 'Create project'}
                 </Typography>
               </Stack>
