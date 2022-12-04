@@ -14,7 +14,7 @@ const createStyles = (theme: Theme) => ({
     columnGap: '3rem',
     flexWrap: 'wrap',
     height: '50px',
-    zIndex: '1',
+    zIndex: '0',
     pt: 2,
     [theme.breakpoints.between('xs', 725)]: {
       height: '120px',

@@ -19,7 +19,7 @@ export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
   return (
     <Box>
       <InputLabel variant="standard" htmlFor="chip">
-        Statuses
+        Columns
       </InputLabel>
       <Select
         value={selected}
@@ -27,6 +27,7 @@ export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
         id="chip"
         label="Status"
         className="assignees"
+        disabled={!all.length}
         onChange={onChange}
         multiple
         sx={{ width: '100%', backgroundColor: '#cccccc', border: '1px solid #cccccc' }}
