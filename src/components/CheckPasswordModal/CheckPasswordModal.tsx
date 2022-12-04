@@ -2,6 +2,7 @@ import { LoadingButton } from '@mui/lab';
 import { Button, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CheckPasswordModalProps } from 'types/types';
 
 export const CheckPasswordModal = ({
@@ -14,6 +15,7 @@ export const CheckPasswordModal = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setPassword(e.target.value);
   };
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -55,7 +57,7 @@ export const CheckPasswordModal = ({
         }}
       >
         <Typography variant="h5" color="primary.main">
-          Enter your password:
+          {t('enterPassword')}
         </Typography>
         <TextField
           onChange={handleChange}
@@ -66,12 +68,18 @@ export const CheckPasswordModal = ({
             borderRadius: '0.2rem',
           }}
         />
-        {isWrongPassword ? <Typography color="error">Wrong password!</Typography> : <></>}
-        <Box sx={{ display: 'flex', gap: '1rem' }}>
-          <LoadingButton loading={isLoading} onClick={() => onClickYes(password)}>
-            Apply
+        {isWrongPassword ? <Typography color="error">{t('wrongPassword')}</Typography> : <></>}
+        <Box sx={{ display: 'flex', gap: '1rem', width: '100%' }}>
+          <LoadingButton
+            loading={isLoading}
+            onClick={() => onClickYes(password)}
+            sx={{ padding: '0', width: '100%' }}
+          >
+            {t('apply')}
           </LoadingButton>
-          <Button onClick={onClickNo}>Cancel</Button>
+          <Button onClick={onClickNo} sx={{ padding: '0', width: '100%' }}>
+            {t('cancel')}
+          </Button>
         </Box>
       </Box>
     </Box>

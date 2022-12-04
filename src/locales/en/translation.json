@@ -51,5 +51,12 @@
   "addTask": "Add Task",
   "successBoardCreated": "Board has been created!",
   "successBoardUpdated": "Board has been updated!",
-  "successBoardDeleted": "Board has been deleted!"
+  "successBoardDeleted": "Board has been deleted!",
+  "editAccount": "Edit Your Account",
+  "confirmChanges": "Confirm Changes",
+  "doYouWantToDelete": "Do you want to delete user?",
+  "enterPassword": "Enter your password:",
+  "apply": "Apply",
+  "cancel": "Cancel",
+  "wrongPassword": "Wrong password"
 }

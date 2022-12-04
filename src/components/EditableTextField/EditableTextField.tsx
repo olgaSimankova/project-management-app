@@ -14,6 +14,7 @@ interface EditableTextFieldProps {
     tag: string
   ) => void;
   tag: 'name' | 'password' | 'login';
+  name: string;
   register: UseFormRegister<UserFields>;
   errors: Partial<
     FieldErrorsImpl<{
@@ -32,6 +33,7 @@ export const EditableTextField = ({
   tag,
   register,
   errors,
+  name,
 }: EditableTextFieldProps) => {
   const createStyles = () => ({
     main: {
@@ -46,8 +48,8 @@ export const EditableTextField = ({
     <Box sx={styles.main} onClick={(e) => onClick(e, tag)}>
       <TextField
         {...register(tag)}
-        label={tag}
-        name={tag}
+        label={name}
+        name={name}
         type={tag}
         value={defaultValue}
         placeholder="******"
