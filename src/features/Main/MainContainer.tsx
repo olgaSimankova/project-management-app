@@ -1,12 +1,7 @@
 import { useDeleteBoardMutation, useGetBoardsQuery, useUpdateBoardMutation } from 'api/main.api';
 import { INVALID_TOKEN } from 'constants/constants';
 import { logout } from 'features/authSlice';
-import {
-  setBoardID,
-  setModalOption,
-  toggleConfirmationWindow,
-  toggleModalWindow,
-} from 'features/mainSlice';
+import { setBoardID, toggleConfirmationWindow, toggleModalWindow } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
@@ -15,7 +10,7 @@ import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { BoardConfig, BoardFormOptions, ErrorObject } from 'types/types';
+import { BoardConfig, ErrorObject } from 'types/types';
 import { Main } from './Main';
 
 const MainContainer = () => {
