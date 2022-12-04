@@ -8,8 +8,6 @@ import { CheckPasswordModal } from 'components/CheckPasswordModal/CheckPasswordM
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
 import { FieldErrorsImpl, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { UserFields } from 'types/types';
-import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
-import { Theme } from '@mui/system';
 
 interface SettingsProps {
   onCloseConfirmWindow: () => void;
@@ -64,8 +62,6 @@ const Settings = ({
   checkPassword,
   closeModal,
 }: SettingsProps) => {
-  const { userTheme } = useUserSystemTheme();
-
   const createStyles = () => ({
     section: {
       display: 'flex',
@@ -89,7 +85,7 @@ const Settings = ({
     },
   });
 
-  const styles = createStyles(userTheme as Theme);
+  const styles = createStyles();
   return (
     <Box sx={styles.section}>
       <Box component="form" onSubmit={onSubmit(onClickConfirmChanges)} sx={styles.modal}>

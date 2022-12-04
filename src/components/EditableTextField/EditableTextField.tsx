@@ -1,10 +1,9 @@
-import { Box, Button, TextField, Theme } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
 import { UserFields } from 'types/types';
-import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 
 interface EditableTextFieldProps {
   defaultValue: string;
@@ -34,8 +33,6 @@ export const EditableTextField = ({
   register,
   errors,
 }: EditableTextFieldProps) => {
-  const { userTheme } = useUserSystemTheme();
-
   const createStyles = () => ({
     main: {
       display: 'flex',
@@ -43,7 +40,7 @@ export const EditableTextField = ({
       gap: '1rem',
     },
   });
-  const styles = createStyles(userTheme as Theme);
+  const styles = createStyles();
 
   return (
     <Box sx={styles.main} onClick={(e) => onClick(e, tag)}>
