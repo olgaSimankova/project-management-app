@@ -49,7 +49,7 @@
   "editTask": "Редактировать",
   "addColumn": "Новый список",
   "addTask": "Новая карточка",
-  "successBoardCreated": "Board has been created!",
-  "successBoardUpdated": "Board has been updated!",
-  "successBoardDeleted": "Board has been deleted!"
+  "successBoardCreated": "Новая доска создана!",
+  "successBoardUpdated": "Доска отредактирована!",
+  "successBoardDeleted": "Доска удалена!"
 }
