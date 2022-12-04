@@ -57,7 +57,7 @@ const Header = () => {
 
   return (
     <AppBar position="sticky" sx={{ zIndex: '1', background: '#063970', p: 0 }}>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ m: '0 auto' }}>
         <Toolbar disableGutters>
           <Link to={LINKS.welcome} style={{ textDecoration: 'none', color: 'white' }}>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, gap: 2 }}>
