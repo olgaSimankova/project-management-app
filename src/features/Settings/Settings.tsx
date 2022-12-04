@@ -82,6 +82,10 @@ const Settings = ({
       padding: '2rem',
       borderRadius: '1rem',
       border: '0.1rem solid black',
+      margin: '1rem',
+    },
+    text: {
+      color: 'secondary.light',
     },
   });
 
@@ -89,7 +93,9 @@ const Settings = ({
   return (
     <Box sx={styles.section}>
       <Box component="form" onSubmit={onSubmit(onClickConfirmChanges)} sx={styles.modal}>
-        <Typography variant="h5">Edit your account</Typography>
+        <Typography variant="h5" sx={styles.text}>
+          Edit your account
+        </Typography>
         <EditableTextField
           defaultValue={credits.name}
           isDisabled={flags.name}
@@ -117,7 +123,7 @@ const Settings = ({
           register={register}
           errors={errors}
         />
-        <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: '1rem' }}>
           <LoadingButton
             loading={deleteLoading}
             loadingPosition="start"

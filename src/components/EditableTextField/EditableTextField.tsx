@@ -1,9 +1,10 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Theme } from '@mui/material';
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
 import { UserFields } from 'types/types';
+import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 
 interface EditableTextFieldProps {
   defaultValue: string;
@@ -33,8 +34,19 @@ export const EditableTextField = ({
   register,
   errors,
 }: EditableTextFieldProps) => {
+  const { theme, userTheme } = useUserSystemTheme();
+
+  const createStyles = (currentTheme: Theme) => ({
+    main: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1rem',
+    },
+  });
+  const styles = createStyles(userTheme as Theme);
+
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }} onClick={(e) => onClick(e, tag)}>
+    <Box sx={styles.main} onClick={(e) => onClick(e, tag)}>
       <TextField
         {...register(tag)}
         label={tag}
@@ -46,16 +58,28 @@ export const EditableTextField = ({
         onChange={(e) => onInputChange(e, tag)}
         error={!!errors[tag]}
         helperText={errors[tag]?.message}
+        InputProps={{
+          sx: {
+            '.css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
+              border: '0.5px solid black !important',
+            },
+            '&:hover': {
+              '.css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
+                border: '0.5px solid black !important',
+              },
+            },
+          },
+        }}
       />
       <Button
-        variant="text"
         className="top-level"
         data-id={`${isDisabled ? 'edit' : 'done'}-${tag}`}
+        sx={{ width: '2rem' }}
         startIcon={
           isDisabled ? (
-            <EditIcon color="info" sx={{ marginLeft: '0.5rem' }} />
+            <EditIcon color="info" sx={{ marginLeft: '0.8rem' }} />
           ) : (
-            <DoneOutlineIcon color="success" sx={{ marginLeft: '0.5rem' }} />
+            <DoneOutlineIcon color="success" sx={{ marginLeft: '0.8rem' }} />
           )
         }
       />
