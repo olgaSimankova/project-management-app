@@ -49,7 +49,7 @@
   "editTask": "Edit Tack",
   "addColumn": "add Column",
   "addTask": "add Task",
-  "successBoardCreated": "Новая доска создана!",
-  "successBoardUpdated": "Доска отредактирована!",
-  "successBoardDeleted": "Доска удалена!"
+  "successBoardCreated": "Board has been created!",
+  "successBoardUpdated": "Board has been updated!",
+  "successBoardDeleted": "Board has been deleted!"
 }
