@@ -25,7 +25,7 @@ export const Assignees = ({
         onChange={(e) => (handleChange ? handleChange(e, id) : '')}
         onClose={(e) => (onClose ? onClose(e, id) : '')}
         multiple
-        sx={{ width: '100%' }}
+        sx={{ width: '95%' }}
         input={
           <OutlinedInput
             id="select-multiple-chip"

@@ -43,7 +43,7 @@ export const BoardCard = ({
       cursor: 'pointer',
       [theme.breakpoints.down('sm')]: {
         padding: '0.5rem',
-        width: '16rem',
+        width: '22rem',
       },
     },
     boardTitle: {
@@ -54,6 +54,7 @@ export const BoardCard = ({
       paddingTop: '1rem',
       [theme.breakpoints.down('sm')]: {
         fontSize: '1.4rem',
+        width: '16rem',
       },
     },
     boardDescription: {
@@ -67,7 +68,7 @@ export const BoardCard = ({
       textOverflow: 'ellipsis',
       [theme.breakpoints.down('sm')]: {
         fontSize: '0.9rem',
-        maxWidth: '15rem',
+        maxWidth: '16rem',
       },
     },
   });
