@@ -57,6 +57,7 @@ export const BoardsContainer = ({
       height: '100%',
       [theme.breakpoints.down('sm')]: {
         gap: 1,
+        justifyContent: 'space-between',
       },
     },
   });

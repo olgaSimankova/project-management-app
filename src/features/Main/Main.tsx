@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Theme, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import {
   BaseQueryFn,
@@ -11,6 +11,7 @@ import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { BoardForm } from 'components/BoardForm/BoardForm';
 import { BoardsContainer } from 'components/BoardsContainer/BoardsContainer';
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
+import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
 import React from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -66,32 +67,40 @@ export const Main = ({
   onExitConfirmationModal,
 }: MainProps) => {
   const { t } = useTranslation();
+  const { userTheme } = useUserSystemTheme();
+
+  const createStyles = (theme: Theme) => ({
+    pageContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: '1rem',
+      width: '80vw',
+      height: 'calc(100vh - 114px)',
+      margin: '0 auto',
+      overflowY: 'auto',
+      '&::-webkit-scrollbar': {
+        width: 5,
+      },
+      '&::-webkit-scrollbar-track': {
+        boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
+        borderRadius: 2,
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#1976d2',
+        outline: `1px solid slategrey`,
+        borderRadius: 2,
+      },
+      [theme.breakpoints.down('sm')]: {
+        width: 'calc(100vw - 20px)',
+      },
+    },
+  });
+
+  const styles = createStyles(userTheme);
+
   return (
-    <Box
-      component="main"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        gap: '1rem',
-        width: '80vw',
-        height: 'calc(100vh - 114px)',
-        margin: '0 auto',
-        overflowY: 'auto',
-        '&::-webkit-scrollbar': {
-          width: 7,
-        },
-        '&::-webkit-scrollbar-track': {
-          boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
-          borderRadius: 2,
-        },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: '#1976d2',
-          outline: `1px solid slategrey`,
-          borderRadius: 2,
-        },
-      }}
-    >
+    <Box sx={styles.pageContainer}>
       <Typography variant="h4">{t('Boards')}</Typography>
       <BoardsContainer
         boards={userBoards}
