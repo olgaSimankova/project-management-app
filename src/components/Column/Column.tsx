@@ -45,7 +45,7 @@ const StyledBoardItem = styled(Paper)(() => ({
   flexDirection: 'column',
   minWidth: '280px',
   maxHeight: '100%',
-  padding: '15px 10px 10px',
+  padding: '15px 5px 10px',
   borderRadius: '10px',
   backgroundColor: 'transparent',
 }));

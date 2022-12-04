@@ -16,7 +16,7 @@ const boxStyles = {
   },
   width: '280px',
   marginTop: '10px',
-  padding: '5px 5px 5px 10px',
+  padding: '5px 3px 5px 10px',
   borderRadius: '7px',
   backgroundColor: 'transparent',
   wordBreak: 'break-all',
