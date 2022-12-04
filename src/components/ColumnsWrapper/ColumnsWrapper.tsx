@@ -15,26 +15,33 @@ import { useOnDragEnd } from '../../hooks/useOnDragEnd';
 import { useGetUsersQuery } from '../../api/user.api';
 import { INVALID_TOKEN, LINKS } from 'constants/constants';
 import { logout } from 'features/authSlice';
+import { Theme } from '@mui/system';
+import { useUserSystemTheme } from '../../hooks/useUserSystemTheme';
 
-const boxStyles = {
-  display: 'flex',
-  flexWrap: 'nowrap',
-  gap: '1rem',
-  overflow: 'auto',
-  padding: '1rem',
-  height: 'calc(100vh - 207px)',
-  '&::-webkit-scrollbar': {
-    height: 10,
+const createStyles = (theme: Theme) => ({
+  boxStyles: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    gap: '1rem',
+    overflow: 'auto',
+    padding: '1rem',
+    height: 'calc(100vh - 207px)',
+    '&::-webkit-scrollbar': {
+      height: 10,
+    },
+    '&::-webkit-scrollbar-track': {
+      boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
+      borderRadius: 2,
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#707090',
+      borderRadius: 2,
+    },
+    [theme.breakpoints.down('sm')]: {
+      p: '1rem 0',
+    },
   },
-  '&::-webkit-scrollbar-track': {
-    boxShadow: `inset 0 0 6px rgba(0, 0, 0, 0.3)`,
-    borderRadius: 2,
-  },
-  '&::-webkit-scrollbar-thumb': {
-    backgroundColor: '#707090',
-    borderRadius: 2,
-  },
-};
+});
 
 const ColumnsWrapper = () => {
   const { boardId } = useParams();
@@ -42,8 +49,9 @@ const ColumnsWrapper = () => {
   const { data, isLoading, error } = useGetColumnsQuery(boardId as string);
   const { data: users } = useGetUsersQuery();
   const { columns } = useAppSelector((state) => state.boardState);
-  const dispatch = useAppDispatch();
+  const { userTheme } = useUserSystemTheme();
 
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   const [buttonId, setButtonId] = useState('');
   const [columnId, setColumnId] = useState('');
@@ -75,10 +83,11 @@ const ColumnsWrapper = () => {
   };
 
   const onDragEnd = useOnDragEnd();
+  const styles = createStyles(userTheme);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Box sx={boxStyles}>
+      <Box sx={styles.boxStyles}>
         {isLoading ? (
           <Spinner />
         ) : (

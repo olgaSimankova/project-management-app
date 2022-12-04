@@ -15,7 +15,7 @@ const createModalStyles = (theme: Theme) => ({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 330,
-  bgcolor: '#eef2f9',
+  bgcolor: 'secondary.dark',
   boxShadow: 24,
   p: 3,
   borderRadius: '15px',

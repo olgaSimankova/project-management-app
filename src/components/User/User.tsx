@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import UserMenu from '../UserMenu/UserMenu';
+import { useAuth } from '../../hooks/useAuth';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -35,6 +36,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 export const User = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const { user } = useAuth();
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -52,7 +54,7 @@ export const User = () => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         variant="dot"
       >
-        <Avatar alt="Remy Sharp" src="./my-photo.jpg" />
+        <Avatar alt={user?.name} src="./my-photo.jpg" />
       </StyledBadge>
       <UserMenu onClose={handleCloseUserMenu} anchorEl={anchorElUser} />
     </>
