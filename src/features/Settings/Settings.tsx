@@ -8,6 +8,8 @@ import { CheckPasswordModal } from 'components/CheckPasswordModal/CheckPasswordM
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
 import { FieldErrorsImpl, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { UserFields } from 'types/types';
+import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
+import { Theme } from '@mui/system';
 
 interface SettingsProps {
   onCloseConfirmWindow: () => void;
@@ -61,89 +63,93 @@ const Settings = ({
   onDeleteClick,
   checkPassword,
   closeModal,
-}: SettingsProps) => (
-  <Box
-    sx={{
+}: SettingsProps) => {
+  const { theme, userTheme } = useUserSystemTheme();
+
+  const createStyles = (currentTheme: Theme) => ({
+    section: {
       display: 'flex',
       width: '100%',
-      height: '74vh',
+      height: 'calc(100vh - 114px)',
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'column',
-    }}
-  >
-    <Box
-      component="form"
-      onSubmit={onSubmit(onClickConfirmChanges)}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.5rem',
-        backgroundColor: '#dddddd',
-        padding: '2rem',
-        borderRadius: '1rem',
-      }}
-    >
-      <Typography variant="h5">Edit your account</Typography>
-      <EditableTextField
-        defaultValue={credits.name}
-        isDisabled={flags.name}
-        onClick={onClick}
-        onInputChange={onInputChange}
-        tag="name"
-        register={register}
-        errors={errors}
-      />
-      <EditableTextField
-        defaultValue={credits.login}
-        isDisabled={flags.login}
-        onClick={onClick}
-        tag="login"
-        onInputChange={onInputChange}
-        register={register}
-        errors={errors}
-      />
-      <EditableTextField
-        defaultValue={credits.password}
-        isDisabled={flags.password}
-        onClick={onClick}
-        tag="password"
-        onInputChange={onInputChange}
-        register={register}
-        errors={errors}
-      />
-      <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-        <LoadingButton
-          loading={deleteLoading}
-          loadingPosition="start"
-          onClick={onDeleteClick}
-          startIcon={<DeleteIcon sx={{ marginLeft: '0.5rem' }} color="error" />}
+    },
+    modal: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.5rem',
+      padding: '2rem',
+      borderRadius: '1rem',
+      border: '0.1rem solid black',
+    },
+  });
+
+  const styles = createStyles(userTheme as Theme);
+  return (
+    <Box sx={styles.section}>
+      <Box component="form" onSubmit={onSubmit(onClickConfirmChanges)} sx={styles.modal}>
+        <Typography variant="h5">Edit your account</Typography>
+        <EditableTextField
+          defaultValue={credits.name}
+          isDisabled={flags.name}
+          onClick={onClick}
+          onInputChange={onInputChange}
+          tag="name"
+          register={register}
+          errors={errors}
         />
-        <Button
-          type="submit"
-          variant="contained"
-          color="success"
-          disabled={flags.isDisabled || !flags.name || !flags.login || !flags.password}
-        >
-          Confirm changes
-        </Button>
+        <EditableTextField
+          defaultValue={credits.login}
+          isDisabled={flags.login}
+          onClick={onClick}
+          tag="login"
+          onInputChange={onInputChange}
+          register={register}
+          errors={errors}
+        />
+        <EditableTextField
+          defaultValue={credits.password}
+          isDisabled={flags.password}
+          onClick={onClick}
+          tag="password"
+          onInputChange={onInputChange}
+          register={register}
+          errors={errors}
+        />
+        <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+          <LoadingButton
+            loading={deleteLoading}
+            loadingPosition="start"
+            onClick={onDeleteClick}
+            startIcon={<DeleteIcon sx={{ marginLeft: '0.5rem' }} color="error" />}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="success"
+            disabled={flags.isDisabled || !flags.name || !flags.login || !flags.password}
+          >
+            Confirm changes
+          </Button>
+        </Box>
       </Box>
-    </Box>
-    {flags.isModal ? (
-      <CheckPasswordModal
-        onClickYes={checkPassword}
-        onClickNo={closeModal}
-        isWrongPassword={isError}
-        isLoading={isLoading}
+      {flags.isModal ? (
+        <CheckPasswordModal
+          onClickYes={checkPassword}
+          onClickNo={closeModal}
+          isWrongPassword={isError}
+          isLoading={isLoading}
+        />
+      ) : null}
+      <ConfirmModal
+        open={flags.isConfirmOpen}
+        question="Do you want to delete user?"
+        onYesClick={onDelete}
+        onNoClick={onCloseConfirmWindow}
       />
-    ) : null}
-    <ConfirmModal
-      open={flags.isConfirmOpen}
-      question="Do you want to delete user?"
-      onYesClick={onDelete}
-      onNoClick={onCloseConfirmWindow}
-    />
-  </Box>
-);
+    </Box>
+  );
+};
 
 export default memo(Settings);
