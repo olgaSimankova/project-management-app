@@ -1,17 +1,7 @@
-import {
-  useCreateBoardMutation,
-  useDeleteBoardMutation,
-  useGetBoardsQuery,
-  useUpdateBoardMutation,
-} from 'api/main.api';
+import { useDeleteBoardMutation, useGetBoardsQuery, useUpdateBoardMutation } from 'api/main.api';
 import { INVALID_TOKEN } from 'constants/constants';
 import { logout } from 'features/authSlice';
-import {
-  setBoardID,
-  setModalOption,
-  toggleConfirmationWindow,
-  toggleModalWindow,
-} from 'features/mainSlice';
+import { setBoardID, toggleConfirmationWindow, toggleModalWindow } from 'features/mainSlice';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAuth } from 'hooks/useAuth';
 import { useMain } from 'hooks/useMain';
@@ -20,7 +10,7 @@ import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { BoardConfig, BoardFormOptions, ErrorObject } from 'types/types';
+import { BoardConfig, ErrorObject } from 'types/types';
 import { Main } from './Main';
 
 const MainContainer = () => {
@@ -34,16 +24,6 @@ const MainContainer = () => {
     isFetching,
     error: getBoardsError,
   } = useGetBoardsQuery();
-  const [
-    createBoard,
-    {
-      isLoading: isCreating,
-      isError: isCreatingFailed,
-      error: creatingError,
-      isSuccess: createSuccess,
-      reset: createBordReset,
-    },
-  ] = useCreateBoardMutation();
   const [
     updateBoard,
     {
@@ -78,15 +58,6 @@ const MainContainer = () => {
     toastErrorDisplay(deletingError as ErrorObject);
     deleteBordReset();
   }
-  if (isCreatingFailed) {
-    toastErrorDisplay(creatingError as ErrorObject);
-    createBordReset();
-  }
-
-  if (createSuccess) {
-    toast.success(t('successBoardCreated'));
-    createBordReset();
-  }
 
   if (updateSuccess) {
     toast.success(t('successBoardUpdated'));
@@ -111,10 +82,6 @@ const MainContainer = () => {
   const { title, description } = JSON.parse(
     userBoards.filter((board) => board._id === boardID)[0]?.title || '{}'
   );
-  const handleButtonClick = () => {
-    dispatch(setModalOption(BoardFormOptions.create));
-    dispatch(toggleModalWindow(true));
-  };
 
   const onDeleteBoard = () => {
     deleteBoard(boardID);
@@ -133,16 +100,9 @@ const MainContainer = () => {
     if (title === values.title && description === values.description) {
       return;
     }
-    switch (modalOption) {
-      case BoardFormOptions.create:
-        createBoard({ title: JSON.stringify(values), owner: user?._id || '', users: [] });
-        break;
-      case BoardFormOptions.edit:
-        const { users, owner, _id } = userBoards.filter(({ _id }) => _id === boardID)[0];
-        updateBoard({ title: JSON.stringify(values), owner, users, _id });
-        break;
-      default:
-    }
+
+    const { users, owner, _id } = userBoards.filter(({ _id }) => _id === boardID)[0];
+    updateBoard({ title: JSON.stringify(values), owner, users, _id });
   };
 
   const handleClickModal = (
@@ -165,13 +125,11 @@ const MainContainer = () => {
     <Main
       {...{
         isConfirmationOpen,
-        isCreating,
         isDeleting,
         isFetching,
         isGetting,
         isModalOpen,
         isUpdating,
-        onButtonClick: handleButtonClick,
         onClickModal: handleClickModal,
         onSubmit: handleSubmit,
         onDeleteBoard,

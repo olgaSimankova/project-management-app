@@ -5,7 +5,7 @@ import ColumnsWrapper from '../../components/ColumnsWrapper/ColumnsWrapper';
 
 const Board = () => {
   return (
-    <Box sx={{ paddingLeft: '10px' }}>
+    <Box component="main" sx={{ paddingLeft: '10px' }}>
       <BoardHeader />
       <ColumnsWrapper />
     </Box>
