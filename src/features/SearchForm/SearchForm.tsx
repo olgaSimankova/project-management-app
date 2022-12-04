@@ -27,26 +27,29 @@ export const SearchForm = ({
   return (
     <Box
       sx={{
-        maxWidth: '80vw',
-        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         gap: '0.5rem',
+        marginTop: '1rem',
       }}
     >
-      <TextField
-        name="search"
-        id="search"
-        type="text"
-        autoFocus
-        variant="outlined"
-        onChange={onChangeSearchField}
-        value={search}
-        placeholder="search in task titles or description"
-        sx={{ width: '80%', borderRadius: '3rem' }}
-      />
-      <StatusChip all={status.all} selected={status.selected} onChange={onChangeStatus} />
+      <Box width="100%" display="flex" justifyContent="space-between" alignItems="center">
+        <TextField
+          name="search"
+          id="search"
+          type="text"
+          autoFocus
+          variant="outlined"
+          onChange={onChangeSearchField}
+          value={search}
+          placeholder="search in task titles or description"
+          sx={{ width: '30%', minWidth: '11rem', borderRadius: '3rem' }}
+          margin="normal"
+        />
+        <StatusChip all={status.all} selected={status.selected} onChange={onChangeStatus} />
+      </Box>
+
       <TasksContainer tasks={tasks} />
     </Box>
   );

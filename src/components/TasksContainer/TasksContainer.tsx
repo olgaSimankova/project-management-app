@@ -9,7 +9,16 @@ interface TasksProps {
 
 export const TasksContainer = ({ tasks }: TasksProps) => {
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        flexWrap: 'wrap',
+        justifyContent: 'start',
+        gap: '1rem',
+        marginTop: '1rem',
+      }}
+    >
       {tasks.map((task) => (
         <Task id={task._id || ''} assignees={task.users} key={task._id} {...task} />
       ))}

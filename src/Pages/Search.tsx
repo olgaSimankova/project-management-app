@@ -7,12 +7,13 @@ export const Search = () => (
     sx={{
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'start',
       flexDirection: 'column',
-      padding: '1.5rem',
+      minHeight: 'calc(100vh - 114px)',
+      padding: '1.5rem 0.5rem',
     }}
   >
-    <Typography variant="h4" color="primary">
+    <Typography variant="h5" color="palette.secondary.light">
       Search tasks
     </Typography>
     <SearchForm />

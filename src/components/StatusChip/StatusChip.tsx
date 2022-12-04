@@ -1,6 +1,7 @@
 import {
   Box,
   Chip,
+  FormControl,
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -17,24 +18,22 @@ interface StatusProps {
 
 export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
   return (
-    <Box>
-      <InputLabel variant="standard" htmlFor="chip">
-        Columns
-      </InputLabel>
+    <FormControl>
+      <InputLabel htmlFor="chip">Columns</InputLabel>
       <Select
+        sx={{ width: '100px' }}
         value={selected}
         labelId="demo-multiple-chip-label"
         id="chip"
-        label="Status"
-        className="assignees"
+        label="Columns"
+        className="Columns"
         disabled={!all.length}
         onChange={onChange}
         multiple
-        sx={{ width: '100%', backgroundColor: '#cccccc', border: '1px solid #cccccc' }}
         input={
           <OutlinedInput
             id="select-multiple-chip"
-            label="Chip"
+            label="Columns"
             sx={{ border: '0px solid white' }}
           />
         }
@@ -50,6 +49,6 @@ export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
           </MenuItem>
         ))}
       </Select>
-    </Box>
+    </FormControl>
   );
 };
