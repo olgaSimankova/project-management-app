@@ -40,6 +40,9 @@ const createStyles = (theme: Theme) => ({
     [theme.breakpoints.down('sm')]: {
       p: '1rem 0',
     },
+    [theme.breakpoints.between('xs', 725)]: {
+      height: 'calc(100vh - 271px)',
+    },
   },
 });
 
