@@ -13,7 +13,14 @@ const NavLinks = () => {
   const handleClose = () => setOpen(false);
 
   return (
-    <Box display="flex" alignItems="center" gap="1rem" m="0 auto">
+    <Box
+      display="flex"
+      flexDirection={{ xs: 'column', md: 'row' }}
+      alignItems="left"
+      gap="1rem"
+      m="0 auto"
+      p="0 5px"
+    >
       <Stack
         sx={{ cursor: 'pointer' }}
         direction="row"
