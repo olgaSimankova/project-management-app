@@ -60,7 +60,6 @@ export const BoardsContainer = ({
       },
     },
   });
-
   const onChangeAssignee = (event: SelectChangeEvent<string[]>, id: string) => {
     event.stopPropagation();
     const {
@@ -72,7 +71,7 @@ export const BoardsContainer = ({
         board._id === id
           ? {
               ...board,
-              users: values.map((name) => users?.find((user) => user.login === name)?._id || ''),
+              users: values,
             }
           : board
       )
