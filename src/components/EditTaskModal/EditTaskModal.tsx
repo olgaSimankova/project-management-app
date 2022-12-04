@@ -18,6 +18,10 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Assignees } from '../Assignees/Assignees';
 import { useTranslation } from 'react-i18next';
+import { useCreateBoardMutation } from '../../api/main.api';
+import { useNavigate } from 'react-router-dom';
+import { LINKS } from '../../constants/constants';
+import { useGetUsersQuery } from '../../api/user.api';
 
 const style = {
   position: 'absolute',
@@ -71,11 +75,15 @@ const EditTaskModal = ({
   onClose,
   assignees,
 }: EditTaskModalProps) => {
+  const isEdit = !!title;
   const [selectedAssignees, setSelectedAssignees] = useState<string[]>(assignees);
   const { user } = useAppSelector((state) => state.userState);
-  const { users } = useAppSelector((state) => state.boardState);
+  const { data } = useGetUsersQuery();
   const [updateTask, { error, isError, isLoading, reset: updateReset, isSuccess }] =
     useUpdateTaskMutation();
+  const [createBoard, { isLoading: isCreating, isSuccess: createSuccess, reset: createBordReset }] =
+    useCreateBoardMutation();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -97,24 +105,52 @@ const EditTaskModal = ({
 
   useEffect(() => {
     if (isSuccess) {
-      onClose();
       updateReset();
     }
-  }, [isSuccess, onClose, updateReset]);
+
+    if (createSuccess) {
+      createBordReset();
+      navigate(LINKS.main);
+      setSelectedAssignees([]);
+    }
+
+    if (isSuccess || createSuccess) {
+      onClose();
+      reset({ title, description });
+    }
+  }, [
+    createSuccess,
+    isSuccess,
+    onClose,
+    updateReset,
+    createBordReset,
+    navigate,
+    reset,
+    title,
+    description,
+  ]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const { title, description } = data;
 
-    updateTask({
-      boardId,
-      columnId,
-      taskId,
-      order,
-      title,
-      description,
-      userId: user?._id || '',
-      users: selectedAssignees,
-    });
+    if (isEdit) {
+      updateTask({
+        boardId,
+        columnId,
+        taskId,
+        order,
+        title,
+        description,
+        userId: user?._id || '',
+        users: selectedAssignees,
+      });
+    } else {
+      createBoard({
+        title: JSON.stringify(data),
+        owner: user?._id || '',
+        users: selectedAssignees,
+      });
+    }
   };
 
   const handleClose = () => {
@@ -145,7 +181,7 @@ const EditTaskModal = ({
               <Stack direction="row" spacing={2} alignItems="center">
                 <AssignmentIcon sx={{ color: '#707090', mr: 1 }} />
                 <Typography color="#707090" variant="h6" component="h2">
-                  {t('editTask')}
+                  {isEdit ? t('editTask') : 'Create project'}
                 </Typography>
               </Stack>
               <IconButton onClick={handleClose} size="small">
@@ -179,7 +215,7 @@ const EditTaskModal = ({
             />
             <Assignees
               register={register}
-              all={users}
+              all={data || []}
               selected={selectedAssignees}
               handleChange={handleChange}
               id={taskId || ''}
@@ -189,10 +225,10 @@ const EditTaskModal = ({
               disabled={!isDirty}
               sx={editStyles}
               fullWidth
-              loading={isLoading}
+              loading={isLoading || isCreating}
               variant="contained"
             >
-              Confirm edit
+              {isEdit ? 'Confirm edit' : 'Create'}
             </LoadingButton>
           </Grid>
         </Box>

@@ -43,7 +43,7 @@ const AuthenticationContainer = () => {
 
   useEffect(() => {
     if (token) {
-      navigate(LINKS.welcome);
+      navigate(LINKS.main);
     }
   }, [token, navigate]);
 

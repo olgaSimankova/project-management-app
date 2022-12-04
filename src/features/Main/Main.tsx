@@ -1,4 +1,3 @@
-import { LoadingButton } from '@mui/lab';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import {
@@ -18,8 +17,6 @@ import { useTranslation } from 'react-i18next';
 import { BoardConfig, BoardFormOptions } from 'types/types';
 
 interface MainProps {
-  isCreating: boolean;
-  onButtonClick: () => void;
   userBoards: BoardConfig[];
   isFetching: boolean;
   isGetting: boolean;
@@ -52,8 +49,6 @@ interface MainProps {
 }
 
 export const Main = ({
-  isCreating,
-  onButtonClick,
   userBoards,
   isFetching,
   isGetting,
@@ -73,6 +68,7 @@ export const Main = ({
   const { t } = useTranslation();
   return (
     <Box
+      component="main"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -97,14 +93,6 @@ export const Main = ({
       }}
     >
       <Typography variant="h4">{t('Boards')}</Typography>
-      <LoadingButton
-        loading={isCreating}
-        color="success"
-        sx={{ width: 'fit-content', padding: '10px 10px' }}
-        onClick={onButtonClick}
-      >
-        {t('addBoard')}
-      </LoadingButton>
       <BoardsContainer
         boards={userBoards}
         isLoading={isFetching && isGetting}

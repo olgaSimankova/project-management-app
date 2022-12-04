@@ -80,7 +80,6 @@ export const BoardCard = ({
   };
 
   const ownerAcc = allUsers.filter((user) => user._id === owner)[0];
-  const selectedUsers = users.map((id) => allUsers.find((user) => id === user._id)?.login || '');
   const styles = createStyles(userTheme);
 
   return (
@@ -99,7 +98,7 @@ export const BoardCard = ({
       <Assignees
         all={allUsers}
         id={_id}
-        selected={selectedUsers}
+        selected={users}
         handleChange={onChangeAssignee}
         onClose={onClose}
         isDisabled={ownerAcc?._id !== user?._id}
