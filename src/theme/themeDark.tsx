@@ -44,9 +44,6 @@ export const themeDark = createTheme({
       dark: '#ff8f00',
       contrastText: '#fff',
     },
-    modalText: {
-      main: '#fff',
-    },
   },
   components: {
     MuiCssBaseline: {
