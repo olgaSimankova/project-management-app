@@ -8,6 +8,7 @@ import { CheckPasswordModal } from 'components/CheckPasswordModal/CheckPasswordM
 import { ConfirmModal } from 'components/ConfirmModal/ConfirmModal';
 import { FieldErrorsImpl, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { UserFields } from 'types/types';
+import { useTranslation } from 'react-i18next';
 
 interface SettingsProps {
   onCloseConfirmWindow: () => void;
@@ -85,13 +86,13 @@ const Settings = ({
       color: 'secondary.light',
     },
   });
-
+  const { t } = useTranslation();
   const styles = createStyles();
   return (
     <Box sx={styles.section}>
       <Box component="form" onSubmit={onSubmit(onClickConfirmChanges)} sx={styles.modal}>
         <Typography variant="h5" sx={styles.text}>
-          Edit your account
+          {t('editAccount')}
         </Typography>
         <EditableTextField
           defaultValue={credits.name}
@@ -99,6 +100,7 @@ const Settings = ({
           onClick={onClick}
           onInputChange={onInputChange}
           tag="name"
+          name={t('firstName')}
           register={register}
           errors={errors}
         />
@@ -107,6 +109,7 @@ const Settings = ({
           isDisabled={flags.login}
           onClick={onClick}
           tag="login"
+          name={t('login')}
           onInputChange={onInputChange}
           register={register}
           errors={errors}
@@ -116,11 +119,12 @@ const Settings = ({
           isDisabled={flags.password}
           onClick={onClick}
           tag="password"
+          name={t('password')}
           onInputChange={onInputChange}
           register={register}
           errors={errors}
         />
-        <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: '1rem' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: '0.5rem' }}>
           <LoadingButton
             loading={deleteLoading}
             loadingPosition="start"
@@ -132,8 +136,9 @@ const Settings = ({
             variant="contained"
             color="success"
             disabled={flags.isDisabled || !flags.name || !flags.login || !flags.password}
+            sx={{ padding: '0.2rem', width: '100%' }}
           >
-            Confirm changes
+            {t('confirmChanges')}
           </Button>
         </Box>
       </Box>
@@ -147,7 +152,7 @@ const Settings = ({
       ) : null}
       <ConfirmModal
         open={flags.isConfirmOpen}
-        question="Do you want to delete user?"
+        question={t('doYouWantToDelete')}
         onYesClick={onDelete}
         onNoClick={onCloseConfirmWindow}
       />

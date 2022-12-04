@@ -51,5 +51,12 @@
   "addTask": "Новая карточка",
   "successBoardCreated": "Новая доска создана!",
   "successBoardUpdated": "Доска отредактирована!",
-  "successBoardDeleted": "Доска удалена!"
+  "successBoardDeleted": "Доска удалена!",
+  "editAccount": "Редактировать профиль",
+  "confirmChanges": "Подтвердить изменения",
+  "doYouWantToDelete": "Вы действительно хотите удалить пользователя?",
+  "enterPassword": "Введите пароль:",
+  "apply": "Применить",
+  "cancel": "Отменить",
+  "wrongPassword": "Неправильный пароль"
 }
