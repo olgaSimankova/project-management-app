@@ -1,14 +1,28 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Stack, Typography } from '@mui/material';
 import { PAGES } from '../../constants/constants';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
+import EditTaskModal from '../EditTaskModal/EditTaskModal';
 
 const NavLinks = () => {
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => setOpen(false);
 
   return (
-    <Box display="flex" gap="1rem" m="0 auto">
+    <Box display="flex" alignItems="center" gap="1rem" m="0 auto">
+      <Stack
+        sx={{ cursor: 'pointer' }}
+        direction="row"
+        alignItems="center"
+        onClick={() => setOpen(true)}
+      >
+        <AddIcon fontSize="small" />
+        <Typography>Create board</Typography>
+      </Stack>
       {PAGES.map((page) => (
         <NavLink
           to={`/${page.toLowerCase()}`}
@@ -23,6 +37,17 @@ const NavLinks = () => {
           {t(page)}
         </NavLink>
       ))}
+      <EditTaskModal
+        title=""
+        order={0}
+        description=""
+        open={open}
+        boardId=""
+        columnId=""
+        taskId=""
+        onClose={handleClose}
+        assignees={[]}
+      />
     </Box>
   );
 };

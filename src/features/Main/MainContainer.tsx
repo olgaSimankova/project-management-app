@@ -1,9 +1,4 @@
-import {
-  useCreateBoardMutation,
-  useDeleteBoardMutation,
-  useGetBoardsQuery,
-  useUpdateBoardMutation,
-} from 'api/main.api';
+import { useDeleteBoardMutation, useGetBoardsQuery, useUpdateBoardMutation } from 'api/main.api';
 import { INVALID_TOKEN } from 'constants/constants';
 import { logout } from 'features/authSlice';
 import {
@@ -34,16 +29,6 @@ const MainContainer = () => {
     isFetching,
     error: getBoardsError,
   } = useGetBoardsQuery();
-  const [
-    createBoard,
-    {
-      isLoading: isCreating,
-      isError: isCreatingFailed,
-      error: creatingError,
-      isSuccess: createSuccess,
-      reset: createBordReset,
-    },
-  ] = useCreateBoardMutation();
   const [
     updateBoard,
     {
@@ -78,15 +63,6 @@ const MainContainer = () => {
     toastErrorDisplay(deletingError as ErrorObject);
     deleteBordReset();
   }
-  if (isCreatingFailed) {
-    toastErrorDisplay(creatingError as ErrorObject);
-    createBordReset();
-  }
-
-  if (createSuccess) {
-    toast.success(t('successBoardCreated'));
-    createBordReset();
-  }
 
   if (updateSuccess) {
     toast.success(t('successBoardUpdated'));
@@ -111,10 +87,6 @@ const MainContainer = () => {
   const { title, description } = JSON.parse(
     userBoards.filter((board) => board._id === boardID)[0]?.title || '{}'
   );
-  const handleButtonClick = () => {
-    dispatch(setModalOption(BoardFormOptions.create));
-    dispatch(toggleModalWindow(true));
-  };
 
   const onDeleteBoard = () => {
     deleteBoard(boardID);
@@ -126,18 +98,9 @@ const MainContainer = () => {
     dispatch(setBoardID(''));
   };
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
-    switch (modalOption) {
-      case BoardFormOptions.create:
-        createBoard({ title: JSON.stringify(values), owner: user?._id || '', users: [] });
-        dispatch(toggleModalWindow(false));
-        break;
-      case BoardFormOptions.edit:
-        const { users, owner, _id } = userBoards.filter(({ _id }) => _id === boardID)[0];
-        dispatch(toggleModalWindow(false));
-        updateBoard({ title: JSON.stringify(values), owner, users, _id });
-        break;
-      default:
-    }
+    const { users, owner, _id } = userBoards.filter(({ _id }) => _id === boardID)[0];
+    dispatch(toggleModalWindow(false));
+    updateBoard({ title: JSON.stringify(values), owner, users, _id });
   };
 
   const handleClickModal = (
@@ -160,13 +123,11 @@ const MainContainer = () => {
     <Main
       {...{
         isConfirmationOpen,
-        isCreating,
         isDeleting,
         isFetching,
         isGetting,
         isModalOpen,
         isUpdating,
-        onButtonClick: handleButtonClick,
         onClickModal: handleClickModal,
         onSubmit: handleSubmit,
         onDeleteBoard,
