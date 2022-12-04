@@ -126,14 +126,19 @@ const MainContainer = () => {
     dispatch(setBoardID(''));
   };
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
+    dispatch(toggleModalWindow(false));
+    const { title, description } = JSON.parse(
+      boards.filter((board) => board._id === boardID)[0]?.title || '{}'
+    );
+    if (title === values.title && description === values.description) {
+      return;
+    }
     switch (modalOption) {
       case BoardFormOptions.create:
         createBoard({ title: JSON.stringify(values), owner: user?._id || '', users: [] });
-        dispatch(toggleModalWindow(false));
         break;
       case BoardFormOptions.edit:
         const { users, owner, _id } = userBoards.filter(({ _id }) => _id === boardID)[0];
-        dispatch(toggleModalWindow(false));
         updateBoard({ title: JSON.stringify(values), owner, users, _id });
         break;
       default:

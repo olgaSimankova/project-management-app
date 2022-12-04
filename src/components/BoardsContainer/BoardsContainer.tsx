@@ -84,8 +84,12 @@ export const BoardsContainer = ({
   const onCloseAssignee = (event: React.SyntheticEvent<Element, Event>, id: string) => {
     event.stopPropagation();
     const updatedBoard = cards.find((board) => board._id === id);
+    const currentBoard = boards.find((board) => board._id === id);
     dispatch(setBoardID(id));
-    if (updatedBoard) {
+    if (
+      updatedBoard &&
+      JSON.stringify(updatedBoard.users) !== JSON.stringify(currentBoard?.users)
+    ) {
       update(updatedBoard);
     }
   };
