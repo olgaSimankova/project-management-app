@@ -23,7 +23,10 @@ export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
     <FormControl>
       <InputLabel htmlFor="chip">{t('Columns')}</InputLabel>
       <Select
-        sx={{ width: '100px' }}
+        sx={{
+          minWidth: { xs: '85vw', sm: '15vw' },
+          maxWidth: { sm: '35vw', md: '25vw', lg: '15vw' },
+        }}
         value={selected}
         labelId="demo-multiple-chip-label"
         id="chip"

@@ -44,6 +44,9 @@ export const themeDark = createTheme({
       dark: '#ff8f00',
       contrastText: '#fff',
     },
+    grey: {
+      200: '#E5E4E2',
+    },
   },
   components: {
     MuiCssBaseline: {
