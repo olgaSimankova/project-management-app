@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LINKS } from 'constants/constants';
 import { ReactComponent as Logo } from '../../assets/icons/PMALogo.svg';
 import { useUserSystemTheme } from 'hooks/useUserSystemTheme';
-import { Theme } from '@mui/material';
+import { Theme, useScrollTrigger } from '@mui/material';
 import NavLinks from 'components/NavLinks/NavLinks';
 import { useCustomTheme } from 'hooks/useCustomTheme';
 import { useAuth } from 'hooks/useAuth';
@@ -27,6 +27,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const tokenLS = localStorage.getItem('credentials');
+  const trigger = useScrollTrigger({ threshold: 70, disableHysteresis: true });
 
   useEffect(() => {
     if (!token && !tokenLS) {
@@ -56,7 +57,10 @@ const Header = () => {
   const styles = createStyles(userTheme);
 
   return (
-    <AppBar position="sticky" sx={{ zIndex: '1', background: '#063970', p: 0 }}>
+    <AppBar
+      position="sticky"
+      sx={{ zIndex: '1', background: `${trigger ? '#032040' : '#063970'}`, p: 0 }}
+    >
       <Container maxWidth="xl" sx={{ m: '0 auto' }}>
         <Toolbar disableGutters>
           <Link to={LINKS.welcome} style={{ textDecoration: 'none', color: 'white' }}>
