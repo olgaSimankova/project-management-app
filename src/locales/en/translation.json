@@ -64,5 +64,8 @@
   "title": "Title",
   "description": "Description",
   "create": "Create",
-  "editProject": "Edit project"
+  "editProject": "Edit project",
+  "searchTasks": "Search tasks",
+  "searchFieldPlaceholder": "Search by task title or description",
+  "Columns": "Columns"
 }
