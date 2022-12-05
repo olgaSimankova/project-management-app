@@ -4,13 +4,13 @@
   "heroAboutBtn": "ABOUT US",
   "teamHeading": "Our team",
   "nameSasha": "Sasha",
-  "aboutSasha": "Our incredible Team Leader. Completely done ... He likes big dogs, cooking and taking everything (absolutely everything) out to constants. Doesn't like bad weather and writing tests.",
+  "aboutSasha": "Our incredible Team Leader. Completely done ci-cd deploy, board page, search page, user settings and adding assigners functionality. He likes big dogs, cooking and taking everything (absolutely everything) out to constants. Doesn't like writing styles and fixing bugs on the last day before deadline.",
   "nameDima": "Dima",
-  "aboutDima": "Cool web developer. He was responsible for ... He likes smell of coffee in the morning, concise code and small reducers. Doesn't like the railroad and errors in the console.",
+  "aboutDima": "Cool web developer. He was responsible for server deploy, routing, authorisation and registration, project page, it's adaptability and gorgeous drag-n-drop. He also helped to style our app a lot. He likes the smell of coffee in the morning, concise code and small reducers. Doesn't like the railroad and errors in the console.",
   "nameOlya": "Olya",
-  "aboutOlya": "She's better than she thinks she is. Made a Welcome page, localization and theming for the project. Likes kids, dogs, hiking and custom hooks, especially pagination. Doesn't like insects and when something doesn't work properly but there are no errors in the console.",
+  "aboutOlya": "She's better than she thinks she is. Made a Welcome page, error boundary, styling, localization and theming for the project. Likes kids, dogs, hiking and custom hooks, especially pagination. Doesn't like insects and when something doesn't work properly but there are no errors in the console.",
   "nameAleh": "Aleh",
-  "aboutAleh": "Our spectacular menthor. The best one. He likes people, bikes and splitting big components to small functions. Doesn't like when students ignore his questions.",
+  "aboutAleh": "Our spectacular menthor. The best one. Like no one else he can support his team and make everyone believe in themselves. He likes people, bikes and splitting big components to small functions. Doesn't like when students ignore his questions.",
   "usedTechnologies": "Technologies stack that were used in this project",
   "signIn": "Sing in",
   "signUp": "Sign Up",
@@ -58,5 +58,6 @@
   "enterPassword": "Enter your password:",
   "apply": "Apply",
   "cancel": "Cancel",
-  "wrongPassword": "Wrong password"
+  "wrongPassword": "Wrong password",
+  "newBoard": "New Board"
 }

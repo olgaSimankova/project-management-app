@@ -6,9 +6,18 @@ import { NavLink } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import EditTaskModal from '../EditTaskModal/EditTaskModal';
 
-const NavLinks = () => {
+interface INavLinksProps {
+  onCloseBurger?: () => void;
+}
+
+const NavLinks = ({ onCloseBurger }: INavLinksProps) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+    if (onCloseBurger) onCloseBurger();
+  };
 
   const handleClose = () => setOpen(false);
 
@@ -21,25 +30,21 @@ const NavLinks = () => {
       m="0 auto"
       p="0 5px"
     >
-      <Stack
-        sx={{ cursor: 'pointer' }}
-        direction="row"
-        alignItems="center"
-        onClick={() => setOpen(true)}
-      >
+      <Stack sx={{ cursor: 'pointer' }} direction="row" alignItems="center" onClick={handleOpen}>
         <AddIcon fontSize="small" />
-        <Typography>Create board</Typography>
+        <Typography sx={{ color: 'grey' }}>{t('newBoard')}</Typography>
       </Stack>
       {PAGES.map((page) => (
         <NavLink
           to={`/${page.toLowerCase()}`}
           style={({ isActive }) => ({
-            color: 'white',
+            color: 'grey',
             textDecoration: isActive ? 'underline' : 'none',
             fontWeight: isActive ? '900' : '500',
           })}
           key={page}
           data-id={page}
+          onClick={onCloseBurger}
         >
           {t(page)}
         </NavLink>
