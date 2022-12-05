@@ -25,7 +25,7 @@ export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
       <InputLabel htmlFor="chip">{t('Columns')}</InputLabel>
       <Select
         sx={{
-          minWidth: { xs: '85vw', sm: '15vw' },
+          minWidth: { xs: '95vw', sm: '15vw' },
           maxWidth: { sm: '35vw', md: '25vw', lg: '15vw' },
         }}
         value={selected}

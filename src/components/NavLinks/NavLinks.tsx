@@ -16,10 +16,12 @@ const NavLinks = ({ onCloseBurger }: INavLinksProps) => {
 
   const handleOpen = () => {
     setOpen(true);
-    if (onCloseBurger) onCloseBurger();
   };
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    if (onCloseBurger) onCloseBurger();
+  };
 
   return (
     <Box
