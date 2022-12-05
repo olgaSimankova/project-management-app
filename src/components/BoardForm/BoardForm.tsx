@@ -60,7 +60,7 @@ export const BoardForm = ({ onClick, onSubmit, defaultValue }: BoardFormProps) =
           maxWidth: '400px',
           width: 'fit-content',
           padding: '1rem',
-          backgroundColor: 'info.main',
+          backgroundColor: 'secondary.dark',
           borderRadius: '1rem',
           opacity: '1',
         }}
@@ -106,7 +106,6 @@ export const BoardForm = ({ onClick, onSubmit, defaultValue }: BoardFormProps) =
           onClick={(e) => onClick(e)}
           className="top-level"
           aria-label="close"
-          color="error"
           data-id="close"
           size="small"
           sx={{
@@ -117,7 +116,6 @@ export const BoardForm = ({ onClick, onSubmit, defaultValue }: BoardFormProps) =
             height: '3rem',
             borderRadius: 50,
             border: 0,
-            color: 'white',
           }}
         >
           <CloseIcon />
