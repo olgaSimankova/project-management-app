@@ -58,5 +58,10 @@
   "enterPassword": "Enter your password:",
   "apply": "Apply",
   "cancel": "Cancel",
-  "wrongPassword": "Wrong password"
+  "wrongPassword": "Wrong password",
+  "createProject": "Create project",
+  "title": "Title",
+  "description": "Description",
+  "create": "Create",
+  "editProject": "Edit project"
 }
