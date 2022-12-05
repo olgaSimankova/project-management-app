@@ -8,6 +8,7 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
+import { ALL_TRANSLATIONS } from 'constants/constants';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -41,7 +42,13 @@ export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
         }
         renderValue={(selected: string[]) => (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.2rem' }}>
-            {selected.map((value) => (value ? <Chip key={value} label={value} /> : null))}
+            {selected.map((value) =>
+              ALL_TRANSLATIONS.includes(value) ? (
+                <Chip key={t('all')} label={t('all')} />
+              ) : value ? (
+                <Chip key={value} label={value} />
+              ) : null
+            )}
           </Box>
         )}
       >

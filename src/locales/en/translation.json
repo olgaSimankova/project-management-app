@@ -69,5 +69,6 @@
   "unassigned": "unassigned",
   "searchTasks": "Search tasks",
   "searchFieldPlaceholder": "Search by task title or description",
-  "Columns": "Columns"
+  "Columns": "Columns",
+  "all": "All"
 }

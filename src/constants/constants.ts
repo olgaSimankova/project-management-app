@@ -21,5 +21,6 @@ export const OUR_GITHUB_NICKNAMES = ['olgasimankova', 'freshman10', 'nester-dev'
 export const initBoardData = { title: '', owner: '', users: [] };
 export const INVALID_TOKEN = 'Invalid token';
 export const ALL_STATUSES = 'All';
+export const ALL_TRANSLATIONS = ['All', 'Все'];
 
 export const theBestDevelopersEver = ['Sasha', 'Dima', 'Olya', 'Aleh'];
