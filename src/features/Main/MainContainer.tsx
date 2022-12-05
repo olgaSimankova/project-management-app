@@ -74,9 +74,9 @@ const MainContainer = () => {
   }, [isFetching, dispatch]);
 
   const filterUserBoards = (data: BoardConfig[]): BoardConfig[] => {
-    return data.filter(
-      (board) => board.owner === user?._id || board.users.includes(user?._id || '')
-    );
+    return data.filter((board) => {
+      return board.owner === user?._id || board.users.includes(user?.login || '');
+    });
   };
   const userBoards = filterUserBoards(boards);
   const { title, description } = JSON.parse(

@@ -53,7 +53,7 @@ export const BoardsContainer = ({
       display: 'flex',
       gap: '1rem',
       flexWrap: 'wrap',
-      width: '80%',
+      width: '98%',
       height: '100%',
       [theme.breakpoints.down('sm')]: {
         gap: 1,

@@ -59,5 +59,10 @@
   "apply": "Apply",
   "cancel": "Cancel",
   "wrongPassword": "Wrong password",
-  "newBoard": "New Board"
+  "newBoard": "New Board",
+  "createProject": "Create project",
+  "title": "Title",
+  "description": "Description",
+  "create": "Create",
+  "editProject": "Edit project"
 }
