@@ -88,7 +88,7 @@ export const Welcome = () => {
   return (
     <main>
       <Container sx={styles.heroBG} maxWidth={false}>
-        <Box sx={styles.heroWrapper}>
+        <Box sx={styles.heroWrapper} maxWidth="xl">
           <Typography variant="h1" gutterBottom>
             Task Manager
           </Typography>

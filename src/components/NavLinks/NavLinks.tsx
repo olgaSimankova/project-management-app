@@ -43,7 +43,7 @@ const NavLinks = ({ onCloseBurger }: INavLinksProps) => {
           to={`/${page.toLowerCase()}`}
           style={({ isActive }) => ({
             textDecoration: isActive ? 'underline' : 'none',
-            fontWeight: isActive ? '900' : '500',
+            color: '#FF6753',
           })}
           key={page}
           data-id={page}
