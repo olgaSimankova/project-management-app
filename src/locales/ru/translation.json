@@ -65,6 +65,8 @@
   "description": "Описание",
   "create": "Создать",
   "editProject": "Редактировать проект",
+  "confirmEdit": "Подтвердить изменения",
+  "unassigned": "Не назначены",
   "searchTasks": "Поиск по задачам",
   "searchFieldPlaceholder": "Поиск по названию или описанию задачи",
   "Columns": "Списки"

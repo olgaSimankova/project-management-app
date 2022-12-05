@@ -65,6 +65,8 @@
   "description": "Description",
   "create": "Create",
   "editProject": "Edit project",
+  "confirmEdit": "Confirm edit",
+  "unassigned": "unassigned",
   "searchTasks": "Search tasks",
   "searchFieldPlaceholder": "Search by task title or description",
   "Columns": "Columns"

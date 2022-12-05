@@ -231,7 +231,7 @@ const EditTaskModal = ({
               loading={isLoading || isCreating}
               variant="contained"
             >
-              {isEdit ? 'Confirm edit' : t('create')}
+              {isEdit ? t('confirmEdit') : t('create')}
             </LoadingButton>
           </Grid>
         </Box>

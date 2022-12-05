@@ -96,7 +96,7 @@ const Task = ({ id, order, boardId, columnId, title, description, _id, assignees
             {t('Responsible')}
           </Typography>
           <Typography sx={userStyles}>
-            {assignees.length ? `${assignees.join(', ')}` : 'unassigned'}
+            {assignees.length ? `${assignees.join(', ')}` : t('unassigned')}
           </Typography>
         </Box>
         <IconButton onClick={handleOpen} sx={addRespStyles} size="small">
