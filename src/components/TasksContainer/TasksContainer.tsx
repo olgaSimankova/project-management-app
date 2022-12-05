@@ -14,7 +14,7 @@ export const TasksContainer = ({ tasks }: TasksProps) => {
         display: 'flex',
         width: '100%',
         flexWrap: 'wrap',
-        justifyContent: 'start',
+        justifyContent: { xs: 'center', sm: 'start' },
         gap: '1rem',
         marginTop: '1rem',
       }}

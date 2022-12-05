@@ -16,10 +16,12 @@ const NavLinks = ({ onCloseBurger }: INavLinksProps) => {
 
   const handleOpen = () => {
     setOpen(true);
-    if (onCloseBurger) onCloseBurger();
   };
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    if (onCloseBurger) onCloseBurger();
+  };
 
   return (
     <Box
@@ -32,7 +34,7 @@ const NavLinks = ({ onCloseBurger }: INavLinksProps) => {
     >
       <Stack sx={{ cursor: 'pointer' }} direction="row" alignItems="center" onClick={handleOpen}>
         <AddIcon fontSize="small" />
-        <Typography sx={{ color: 'grey' }}>{t('newBoard')}</Typography>
+        <Typography sx={{ color: 'grey.200' }}>{t('newBoard')}</Typography>
       </Stack>
       {PAGES.map((page) => (
         <NavLink
@@ -46,7 +48,7 @@ const NavLinks = ({ onCloseBurger }: INavLinksProps) => {
           data-id={page}
           onClick={onCloseBurger}
         >
-          {t(page)}
+          <Typography sx={{ color: 'grey.200' }}>{t(page)}</Typography>
         </NavLink>
       ))}
       <EditTaskModal
