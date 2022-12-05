@@ -45,7 +45,7 @@ export const SearchForm = ({
           variant="outlined"
           onChange={onChangeSearchField}
           value={search}
-          placeholder={t('searchFieldPlaceholder') as string}
+          placeholder={t('searchFieldPlaceholder') || ''}
           sx={{ width: '30%', minWidth: '11rem', borderRadius: '3rem' }}
           margin="normal"
         />
