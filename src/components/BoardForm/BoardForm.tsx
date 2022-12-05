@@ -5,8 +5,9 @@ import { BoardFormFields, BoardFormProps } from 'types/types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { boardSchema } from 'schema/boardSchema';
+import { useTranslation } from 'react-i18next';
 
-export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardFormProps) => {
+export const BoardForm = ({ onClick, onSubmit, defaultValue }: BoardFormProps) => {
   const {
     register,
     handleSubmit,
@@ -14,15 +15,28 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
   } = useForm<BoardFormFields>({
     resolver: yupResolver(boardSchema),
   });
+  const { t } = useTranslation();
   return (
-    <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100vw',
+        height: '100vh',
+        zIndex: '1',
+      }}
+    >
       <Box
         onClick={onClick}
         data-id="close"
         className="top-level"
         sx={{
           position: 'fixed',
-          zIndex: 1,
+          zIndex: '3',
           top: '0',
           left: '0',
           width: '100vw',
@@ -38,21 +52,24 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
         sx={{
           display: 'flex',
           position: 'absolute',
-          top: '30vh',
-          left: '27vw',
-          zIndex: '2',
+          zIndex: '4',
           flexDirection: 'column',
           gap: '1rem',
           alignItems: 'center',
           minWidth: '300px',
-          width: '50vw',
+          maxWidth: '400px',
+          width: 'fit-content',
           padding: '1rem',
           backgroundColor: 'info.main',
           borderRadius: '1rem',
+          opacity: '1',
         }}
       >
-        <Typography variant="h5" sx={{ color: 'info.contrastText' }}>
-          {`${option.slice(0, 1).toUpperCase()}${option.slice(1)}`} project
+        <Typography
+          variant="h5"
+          sx={{ color: 'info.contrastText', width: '80%', textAlign: 'center' }}
+        >
+          {t('editProject')}
         </Typography>
         <TextField
           {...register('title')}
@@ -63,7 +80,7 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
           defaultValue={defaultValue.title}
           error={!!errors.title}
           helperText={errors.title?.message}
-          label="Title"
+          label={t('title')}
           variant="outlined"
           sx={{ width: '80%' }}
         />
@@ -77,13 +94,13 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
           helperText={errors.description?.message}
           maxRows={6}
           minRows={6}
-          placeholder="Description"
-          label="Description"
+          placeholder={t('description') || ''}
+          label={t('description')}
           multiline
           sx={{ width: '80%' }}
         />
         <Button type="submit" color="success" variant="contained">
-          {option}
+          {t('edit')}
         </Button>
         <IconButton
           onClick={(e) => onClick(e)}
@@ -91,13 +108,13 @@ export const BoardForm = ({ option, onClick, onSubmit, defaultValue }: BoardForm
           aria-label="close"
           color="error"
           data-id="close"
+          size="small"
           sx={{
             position: 'absolute',
             top: '0',
             right: '0',
             width: '3rem',
             height: '3rem',
-            background: 'linear-gradient(45deg, #FF6753 30%, #FF8F50 90%)',
             borderRadius: 50,
             border: 0,
             color: 'white',

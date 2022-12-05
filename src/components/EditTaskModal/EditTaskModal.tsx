@@ -112,6 +112,7 @@ const EditTaskModal = ({
     if (createSuccess) {
       createBordReset();
       navigate(LINKS.main);
+      toast.success(t('successBoardCreated'));
       setSelectedAssignees([]);
     }
 
@@ -129,6 +130,7 @@ const EditTaskModal = ({
     reset,
     title,
     description,
+    t,
   ]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -182,7 +184,7 @@ const EditTaskModal = ({
               <Stack direction="row" spacing={2} alignItems="center">
                 <AssignmentIcon sx={{ color: 'secondary.light', mr: 1 }} />
                 <Typography color="palette.secondary.light" variant="h6" component="h2">
-                  {isEdit ? t('editTask') : 'Create project'}
+                  {isEdit ? t('editTask') : t('createProject')}
                 </Typography>
               </Stack>
               <IconButton onClick={handleClose} size="small">
@@ -195,7 +197,7 @@ const EditTaskModal = ({
               sx={inputStyle}
               fullWidth
               margin="normal"
-              label="Title"
+              label={t('title')}
               type="text"
               error={!!errors.title}
               helperText={errors.title?.message}
@@ -207,7 +209,7 @@ const EditTaskModal = ({
               fullWidth
               multiline
               margin="normal"
-              label="Description"
+              label={t('description')}
               type="text"
               minRows={3}
               maxRows={3}
@@ -229,7 +231,7 @@ const EditTaskModal = ({
               loading={isLoading || isCreating}
               variant="contained"
             >
-              {isEdit ? 'Confirm edit' : 'Create'}
+              {isEdit ? 'Confirm edit' : t('create')}
             </LoadingButton>
           </Grid>
         </Box>

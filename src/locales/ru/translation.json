@@ -19,7 +19,7 @@
   "Main": "Главная",
   "Search": "Поиск",
   "addBoard": "Добавить",
-  "Boards": "Ваши доски",
+  "Boards": "Ваши проекты",
   "toastBordCreated": "Новая доска создана!",
   "toastBordUpdated": "Доска успешно обновлена!",
   "toastBordDeleted": "Удалено!",
@@ -58,5 +58,10 @@
   "enterPassword": "Введите пароль:",
   "apply": "Применить",
   "cancel": "Отменить",
-  "wrongPassword": "Неправильный пароль"
+  "wrongPassword": "Неправильный пароль",
+  "createProject": "Cоздать проект",
+  "title": "Заголовок",
+  "description": "Описание",
+  "create": "Создать",
+  "editProject": "Редактировать проект"
 }

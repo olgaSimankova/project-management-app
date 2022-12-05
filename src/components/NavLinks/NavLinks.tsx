@@ -28,7 +28,7 @@ const NavLinks = () => {
         onClick={() => setOpen(true)}
       >
         <AddIcon fontSize="small" />
-        <Typography>Create board</Typography>
+        <Typography>{t('createProject')}</Typography>
       </Stack>
       {PAGES.map((page) => (
         <NavLink
