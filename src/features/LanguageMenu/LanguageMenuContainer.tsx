@@ -12,6 +12,7 @@ const LanguageMenuContainer = ({ anchorEl, onClose }: ILanguageMenuContainerProp
 
   const changeLang = (lang: string) => {
     i18n.changeLanguage(lang);
+    localStorage.setItem('language', lang);
   };
 
   const handleClick = (event: React.MouseEvent) => {
