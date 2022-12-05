@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import { StatusChip } from 'components/StatusChip/StatusChip';
 import { TasksContainer } from 'components/TasksContainer/TasksContainer';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IColumn, ITaskConfig } from 'types/types';
 
 interface SearchFormProps {
@@ -24,6 +25,7 @@ export const SearchForm = ({
   onChangeStatus,
   tasks,
 }: SearchFormProps) => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -43,7 +45,7 @@ export const SearchForm = ({
           variant="outlined"
           onChange={onChangeSearchField}
           value={search}
-          placeholder="search in task titles or description"
+          placeholder={t('searchFieldPlaceholder') || ''}
           sx={{ width: '30%', minWidth: '11rem', borderRadius: '3rem' }}
           margin="normal"
         />

@@ -32,7 +32,6 @@ export const BurgerMenu = () => {
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        keepMounted
         transformOrigin={{
           vertical: 'top',
           horizontal: 'left',
@@ -43,7 +42,7 @@ export const BurgerMenu = () => {
           display: { xs: 'block', md: 'none' },
         }}
       >
-        <NavLinks />
+        <NavLinks onCloseBurger={handleCloseNavMenu} />
       </Menu>
     </>
   );

@@ -9,6 +9,7 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface StatusProps {
   all: string[];
@@ -17,15 +18,16 @@ interface StatusProps {
 }
 
 export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
+  const { t } = useTranslation();
   return (
     <FormControl>
-      <InputLabel htmlFor="chip">Columns</InputLabel>
+      <InputLabel htmlFor="chip">{t('Columns')}</InputLabel>
       <Select
         sx={{ width: '100px' }}
         value={selected}
         labelId="demo-multiple-chip-label"
         id="chip"
-        label="Columns"
+        label={t('Columns')}
         className="Columns"
         disabled={!all.length}
         onChange={onChange}
@@ -33,7 +35,7 @@ export const StatusChip = ({ all, selected, onChange }: StatusProps) => {
         input={
           <OutlinedInput
             id="select-multiple-chip"
-            label="Columns"
+            label={t('Columns')}
             sx={{ border: '0px solid white' }}
           />
         }
