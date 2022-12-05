@@ -63,5 +63,7 @@
   "title": "Title",
   "description": "Description",
   "create": "Create",
-  "editProject": "Edit project"
+  "editProject": "Edit project",
+  "confirmEdit": "Confirm edit",
+  "unassigned": "unassigned"
 }

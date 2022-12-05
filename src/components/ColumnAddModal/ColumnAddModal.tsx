@@ -128,7 +128,7 @@ const ColumnAddModal = ({
           {...register('title')}
           sx={inputStyle}
           margin="normal"
-          label="Title"
+          label={t('title')}
           type="text"
           fullWidth={true}
           autoFocus={true}
@@ -142,7 +142,7 @@ const ColumnAddModal = ({
               sx={{ marginBottom: '1.3rem' }}
               {...register('description')}
               margin="normal"
-              label="Description"
+              label={t('description')}
               type="text"
               fullWidth={true}
               multiline={true}
@@ -173,7 +173,7 @@ const ColumnAddModal = ({
               )
             }
           >
-            Confirm
+            {t('create')}
           </Button>
           <Button
             sx={editStyles}
@@ -181,7 +181,7 @@ const ColumnAddModal = ({
             variant="contained"
             endIcon={<CloseOutlinedIcon />}
           >
-            Cancel
+            {t('cancel')}
           </Button>
         </Box>
       </Box>
