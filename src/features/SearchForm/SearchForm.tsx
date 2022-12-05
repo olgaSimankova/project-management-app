@@ -52,6 +52,7 @@ export const SearchForm = ({
       flexGrow: '3',
       borderRadius: '3rem',
       height: '',
+      width: '60vw',
       [theme.breakpoints.down('sm')]: {
         width: '95vw',
       },

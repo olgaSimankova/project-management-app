@@ -34,13 +34,14 @@ const NavLinks = ({ onCloseBurger }: INavLinksProps) => {
     >
       <Stack sx={{ cursor: 'pointer' }} direction="row" alignItems="center" onClick={handleOpen}>
         <AddIcon fontSize="small" />
-        <Typography sx={{ color: 'grey.200' }}>{t('newBoard')}</Typography>
+        <Typography sx={{ color: { xs: 'grey.200', md: 'primary.contrastText' } }}>
+          {t('newBoard')}
+        </Typography>
       </Stack>
       {PAGES.map((page) => (
         <NavLink
           to={`/${page.toLowerCase()}`}
           style={({ isActive }) => ({
-            color: 'grey',
             textDecoration: isActive ? 'underline' : 'none',
             fontWeight: isActive ? '900' : '500',
           })}
@@ -48,7 +49,9 @@ const NavLinks = ({ onCloseBurger }: INavLinksProps) => {
           data-id={page}
           onClick={onCloseBurger}
         >
-          <Typography sx={{ color: 'grey.200' }}>{t(page)}</Typography>
+          <Typography sx={{ color: { xs: 'grey.200', md: 'primary.contrastText' } }}>
+            {t(page)}
+          </Typography>
         </NavLink>
       ))}
       <EditTaskModal
